@@ -1,101 +1,11 @@
 {
-  "updated_at": "2026-03-29 17:23",
+  "updated_at": "2026-04-08 19:16",
   "range_label": "Ultimi 30 giorni",
   "cities": [
     {
       "site_name": "EH Milano",
       "month_label": "Ultimi 30 giorni",
       "occupancy_daily": [
-        {
-          "day": "28",
-          "date": "2026-02-28",
-          "occupied": null,
-          "free": null,
-          "percentage": null,
-          "is_weekend": true,
-          "has_data": false
-        },
-        {
-          "day": "01",
-          "date": "2026-03-01",
-          "occupied": null,
-          "free": null,
-          "percentage": null,
-          "is_weekend": true,
-          "has_data": false
-        },
-        {
-          "day": "02",
-          "date": "2026-03-02",
-          "occupied": 61,
-          "free": 61,
-          "percentage": 50,
-          "is_weekend": false,
-          "has_data": true
-        },
-        {
-          "day": "03",
-          "date": "2026-03-03",
-          "occupied": 50,
-          "free": 72,
-          "percentage": 41,
-          "is_weekend": false,
-          "has_data": true
-        },
-        {
-          "day": "04",
-          "date": "2026-03-04",
-          "occupied": 44,
-          "free": 78,
-          "percentage": 36.1,
-          "is_weekend": false,
-          "has_data": true
-        },
-        {
-          "day": "05",
-          "date": "2026-03-05",
-          "occupied": 34,
-          "free": 88,
-          "percentage": 27.9,
-          "is_weekend": false,
-          "has_data": true
-        },
-        {
-          "day": "06",
-          "date": "2026-03-06",
-          "occupied": 36,
-          "free": 86,
-          "percentage": 29.5,
-          "is_weekend": false,
-          "has_data": true
-        },
-        {
-          "day": "07",
-          "date": "2026-03-07",
-          "occupied": null,
-          "free": null,
-          "percentage": null,
-          "is_weekend": true,
-          "has_data": false
-        },
-        {
-          "day": "08",
-          "date": "2026-03-08",
-          "occupied": null,
-          "free": null,
-          "percentage": null,
-          "is_weekend": true,
-          "has_data": false
-        },
-        {
-          "day": "09",
-          "date": "2026-03-09",
-          "occupied": 50,
-          "free": 72,
-          "percentage": 41,
-          "is_weekend": false,
-          "has_data": true
-        },
         {
           "day": "10",
           "date": "2026-03-10",
@@ -275,6 +185,96 @@
           "percentage": null,
           "is_weekend": true,
           "has_data": false
+        },
+        {
+          "day": "30",
+          "date": "2026-03-30",
+          "occupied": 49,
+          "free": 73,
+          "percentage": 40.2,
+          "is_weekend": false,
+          "has_data": true
+        },
+        {
+          "day": "31",
+          "date": "2026-03-31",
+          "occupied": 51,
+          "free": 71,
+          "percentage": 41.8,
+          "is_weekend": false,
+          "has_data": true
+        },
+        {
+          "day": "01",
+          "date": "2026-04-01",
+          "occupied": 48,
+          "free": 74,
+          "percentage": 39.3,
+          "is_weekend": false,
+          "has_data": true
+        },
+        {
+          "day": "02",
+          "date": "2026-04-02",
+          "occupied": 40,
+          "free": 82,
+          "percentage": 32.8,
+          "is_weekend": false,
+          "has_data": true
+        },
+        {
+          "day": "03",
+          "date": "2026-04-03",
+          "occupied": 29,
+          "free": 93,
+          "percentage": 23.8,
+          "is_weekend": false,
+          "has_data": true
+        },
+        {
+          "day": "04",
+          "date": "2026-04-04",
+          "occupied": null,
+          "free": null,
+          "percentage": null,
+          "is_weekend": true,
+          "has_data": false
+        },
+        {
+          "day": "05",
+          "date": "2026-04-05",
+          "occupied": null,
+          "free": null,
+          "percentage": null,
+          "is_weekend": true,
+          "has_data": false
+        },
+        {
+          "day": "06",
+          "date": "2026-04-06",
+          "occupied": null,
+          "free": null,
+          "percentage": null,
+          "is_weekend": false,
+          "has_data": false
+        },
+        {
+          "day": "07",
+          "date": "2026-04-07",
+          "occupied": 43,
+          "free": 79,
+          "percentage": 35.2,
+          "is_weekend": false,
+          "has_data": true
+        },
+        {
+          "day": "08",
+          "date": "2026-04-08",
+          "occupied": 51,
+          "free": 71,
+          "percentage": 41.8,
+          "is_weekend": false,
+          "has_data": true
         }
       ]
     },
@@ -282,96 +282,6 @@
       "site_name": "EH Roma A",
       "month_label": "Ultimi 30 giorni",
       "occupancy_daily": [
-        {
-          "day": "28",
-          "date": "2026-02-28",
-          "occupied": null,
-          "free": null,
-          "percentage": null,
-          "is_weekend": true,
-          "has_data": false
-        },
-        {
-          "day": "01",
-          "date": "2026-03-01",
-          "occupied": null,
-          "free": null,
-          "percentage": null,
-          "is_weekend": true,
-          "has_data": false
-        },
-        {
-          "day": "02",
-          "date": "2026-03-02",
-          "occupied": 166,
-          "free": 111,
-          "percentage": 59.9,
-          "is_weekend": false,
-          "has_data": true
-        },
-        {
-          "day": "03",
-          "date": "2026-03-03",
-          "occupied": 200,
-          "free": 77,
-          "percentage": 72.2,
-          "is_weekend": false,
-          "has_data": true
-        },
-        {
-          "day": "04",
-          "date": "2026-03-04",
-          "occupied": 218,
-          "free": 59,
-          "percentage": 78.7,
-          "is_weekend": false,
-          "has_data": true
-        },
-        {
-          "day": "05",
-          "date": "2026-03-05",
-          "occupied": 119,
-          "free": 158,
-          "percentage": 43,
-          "is_weekend": false,
-          "has_data": true
-        },
-        {
-          "day": "06",
-          "date": "2026-03-06",
-          "occupied": 124,
-          "free": 153,
-          "percentage": 44.8,
-          "is_weekend": false,
-          "has_data": true
-        },
-        {
-          "day": "07",
-          "date": "2026-03-07",
-          "occupied": null,
-          "free": null,
-          "percentage": null,
-          "is_weekend": true,
-          "has_data": false
-        },
-        {
-          "day": "08",
-          "date": "2026-03-08",
-          "occupied": null,
-          "free": null,
-          "percentage": null,
-          "is_weekend": true,
-          "has_data": false
-        },
-        {
-          "day": "09",
-          "date": "2026-03-09",
-          "occupied": 171,
-          "free": 106,
-          "percentage": 61.7,
-          "is_weekend": false,
-          "has_data": true
-        },
         {
           "day": "10",
           "date": "2026-03-10",
@@ -551,6 +461,96 @@
           "percentage": null,
           "is_weekend": true,
           "has_data": false
+        },
+        {
+          "day": "30",
+          "date": "2026-03-30",
+          "occupied": 164,
+          "free": 113,
+          "percentage": 59.2,
+          "is_weekend": false,
+          "has_data": true
+        },
+        {
+          "day": "31",
+          "date": "2026-03-31",
+          "occupied": 175,
+          "free": 102,
+          "percentage": 63.2,
+          "is_weekend": false,
+          "has_data": true
+        },
+        {
+          "day": "01",
+          "date": "2026-04-01",
+          "occupied": 174,
+          "free": 103,
+          "percentage": 62.8,
+          "is_weekend": false,
+          "has_data": true
+        },
+        {
+          "day": "02",
+          "date": "2026-04-02",
+          "occupied": 163,
+          "free": 114,
+          "percentage": 58.8,
+          "is_weekend": false,
+          "has_data": true
+        },
+        {
+          "day": "03",
+          "date": "2026-04-03",
+          "occupied": 93,
+          "free": 184,
+          "percentage": 33.6,
+          "is_weekend": false,
+          "has_data": true
+        },
+        {
+          "day": "04",
+          "date": "2026-04-04",
+          "occupied": null,
+          "free": null,
+          "percentage": null,
+          "is_weekend": true,
+          "has_data": false
+        },
+        {
+          "day": "05",
+          "date": "2026-04-05",
+          "occupied": null,
+          "free": null,
+          "percentage": null,
+          "is_weekend": true,
+          "has_data": false
+        },
+        {
+          "day": "06",
+          "date": "2026-04-06",
+          "occupied": null,
+          "free": null,
+          "percentage": null,
+          "is_weekend": false,
+          "has_data": false
+        },
+        {
+          "day": "07",
+          "date": "2026-04-07",
+          "occupied": 137,
+          "free": 140,
+          "percentage": 49.5,
+          "is_weekend": false,
+          "has_data": true
+        },
+        {
+          "day": "08",
+          "date": "2026-04-08",
+          "occupied": 163,
+          "free": 114,
+          "percentage": 58.8,
+          "is_weekend": false,
+          "has_data": true
         }
       ]
     }
