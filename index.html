@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Occupancy Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <style>
+    :root {
+      --bg: #07111f;
+      --panel: rgba(11, 24, 43, 0.92);
+      --panel-border: rgba(141, 179, 255, 0.24);
+      --text: #f4f8ff;
+      --muted: #b2c3de;
+      --grid: rgba(255,255,255,0.08);
+      --cyan: #45d4ff;
+      --green: #33d17a;
+      --yellow: #f6c344;
+      --red: #ff5f6d;
+      --free: rgba(147, 170, 215, 0.32);
+      --weekend: rgba(255,255,255,0.05);
+      --shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(76,125,255,0.18), transparent 24%),
+        radial-gradient(circle at top right, rgba(69,212,255,0.12), transparent 22%),
+        radial-gradient(circle at bottom center, rgba(155,109,255,0.10), transparent 28%),
+        linear-gradient(180deg, #081120 0%, #07111f 100%);
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .shell {
+      width: 100vw;
+      height: 100vh;
+      padding: 18px;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 14px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      padding: 4px 2px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .title-block h1 {
+      margin: 0;
+      font-size: clamp(28px, 3vw, 40px);
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+    }
+
+    .title-block p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .status {
+      text-align: right;
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 400;
+    }
+
+    .main {
+      min-height: 0;
+      display: grid;
+    }
+
+    .grid {
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      height: 100%;
+    }
+
+    .card {
+      position: relative;
+      min-width: 0;
+      min-height: 0;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.03), transparent 20%),
+        radial-gradient(circle at top right, rgba(76,125,255,0.15), transparent 30%);
+      pointer-events: none;
+    }
+
+    .card-header {
+      position: relative;
+      z-index: 1;
+      padding: 14px 22px 10px;
+    }
+
+    .card-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .city-icon {
+      width: 50px;
+      height: 50px;
+      fill: #ffffff;
+      opacity: 1;
+      flex-shrink: 0;
+      filter: drop-shadow(0 0 6px rgba(255,255,255,0.4));
+    }
+
+    .chart-summary {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .summary-pill {
+      min-width: 110px;
+      padding: 8px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .summary-pill .label {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+
+    .summary-pill .value {
+      display: block;
+      color: var(--text);
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .card-body {
+      position: relative;
+      z-index: 1;
+      min-height: 0;
+      padding: 4px 16px 14px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chart {
+      width: 100%;
+      height: 100%;
+      min-height: 320px;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .card-legend {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      padding: 6px 0 2px;
+      flex-shrink: 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: 4px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      opacity: 1;
+    }
+
+    .loading,
+    .error-state {
+      display: grid;
+      place-items: center;
+      height: 100%;
+      color: var(--muted);
+      font-size: 22px;
+      text-align: center;
+      padding: 32px;
+    }
+
+    .error-state {
+      display: none;
+      color: #ffd7dc;
+    }
+
+    .error-state small {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 1200px) {
+      html, body {
+        overflow: auto;
+      }
+
+      .shell {
+        height: auto;
+        min-height: 100vh;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
+
+      .card {
+        min-height: 560px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .shell {
+        padding: 14px;
+      }
+
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .status {
+        text-align: left;
+      }
+
+      .chart-summary {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="header">
+      <div class="title-block">
+        <h1>Allianz Trade – Postazioni occupate</h1>
+        <p>Sede di Milano e Roma · Postazioni occupate e libere per giorno negli ultimi 30 giorni</p>
+      </div>
+      <div class="status">
+        <div><span id="lastUpdate">Ultimo aggiornamento: --</span></div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div id="loading" class="loading">Caricamento dashboard…</div>
+      <div id="errorState" class="error-state">
+        <div>
+          Impossibile caricare i dati dashboard.
+          <small>Controlla che <code>data/data_occupancy_mensile_wp.json</code> sia pubblicato correttamente.</small>
+        </div>
+      </div>
+
+      <div id="dashboard" class="grid" style="display:none;">
+        <section class="card">
+          <div class="card-header">
+            <div class="card-header-row">
+              <span class="eyebrow">
+                <svg class="city-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M24.64,7.64V8c0,11.08-0.214,15.366-1.6,21.64h-1.68v-26h-5V1c0-0.199-0.161-0.36-0.36-0.36S15.64,0.801,15.64,1v2.64h-5v26H8.102C7.614,27.138,7.36,24.57,7.36,22c0-3.561,0.472-7.089,1.403-10.489l0.055-0.202L4.382,6.873L4.157,7.314C1.823,11.888,0.64,16.829,0.64,22c0,2.584,0.316,5.15,0.919,7.64H0.64v0.721h30.72V30v-0.36v-22C31.36,7.64,24.64,7.64,24.64,7.64z M24.575,25.36H26v-0.72h-1.323c0.563-4.151,0.68-8.55,0.683-16.28h0.281c0.001,7.53,0.069,12.673,3.822,21.28h-5.686C24.104,28.144,24.367,26.754,24.575,25.36z M11.36,4.36h9.28v25.28h-9.28V4.36z M4.576,8.085l3.438,3.438c-0.186,0.694-0.341,1.397-0.49,2.101L3.771,9.87C4.021,9.269,4.287,8.674,4.576,8.085z M1.55,25.36H3v-0.72H1.482c-0.062-0.758-0.102-1.517-0.111-2.28H3v-0.72H1.37c0.042-3.831,0.755-7.528,2.116-11.037l3.867,3.867c-0.136,0.72-0.261,1.443-0.357,2.17H5v0.72h1.921C6.745,18.897,6.64,20.444,6.64,22c0,2.57,0.251,5.136,0.731,7.64H2.296C1.948,28.236,1.703,26.805,1.55,25.36z M30.246,29.64c-3.822-8.649-3.884-13.496-3.885-21.28h4.278v2.28H29v0.72h1.64v1.28H29v0.72h1.64v16.28H30.246z M20,6.64v0.72h-8V6.64H20z M12,9.64h8v0.72h-8V9.64z M12,12.64h8v0.72h-8V12.64z M12,15.64h8v0.72h-8V15.64z M12,18.64h8v0.721h-8V18.64z M12,21.64h8v0.721h-8V21.64z M12,24.64h8v0.721h-8V24.64z"/></svg>
+                Milano
+              </span>
+              <div class="chart-summary" id="summary-milano"></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div id="chart-milano" class="chart"></div>
+            <div class="card-legend">
+              <span class="legend-item" style="color:#33d17a"><span class="legend-dot" style="background:#33d17a; box-shadow:0 0 6px #33d17a99;"></span>Bassa &lt;25%</span>
+              <span class="legend-item" style="color:#45d4ff"><span class="legend-dot" style="background:#45d4ff; box-shadow:0 0 6px #45d4ff99;"></span>Media 25–49%</span>
+              <span class="legend-item" style="color:#f6c344"><span class="legend-dot" style="background:#f6c344; box-shadow:0 0 6px #f6c34499;"></span>Alta 50–74%</span>
+              <span class="legend-item" style="color:#ff5f6d"><span class="legend-dot" style="background:#ff5f6d; box-shadow:0 0 6px #ff5f6d99;"></span>Critica ≥75%</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <div class="card-header-row">
+              <span class="eyebrow">
+                <svg class="city-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M30.36,27.64V10c0-0.199-0.161-0.36-0.36-0.36H16c-0.199,0-0.36,0.161-0.36,0.36v5.64h-2.381l-1.918-5.754C11.292,9.739,11.155,9.64,11,9.64H9.259L7.341,3.886C7.292,3.739,7.155,3.64,7,3.64H2C1.801,3.64,1.64,3.801,1.64,4v5.64H1v0.72h0.64v5.28H1v0.72h0.64v5.28H1v0.721h0.64v5.279H1v0.721h30V27.64H30.36z M16.36,10.36h13.28v17.28h-1.28V25c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v0.779l-1.279-3.838V19c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v2.64h-0.38l-1.918-5.753c-0.05-0.148-0.188-0.247-0.343-0.247h-2.64V10.36z M27.64,27.64h-1.28V25c0-0.353,0.287-0.64,0.64-0.64s0.64,0.287,0.64,0.64V27.64z M22.36,19c0-0.353,0.287-0.64,0.64-0.64s0.64,0.287,0.64,0.64v2.64h-1.28V19z M2.36,4.36h4.381l1.76,5.28H2.36V4.36z M2.36,10.36h8.381l1.76,5.28H10.36V13c0-0.75-0.61-1.36-1.36-1.36S7.64,12.25,7.64,13v2.64H6.36V13c0-0.75-0.61-1.36-1.36-1.36S3.64,12.25,3.64,13v2.64H2.36V10.36z M8.36,15.64V13c0-0.353,0.287-0.64,0.64-0.64S9.64,12.647,9.64,13v2.64H8.36z M4.36,15.64V13c0-0.353,0.287-0.64,0.64-0.64S5.64,12.647,5.64,13v2.64H4.36z M2.36,16.36h16.38l1.76,5.28h-2.14V19c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v2.64h-1.28V19c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v2.64h-1.28V19c0-0.75-0.61-1.36-1.36-1.36S7.64,18.25,7.64,19v2.64H6.36V19c0-0.75-0.61-1.36-1.36-1.36S3.64,18.25,3.64,19v2.64H2.36V16.36z M16.36,21.64V19c0-0.353,0.287-0.64,0.64-0.64c0.353,0,0.64,0.287,0.64,0.64v2.64H16.36z M12.36,21.64V19c0-0.353,0.287-0.64,0.64-0.64s0.64,0.287,0.64,0.64v2.64H12.36z M8.36,21.64V19c0-0.353,0.287-0.64,0.64-0.64S9.64,18.647,9.64,19v2.64H8.36z M4.36,21.64V19c0-0.353,0.287-0.64,0.64-0.64S5.64,18.647,5.64,19v2.64H4.36z M2.36,22.36H22h1.74l1.76,5.279h-3.14V25c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v2.64h-1.28V25c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v2.64h-1.28V25c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v2.64h-1.28V25c0-0.75-0.61-1.36-1.36-1.36S7.64,24.25,7.64,25v2.64H6.36V25c0-0.75-0.61-1.36-1.36-1.36S3.64,24.25,3.64,25v2.64H2.36V22.36z M20.36,25c0-0.353,0.287-0.64,0.64-0.64s0.64,0.287,0.64,0.64v2.64h-1.28V25z M16.36,25c0-0.353,0.287-0.64,0.64-0.64c0.353,0,0.64,0.287,0.64,0.64v2.64h-1.28C16.36,27.64,16.36,25,16.36,25z M12.36,25c0-0.353,0.287-0.64,0.64-0.64s0.64,0.287,0.64,0.64v2.64h-1.28C12.36,27.64,12.36,25,12.36,25z M8.36,25c0-0.353,0.287-0.64,0.64-0.64S9.64,24.647,9.64,25v2.64H8.36V25z M4.36,25c0-0.353,0.287-0.64,0.64-0.64S5.64,24.647,5.64,25v2.64H4.36V25z M26,22.36h2c0.199,0,0.36-0.161,0.36-0.36v-3c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v3C25.64,22.199,25.801,22.36,26,22.36z M27,18.36c0.353,0,0.64,0.287,0.64,0.64v2.64h-1.28V19C26.36,18.647,26.647,18.36,27,18.36z M4.64,6h0.72v2H4.64V6z M23.36,14h-0.72v-2h0.721L23.36,14L23.36,14z M19.36,14h-0.72v-2h0.721L19.36,14L19.36,14z M27.36,14h-0.72v-2h0.721L27.36,14L27.36,14z"/></svg>
+                Roma
+              </span>
+              <div class="chart-summary" id="summary-roma"></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div id="chart-roma" class="chart"></div>
+            <div class="card-legend">
+              <span class="legend-item" style="color:#33d17a"><span class="legend-dot" style="background:#33d17a; box-shadow:0 0 6px #33d17a99;"></span>Bassa &lt;25%</span>
+              <span class="legend-item" style="color:#45d4ff"><span class="legend-dot" style="background:#45d4ff; box-shadow:0 0 6px #45d4ff99;"></span>Media 25–49%</span>
+              <span class="legend-item" style="color:#f6c344"><span class="legend-dot" style="background:#f6c344; box-shadow:0 0 6px #f6c34499;"></span>Alta 50–74%</span>
+              <span class="legend-item" style="color:#ff5f6d"><span class="legend-dot" style="background:#ff5f6d; box-shadow:0 0 6px #ff5f6d99;"></span>Critica ≥75%</span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    const DATA_URL = './data/data_occupancy_mensile_wp.json';
+    const CACHE_BUSTER = Date.now();
+    const charts = [];
+
+    function withCacheBuster(path) {
+      const separator = path.includes('?') ? '&' : '?';
+      return `${path}${separator}v=${CACHE_BUSTER}`;
+    }
+
+    async function fetchJson(path) {
+      const response = await fetch(withCacheBuster(path), { cache: 'no-store' });
+      if (!response.ok) {
+        throw new Error(`Errore nel caricamento di ${path} (${response.status})`);
+      }
+      return response.json();
+    }
+
+    function formatTimestamp(value) {
+      if (!value) return '--';
+      const normalized = String(value).replace(' ', 'T');
+      const date = new Date(normalized);
+      if (Number.isNaN(date.getTime())) return value;
+      return date.toLocaleString('it-IT', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+
+    function formatDisplayDate(isoDate) {
+      if (!isoDate) return '';
+      const date = new Date(`${isoDate}T00:00:00`);
+      if (Number.isNaN(date.getTime())) return isoDate;
+      return date.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' });
+    }
+
+    function normalizeDashboardData(raw) {
+      const cities = Array.isArray(raw?.cities) ? raw.cities : [];
+      return {
+        updated_at: raw?.updated_at || null,
+        range_label: raw?.range_label || 'Ultimi 30 giorni',
+        cities: cities.map(city => ({
+          site_name: city?.site_name || 'Sede',
+          month_label: city?.month_label || raw?.range_label || 'Ultimi 30 giorni',
+          occupancy_daily: Array.isArray(city?.occupancy_daily)
+            ? city.occupancy_daily.map(item => ({
+                day: String(item?.day || '').padStart(2, '0'),
+                date: item?.date || null,
+                occupied: item?.occupied ?? null,
+                free: item?.free ?? null,
+                percentage: item?.percentage ?? null,
+                is_weekend: item?.is_weekend === true,
+                has_data: item?.has_data === true
+              }))
+            : []
+        }))
+      };
+    }
+
+    function getOccupancyColor(value) {
+      const n = Number(value);
+      if (!Number.isFinite(n)) return 'rgba(255,255,255,0.14)';
+      if (n < 25) return '#33d17a';
+      if (n < 50) return '#45d4ff';
+      if (n < 75) return '#f6c344';
+      return '#ff5f6d';
+    }
+
+    function computeMetrics(series) {
+      const values = series
+        .filter(item => item.has_data === true && item.percentage !== null)
+        .map(item => Number(item.percentage))
+        .filter(value => Number.isFinite(value));
+
+      if (!values.length) {
+        return { avg: 0, peak: 0, min: 0 };
+      }
+
+      const total = values.reduce((sum, value) => sum + value, 0);
+      return {
+        avg: Math.round((total / values.length) * 10) / 10,
+        peak: Math.max(...values),
+        min: Math.min(...values)
+      };
+    }
+
+    function formatMetricValue(value) {
+      if (Math.round(value) === value) return `${value}%`;
+      return `${value.toFixed(1)}%`;
+    }
+
+    function renderSummary(containerId, metrics) {
+      const el = document.getElementById(containerId);
+      el.innerHTML = `
+        <div class="summary-pill">
+          <span class="label">Media mese</span>
+          <span class="value">${formatMetricValue(metrics.avg)}</span>
+        </div>
+        <div class="summary-pill">
+          <span class="label">Picco</span>
+          <span class="value">${formatMetricValue(metrics.peak)}</span>
+        </div>
+        <div class="summary-pill">
+          <span class="label">Minimo</span>
+          <span class="value">${formatMetricValue(metrics.min)}</span>
+        </div>
+      `;
+    }
+
+    function buildWeekendBands(series) {
+      const bands = [];
+      let startDate = null;
+
+      for (let i = 0; i < series.length; i++) {
+        const item = series[i];
+        const weekend = item?.is_weekend === true;
+
+        if (weekend && startDate === null) {
+          startDate = item.date;
+        }
+
+        if (!weekend && startDate !== null) {
+          bands.push([{ xAxis: startDate }, { xAxis: series[i - 1].date }]);
+          startDate = null;
+        }
+      }
+
+      if (startDate !== null) {
+        bands.push([{ xAxis: startDate }, { xAxis: series[series.length - 1].date }]);
+      }
+
+      return bands;
+    }
+
+    function buildChartOption(city) {
+      const series = Array.isArray(city.occupancy_daily) ? city.occupancy_daily : [];
+      const metrics = computeMetrics(series);
+
+      const categories = series.map(item => item.date);
+      const totals = series.map(item => item.has_data ? Number(item.occupied || 0) + Number(item.free || 0) : 0);
+      const weekendBands = buildWeekendBands(series);
+      const monthSeparators = buildMonthSeparators(series);
+      const maxCapacity = Math.max(...totals, 10);
+
+      // Alternating month bands
+      const monthBandData = [];
+      let prevMonth = -1, bandStart = null, toggle = false;
+      series.forEach((item, i) => {
+        if (!item.date) return;
+        const m = new Date(item.date + 'T00:00:00').getMonth();
+        if (m !== prevMonth) {
+          if (bandStart !== null && toggle) monthBandData.push([{ xAxis: bandStart }, { xAxis: series[i-1].date }]);
+          bandStart = item.date; prevMonth = m; toggle = !toggle;
+        }
+        if (i === series.length - 1 && bandStart !== null && toggle) monthBandData.push([{ xAxis: bandStart }, { xAxis: item.date }]);
+      });
+
+      return {
+        metrics,
+        option: {
+          backgroundColor: 'transparent',
+          animationDuration: 600,
+          animationEasing: 'cubicOut',
+          grid: {
+            left: 52,
+            right: 12,
+            top: 32,
+            bottom: 72,
+            containLabel: false
+          },
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: { type: 'shadow', shadowStyle: { color: 'rgba(255,255,255,0.04)' } },
+            backgroundColor: 'rgba(7,17,31,0.96)',
+            borderWidth: 0,
+            textStyle: { color: '#ffffff' },
+            formatter: function(params) {
+              const dataIndex = params?.[0]?.dataIndex ?? 0;
+              const item = series[dataIndex];
+              if (!item) return '';
+              if (item.is_weekend) return `${formatDisplayDate(item.date)}<br><b>Weekend</b>`;
+              if (!item.has_data) return `${formatDisplayDate(item.date)}<br><b>Nessun dato</b>`;
+              return [
+                formatDisplayDate(item.date),
+                `Occupati: <b>${item.occupied}</b>`,
+                `Liberi: <b>${item.free}</b>`,
+                `Occupancy: <b>${formatMetricValue(Number(item.percentage || 0))}</b>`
+              ].join('<br>');
+            }
+          },
+          xAxis: {
+            type: 'category',
+            data: categories,
+            axisLine: { lineStyle: { color: 'rgba(255,255,255,0.16)' } },
+            axisTick: { show: false },
+            axisLabel: { show: false }
+          },
+          yAxis: {
+            type: 'value',
+            min: 0,
+            max: maxCapacity,
+            axisLabel: { show: false },
+            splitLine: { show: false },
+            axisLine: { show: false },
+            axisTick: { show: false }
+          },
+          series: [
+            // ── background helpers (markArea only) ──
+            {
+              name: 'MeseBand', type: 'bar', silent: true, barGap: '-100%', barWidth: '100%',
+              itemStyle: { color: 'rgba(255,255,255,0)' }, emphasis: { disabled: true },
+              markArea: { silent: true, itemStyle: { color: 'rgba(69,212,255,0.03)' }, data: monthBandData },
+              data: categories.map(() => 0)
+            },
+            {
+              name: 'Weekend', type: 'bar', silent: true, barGap: '-100%', barWidth: '100%',
+              itemStyle: { color: 'rgba(255,255,255,0)' }, emphasis: { disabled: true },
+              markArea: { silent: true, itemStyle: { color: 'rgba(255,255,255,0.045)' }, data: weekendBands },
+              data: categories.map(() => 0)
+            },
+            // ── month separator: drawn via graphic post-render for pixel-accurate placement ──
+            // ── SFONDO grigio: barra piena fino al totale (occupati+liberi) ──
+            {
+              name: 'Sfondo', type: 'bar', barWidth: '52%', barCategoryGap: '40%',
+              z: 2, silent: true, emphasis: { disabled: true },
+              data: series.map(item => item.has_data ? Number(item.occupied||0) + Number(item.free||0) : null),
+              itemStyle: {
+                color: 'rgba(100, 130, 175, 0.18)',
+                borderRadius: [5, 5, 0, 0]
+              },
+              // Numero liberi (in alto, bianco) sul top della barra sfondo
+              label: {
+                show: true, position: 'top', distance: 8,
+                color: '#c8d8f0', fontSize: 11, fontWeight: 700,
+                textShadowColor: 'rgba(0,0,0,0.8)', textShadowBlur: 3,
+                formatter: function(params) {
+                  const item = series[params.dataIndex];
+                  if (!item || !item.has_data) return '';
+                  return String(Number(item.free));
+                }
+              }
+            },
+            // ── BARRA COLORATA: solo occupati, sovrapposta alla sfondo ──
+            {
+              name: 'Occupati', type: 'bar', barWidth: '52%', barCategoryGap: '40%',
+              barGap: '-100%',
+              z: 4,
+              data: series.map(item => item.has_data ? Number(item.occupied||0) : null),
+              itemStyle: {
+                color: function(params) {
+                  const item = series[params.dataIndex];
+                  if (!item || !item.has_data) return 'rgba(0,0,0,0)';
+                  return getOccupancyColor(item.percentage);
+                },
+                borderRadius: [5, 5, 0, 0]
+              },
+              emphasis: { disabled: true },
+              label: { show: false }
+            },
+            // ── threshold lines ──
+            {
+              name: 'Soglie', type: 'line', silent: true, symbol: 'none', data: [],
+              markLine: {
+                silent: true, symbol: 'none', animation: false, label: { show: false },
+                data: [
+                  { yAxis: maxCapacity * 0.25, lineStyle: { color: '#33d17a', type: 'dashed', width: 1.5, opacity: 0.6 } },
+                  { yAxis: maxCapacity * 0.50, lineStyle: { color: '#45d4ff', type: 'dashed', width: 1.5, opacity: 0.6 } },
+                  { yAxis: maxCapacity * 0.75, lineStyle: { color: '#f6c344', type: 'dashed', width: 1.5, opacity: 0.6 } },
+                  { yAxis: maxCapacity * 1.0,  lineStyle: { color: '#ff5f6d', type: 'dashed', width: 1.5, opacity: 0.6 } }
+                ]
+              }
+            }
+          ]
+        }
+      };
+    }
+
+    function buildMonthSeparators(series) {
+      // Find index where month changes
+      const separators = [];
+      for (let i = 1; i < series.length; i++) {
+        const prev = series[i-1].date;
+        const curr = series[i].date;
+        if (!prev || !curr) continue;
+        const prevMonth = new Date(prev + 'T00:00:00').getMonth();
+        const currMonth = new Date(curr + 'T00:00:00').getMonth();
+        if (prevMonth !== currMonth) {
+          separators.push(curr); // x-axis value where new month starts
+        }
+      }
+      return separators;
+    }
+
+    function buildMonthBands(series) {
+      // Returns markArea bands alternating per month for subtle background distinction
+      const bands = [];
+      if (!series.length) return bands;
+      let bandStart = series[0].date;
+      let currentMonth = new Date(series[0].date + 'T00:00:00').getMonth();
+      let toggle = false;
+
+      for (let i = 1; i < series.length; i++) {
+        const d = new Date(series[i].date + 'T00:00:00');
+        if (d.getMonth() !== currentMonth) {
+          if (toggle) {
+            bands.push([{ xAxis: bandStart }, { xAxis: series[i-1].date }]);
+          }
+          bandStart = series[i].date;
+          currentMonth = d.getMonth();
+          toggle = !toggle;
+        }
+      }
+      if (toggle) {
+        bands.push([{ xAxis: bandStart }, { xAxis: series[series.length-1].date }]);
+      }
+      return bands;
+    }
+
+    function buildChart(containerId, summaryId, city) {
+      const el = document.getElementById(containerId);
+      const chart = echarts.init(el, null, { renderer: 'canvas' });
+      const { metrics, option } = buildChartOption(city);
+      renderSummary(summaryId, metrics);
+      chart.setOption(option, true);
+
+      chart.on('finished', function() {
+        const series = Array.isArray(city.occupancy_daily) ? city.occupancy_daily : [];
+        const totals = series.map(item => item.has_data ? Number(item.occupied||0)+Number(item.free||0) : 0);
+        const maxCap = Math.max(...totals, 10);
+
+        // ── Y-axis threshold labels ──
+        const thresholds = [
+          { pct: 0,    label: '0%',   color: 'rgba(147,170,215,0.55)' },
+          { pct: 0.25, label: '25%',  color: '#33d17a' },
+          { pct: 0.50, label: '50%',  color: '#45d4ff' },
+          { pct: 0.75, label: '75%',  color: '#f6c344' },
+          { pct: 1.00, label: '100%', color: '#ff5f6d' }
+        ];
+        // Use a fixed X position anchored to the left edge of the plot area
+        const gridModel = chart.getModel().getComponent('grid', 0);
+        const gridRect = gridModel.coordinateSystem.getRect();
+        const labelX = gridRect.x - 4; // just left of the plot area
+
+        const graphicItems = thresholds.map(t => {
+          const coord = chart.convertToPixel({ gridIndex: 0 }, [0, maxCap * t.pct]);
+          return {
+            type: 'text', silent: true, z: 10,
+            x: labelX, y: coord[1] - 7,
+            style: { text: t.label, fill: t.color, font: `700 11px Inter,"Segoe UI",sans-serif`, textAlign: 'right' }
+          };
+        });
+
+        // ── Month separator lines: drawn between last day of month and first of next ──
+        const sepItems = [];
+        const chartH = chart.getHeight();
+        const gridTop = chart.convertToPixel({ gridIndex: 0 }, [series[0]?.date || 0, maxCap])[1];
+        const gridBottom = chart.convertToPixel({ gridIndex: 0 }, [series[0]?.date || 0, 0])[1];
+
+        for (let i = 1; i < series.length; i++) {
+          const prev = series[i-1].date, curr = series[i].date;
+          if (!prev || !curr) continue;
+          if (new Date(prev + 'T00:00:00').getMonth() !== new Date(curr + 'T00:00:00').getMonth()) {
+            const xPrev = chart.convertToPixel({ gridIndex: 0 }, [prev, 0])[0];
+            const xCurr = chart.convertToPixel({ gridIndex: 0 }, [curr, 0])[0];
+            const xLine = (xPrev + xCurr) / 2;
+            sepItems.push({
+              type: 'line', silent: true, z: 8,
+              shape: { x1: xLine, y1: gridTop, x2: xLine, y2: gridBottom },
+              style: { stroke: 'rgba(255,255,255,0.30)', lineWidth: 1.5 }
+            });
+          }
+        }
+
+        // ── Numbers below axis: occupied count (colored) + day number (grey) ──
+        const axisCoord = chart.convertToPixel({ gridIndex: 0 }, [series[0]?.date || 0, 0]);
+        const occupiedY = axisCoord[1] + 10;  // row 1: occupied count, colored
+        const dayY      = axisCoord[1] + 24;  // row 2: day number, grey
+
+        const belowAxisItems = [];
+        series.forEach((item) => {
+          if (!item.date) return;
+          const xCoord = chart.convertToPixel({ gridIndex: 0 }, [item.date, 0])[0];
+          const d = new Date(item.date + 'T00:00:00');
+          const dayNum = d.getDate();
+
+          // Day number — always shown, grey, no zero-padding (matches mockup: 1, 2, ... 26)
+          belowAxisItems.push({
+            type: 'text', silent: true, z: 10,
+            x: xCoord, y: dayY,
+            style: {
+              text: String(dayNum),
+              fill: '#8aa0be',
+              font: `500 11px Inter,"Segoe UI",sans-serif`,
+              textAlign: 'center'
+            }
+          });
+
+          // Occupied number — only on data days, colored, bold, slightly larger
+          if (item.has_data) {
+            belowAxisItems.push({
+              type: 'text', silent: true, z: 10,
+              x: xCoord, y: occupiedY,
+              style: {
+                text: String(Number(item.occupied)),
+                fill: getOccupancyColor(item.percentage),
+                font: `700 11px Inter,"Segoe UI",sans-serif`,
+                textAlign: 'center'
+              }
+            });
+          }
+        });
+
+        // ── Month name label: one per month, centered in its block ──
+        const monthNamesLong = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+        let lastM = -1, mStartIdx = 0;
+        const monthGroups = [];
+        series.forEach((item, i) => {
+          if (!item.date) return;
+          const m = new Date(item.date + 'T00:00:00').getMonth();
+          if (m !== lastM) {
+            if (lastM !== -1) monthGroups.push({ month: lastM, startIdx: mStartIdx, endIdx: i - 1 });
+            mStartIdx = i; lastM = m;
+          }
+          if (i === series.length - 1) monthGroups.push({ month: m, startIdx: mStartIdx, endIdx: i });
+        });
+        const monthLabelY = dayY + 16;
+        const monthItems = monthGroups.map((g) => {
+          const s = series[g.startIdx]?.date, e = series[g.endIdx]?.date;
+          if (!s || !e) return null;
+          const sx = chart.convertToPixel({ gridIndex: 0 }, [s, 0])[0];
+          const ex = chart.convertToPixel({ gridIndex: 0 }, [e, 0])[0];
+          return {
+            type: 'text', silent: true, z: 10,
+            x: (sx + ex) / 2, y: monthLabelY,
+            style: {
+              text: monthNamesLong[g.month].toUpperCase(),
+              fill: 'rgba(178, 195, 222, 0.70)',
+              font: `600 9px Inter,"Segoe UI",sans-serif`,
+              textAlign: 'center',
+              letterSpacing: 2
+            }
+          };
+        }).filter(Boolean);
+
+        chart.setOption({ graphic: [...graphicItems, ...sepItems, ...belowAxisItems, ...monthItems] }, false);
+      });
+
+      return chart;
+    }
+
+    function findCity(data, needle) {
+      return data.cities.find(city =>
+        String(city.site_name || '').toLowerCase().includes(needle.toLowerCase())
+      );
+    }
+
+    async function initDashboard() {
+      try {
+        const raw = await fetchJson(DATA_URL);
+        const data = normalizeDashboardData(raw);
+
+        if (!data.cities.length) {
+          throw new Error('JSON senza cities');
+        }
+
+        document.getElementById('lastUpdate').textContent =
+          'Ultimo aggiornamento: ' + formatTimestamp(data.updated_at);
+
+        const milano = findCity(data, 'milano') || data.cities[0];
+        const roma = findCity(data, 'roma') || data.cities[1] || data.cities[0];
+
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'grid';
+
+        requestAnimationFrame(function() {
+          charts.push(buildChart('chart-milano', 'summary-milano', milano));
+          charts.push(buildChart('chart-roma', 'summary-roma', roma));
+
+          setTimeout(function() {
+            charts.forEach(chart => chart.resize());
+          }, 80);
+        });
+      } catch (error) {
+        console.error('Errore dashboard:', error);
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('errorState').style.display = 'grid';
+      }
+    }
+
+    initDashboard();
+
+    window.addEventListener('resize', function() {
+      charts.forEach(chart => chart.resize());
+    });
+  </script>
+</body>
+</html>
