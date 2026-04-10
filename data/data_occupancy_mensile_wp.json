@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-10 20:15",
+  "updated_at": "2026-04-10 20:30",
   "range_label": "Ultimi 30 giorni",
   "cities": [
     {
@@ -252,29 +252,29 @@
         {
           "day": "08",
           "date": "2026-04-08",
-          "occupied": 52,
-          "free": 70,
-          "percentage": 42.6,
+          "occupied": 51,
+          "free": 71,
+          "percentage": 41.8,
           "is_weekend": false,
           "has_data": true
         },
         {
           "day": "09",
           "date": "2026-04-09",
-          "occupied": 50,
-          "free": 72,
-          "percentage": 41,
+          "occupied": null,
+          "free": null,
+          "percentage": null,
           "is_weekend": false,
-          "has_data": true
+          "has_data": false
         },
         {
           "day": "10",
           "date": "2026-04-10",
-          "occupied": 33,
-          "free": 89,
-          "percentage": 27,
+          "occupied": null,
+          "free": null,
+          "percentage": null,
           "is_weekend": false,
-          "has_data": true
+          "has_data": false
         }
       ]
     },
@@ -528,29 +528,29 @@
         {
           "day": "08",
           "date": "2026-04-08",
-          "occupied": 165,
-          "free": 112,
-          "percentage": 59.6,
+          "occupied": 163,
+          "free": 114,
+          "percentage": 58.8,
           "is_weekend": false,
           "has_data": true
         },
         {
           "day": "09",
           "date": "2026-04-09",
-          "occupied": 177,
-          "free": 100,
-          "percentage": 63.9,
+          "occupied": null,
+          "free": null,
+          "percentage": null,
           "is_weekend": false,
-          "has_data": true
+          "has_data": false
         },
         {
           "day": "10",
           "date": "2026-04-10",
-          "occupied": 142,
-          "free": 135,
-          "percentage": 51.3,
+          "occupied": null,
+          "free": null,
+          "percentage": null,
           "is_weekend": false,
-          "has_data": true
+          "has_data": false
         }
       ]
     }
