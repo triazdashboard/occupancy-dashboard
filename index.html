@@ -12,24 +12,17 @@
       --panel-border: rgba(141, 179, 255, 0.24);
       --text: #f4f8ff;
       --muted: #b2c3de;
-      --grid: rgba(255,255,255,0.08);
       --cyan: #45d4ff;
       --green: #33d17a;
       --yellow: #f6c344;
       --red: #ff5f6d;
-      --free: rgba(147, 170, 215, 0.32);
-      --weekend: rgba(255,255,255,0.05);
-      --shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+      --blue: #7c9dff;
+      --shadow: 0 16px 40px rgba(0,0,0,0.28);
       --radius: 18px;
     }
-
     * { box-sizing: border-box; }
-
     html, body {
-      margin: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
+      margin: 0; width: 100%; height: 100%; overflow: hidden;
       font-family: Inter, "Segoe UI", Arial, sans-serif;
       color: var(--text);
       background:
@@ -38,830 +31,1093 @@
         radial-gradient(circle at bottom center, rgba(155,109,255,0.10), transparent 28%),
         linear-gradient(180deg, #081120 0%, #07111f 100%);
     }
-
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    body { display: flex; align-items: center; justify-content: center; }
 
     .shell {
-      width: 100vw;
-      height: 100vh;
-      padding: 18px;
-      display: grid;
-      grid-template-rows: auto 1fr;
-      gap: 14px;
+      width: 100vw; height: 100vh; padding: 18px;
+      display: grid; grid-template-rows: auto 1fr; gap: 14px;
     }
 
+    /* ── Header ── */
     .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 24px;
-      padding: 4px 2px 12px;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 24px; padding: 4px 2px 12px;
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
-
     .title-block h1 {
-      margin: 0;
-      font-size: clamp(28px, 3vw, 40px);
-      line-height: 1;
-      font-weight: 900;
-      letter-spacing: 0.02em;
+      margin: 0; font-size: clamp(20px, 2.2vw, 34px);
+      line-height: 1; font-weight: 900; letter-spacing: 0.02em;
     }
-
     .title-block p {
-      margin: 8px 0 0;
-      color: var(--muted);
-      font-size: 15px;
-      font-weight: 500;
+      margin: 6px 0 0; color: var(--muted); font-size: 13px; font-weight: 500;
     }
-
-    .status {
-      text-align: right;
-      color: var(--muted);
-      font-size: 15px;
-      font-weight: 400;
+    .header-center {
+      display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0;
     }
-
-    .main {
-      min-height: 0;
-      display: grid;
+    .nav-dots { display: flex; gap: 10px; align-items: center; }
+    .nav-dot {
+      width: 10px; height: 10px; border-radius: 50%; border: none;
+      background: rgba(255,255,255,0.20); cursor: pointer; padding: 0;
+      transition: all 0.3s cubic-bezier(0.4,0,0.2,1); flex-shrink: 0;
     }
+    .nav-dot.active {
+      background: var(--cyan); box-shadow: 0 0 10px rgba(69,212,255,0.6);
+      width: 28px; border-radius: 5px;
+    }
+    .nav-dot:hover:not(.active) { background: rgba(255,255,255,0.40); }
+    .nav-arrows { display: flex; gap: 8px; }
+    .nav-arrow {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text); border-radius: 10px; padding: 5px 16px;
+      cursor: pointer; font-size: 15px; transition: all 0.2s; line-height: 1.4;
+    }
+    .nav-arrow:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.25); }
+    .status { text-align: right; color: var(--muted); font-size: 13px; font-weight: 400; flex-shrink: 0; }
 
+    /* ── Main / Slides ── */
+    .main { min-height: 0; display: grid; }
+    .slides-wrapper { position: relative; min-height: 0; height: 100%; overflow: hidden; }
+    .slide { position: absolute; inset: 0; opacity: 0; pointer-events: none; transition: opacity 0.35s ease; }
+    .slide.active { opacity: 1; pointer-events: auto; z-index: 1; }
+
+    /* ── Grid / Cards ── */
     .grid {
-      min-height: 0;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      height: 100%;
+      min-height: 0; display: grid;
+      grid-template-columns: 1fr 1fr; gap: 16px; height: 100%;
     }
-
     .card {
-      position: relative;
-      min-width: 0;
-      min-height: 0;
-      display: grid;
-      grid-template-rows: auto 1fr;
-      background: var(--panel);
-      border: 1px solid var(--panel-border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      position: relative; min-width: 0; min-height: 0;
+      display: grid; grid-template-rows: auto 1fr;
+      background: var(--panel); border: 1px solid var(--panel-border);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      overflow: hidden; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
     }
-
     .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
+      content: ""; position: absolute; inset: 0;
       background:
         linear-gradient(180deg, rgba(255,255,255,0.03), transparent 20%),
         radial-gradient(circle at top right, rgba(76,125,255,0.15), transparent 30%);
       pointer-events: none;
     }
-
-    .card-header {
-      position: relative;
-      z-index: 1;
-      padding: 14px 22px 10px;
-    }
-
+    .card-header { position: relative; z-index: 1; padding: 14px 22px 10px; }
     .card-header-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
     }
-
     .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 16px;
-      font-weight: 800;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text);
-      white-space: nowrap;
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: 15px; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text); white-space: nowrap;
     }
-
     .city-icon {
-      width: 50px;
-      height: 50px;
-      fill: #ffffff;
-      opacity: 1;
-      flex-shrink: 0;
+      width: 52px; height: 52px; fill: #ffffff; flex-shrink: 0;
       filter: drop-shadow(0 0 6px rgba(255,255,255,0.4));
     }
-
-    .chart-summary {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
+    .city-text { display: flex; flex-direction: column; gap: 2px; }
+    .city-name { font-size: 16px; font-weight: 900; letter-spacing: 0.10em; line-height: 1.1; color: var(--text); }
+    .chart-label { font-size: 10px; font-weight: 600; letter-spacing: 0.10em; color: var(--muted); line-height: 1.3; text-transform: uppercase; }
+    .chart-summary { display: flex; gap: 10px; flex-wrap: wrap; }
     .summary-pill {
-      min-width: 110px;
-      padding: 8px 14px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
+      min-width: 90px; padding: 7px 13px; border-radius: 14px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
     }
-
-    .summary-pill .label {
-      display: block;
-      color: var(--muted);
-      font-size: 11px;
-      margin-bottom: 4px;
-    }
-
-    .summary-pill .value {
-      display: block;
-      color: var(--text);
-      font-size: 22px;
-      font-weight: 800;
-      line-height: 1;
-    }
-
+    .summary-pill .label { display: block; color: var(--muted); font-size: 11px; margin-bottom: 3px; }
+    .summary-pill .value { display: block; color: var(--text); font-size: 20px; font-weight: 800; line-height: 1; }
+    .summary-pill .value.sm { font-size: 13px; }
     .card-body {
-      position: relative;
-      z-index: 1;
-      min-height: 0;
-      padding: 4px 16px 14px;
-      display: flex;
-      flex-direction: column;
+      position: relative; z-index: 1; min-height: 0;
+      padding: 4px 16px 14px; display: flex; flex-direction: column;
     }
-
-    .chart {
-      width: 100%;
-      height: 100%;
-      min-height: 320px;
-      flex: 1;
-      min-height: 0;
-    }
-
+    .chart { width: 100%; flex: 1; min-height: 0; }
     .card-legend {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      align-items: center;
-      padding: 6px 0 2px;
-      flex-shrink: 0;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      margin-top: 4px;
+      display: flex; gap: 18px; justify-content: center; align-items: center;
+      padding: 5px 0 2px; flex-shrink: 0;
+      border-top: 1px solid rgba(255,255,255,0.06); margin-top: 4px;
     }
+    .legend-item { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
 
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      font-weight: 600;
-      white-space: nowrap;
+    .loading, .error-state {
+      display: grid; place-items: center; height: 100%;
+      color: var(--muted); font-size: 20px; text-align: center; padding: 32px;
     }
-
-    .legend-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      opacity: 1;
-    }
-
-    .loading,
-    .error-state {
-      display: grid;
-      place-items: center;
-      height: 100%;
-      color: var(--muted);
-      font-size: 22px;
-      text-align: center;
-      padding: 32px;
-    }
-
-    .error-state {
-      display: none;
-      color: #ffd7dc;
-    }
-
-    .error-state small {
-      display: block;
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: 14px;
-    }
+    .error-state { display: none; color: #ffd7dc; }
+    .error-state small { display: block; margin-top: 10px; color: var(--muted); font-size: 14px; }
 
     @media (max-width: 1200px) {
-      html, body {
-        overflow: auto;
-      }
-
-      .shell {
-        height: auto;
-        min-height: 100vh;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
-        height: auto;
-      }
-
-      .card {
-        min-height: 560px;
-      }
+      html, body { overflow: auto; }
+      .shell { height: auto; min-height: 100vh; }
+      .slide { position: relative; inset: auto; opacity: 1; pointer-events: auto; display: none; }
+      .slide.active { display: block; }
+      .slides-wrapper { height: auto; overflow: visible; }
+      .grid { grid-template-columns: 1fr; height: auto; }
+      .card { min-height: 520px; }
     }
-
     @media (max-width: 900px) {
-      .shell {
-        padding: 14px;
-      }
-
-      .header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .status {
-        text-align: left;
-      }
-
-      .chart-summary {
-        justify-content: flex-start;
-      }
+      .shell { padding: 14px; }
+      .header { flex-direction: column; align-items: flex-start; }
+      .header-center { align-items: flex-start; }
+      .status { text-align: left; }
     }
   </style>
 </head>
 <body>
-  <div class="shell">
-    <header class="header">
-      <div class="title-block">
-        <h1>Allianz Trade – Postazioni occupate</h1>
-        <p>Sede di Milano e Roma · Postazioni occupate e libere per giorno negli ultimi 30 giorni</p>
-      </div>
-      <div class="status">
-        <div><span id="lastUpdate">Ultimo aggiornamento: --</span></div>
-      </div>
-    </header>
+<!-- ══ SVG SPRITE (defined once, referenced via <use>) ══ -->
+<svg style="display:none" aria-hidden="true">
+  <defs>
+    <symbol id="icon-milano" viewBox="0 0 32 32">
+      <path d="M24.64,7.64V8c0,11.08-0.214,15.366-1.6,21.64h-1.68v-26h-5V1c0-0.199-0.161-0.36-0.36-0.36S15.64,0.801,15.64,1v2.64h-5v26H8.102C7.614,27.138,7.36,24.57,7.36,22c0-3.561,0.472-7.089,1.403-10.489l0.055-0.202L4.382,6.873L4.157,7.314C1.823,11.888,0.64,16.829,0.64,22c0,2.584,0.316,5.15,0.919,7.64H0.64v0.721h30.72V30v-0.36v-22C31.36,7.64,24.64,7.64,24.64,7.64z M24.575,25.36H26v-0.72h-1.323c0.563-4.151,0.68-8.55,0.683-16.28h0.281c0.001,7.53,0.069,12.673,3.822,21.28h-5.686C24.104,28.144,24.367,26.754,24.575,25.36z M11.36,4.36h9.28v25.28h-9.28V4.36z M4.576,8.085l3.438,3.438c-0.186,0.694-0.341,1.397-0.49,2.101L3.771,9.87C4.021,9.269,4.287,8.674,4.576,8.085z M1.55,25.36H3v-0.72H1.482c-0.062-0.758-0.102-1.517-0.111-2.28H3v-0.72H1.37c0.042-3.831,0.755-7.528,2.116-11.037l3.867,3.867c-0.136,0.72-0.261,1.443-0.357,2.17H5v0.72h1.921C6.745,18.897,6.64,20.444,6.64,22c0,2.57,0.251,5.136,0.731,7.64H2.296C1.948,28.236,1.703,26.805,1.55,25.36z M30.246,29.64c-3.822-8.649-3.884-13.496-3.885-21.28h4.278v2.28H29v0.72h1.64v1.28H29v0.72h1.64v16.28H30.246z M20,6.64v0.72h-8V6.64H20z M12,9.64h8v0.72h-8V9.64z M12,12.64h8v0.72h-8V12.64z M12,15.64h8v0.72h-8V15.64z M12,18.64h8v0.721h-8V18.64z M12,21.64h8v0.721h-8V21.64z M12,24.64h8v0.721h-8V24.64z"/>
+    </symbol>
+    <symbol id="icon-roma" viewBox="0 0 32 32">
+      <path d="M30.36,27.64V10c0-0.199-0.161-0.36-0.36-0.36H16c-0.199,0-0.36,0.161-0.36,0.36v5.64h-2.381l-1.918-5.754C11.292,9.739,11.155,9.64,11,9.64H9.259L7.341,3.886C7.292,3.739,7.155,3.64,7,3.64H2C1.801,3.64,1.64,3.801,1.64,4v5.64H1v0.72h0.64v5.28H1v0.72h0.64v5.28H1v0.721h0.64v5.279H1v0.721h30V27.64H30.36z M16.36,10.36h13.28v17.28h-1.28V25c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v0.779l-1.279-3.838V19c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v2.64h-0.38l-1.918-5.753c-0.05-0.148-0.188-0.247-0.343-0.247h-2.64V10.36z M27.64,27.64h-1.28V25c0-0.353,0.287-0.64,0.64-0.64s0.64,0.287,0.64,0.64V27.64z M22.36,19c0-0.353,0.287-0.64,0.64-0.64s0.64,0.287,0.64,0.64v2.64h-1.28V19z M2.36,4.36h4.381l1.76,5.28H2.36V4.36z M2.36,10.36h8.381l1.76,5.28H10.36V13c0-0.75-0.61-1.36-1.36-1.36S7.64,12.25,7.64,13v2.64H6.36V13c0-0.75-0.61-1.36-1.36-1.36S3.64,12.25,3.64,13v2.64H2.36V10.36z M8.36,15.64V13c0-0.353,0.287-0.64,0.64-0.64S9.64,12.647,9.64,13v2.64H8.36z M4.36,15.64V13c0-0.353,0.287-0.64,0.64-0.64S5.64,12.647,5.64,13v2.64H4.36z M2.36,16.36h16.38l1.76,5.28h-2.14V19c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v2.64h-1.28V19c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v2.64h-1.28V19c0-0.75-0.61-1.36-1.36-1.36S7.64,18.25,7.64,19v2.64H6.36V19c0-0.75-0.61-1.36-1.36-1.36S3.64,18.25,3.64,19v2.64H2.36V16.36z M16.36,21.64V19c0-0.353,0.287-0.64,0.64-0.64c0.353,0,0.64,0.287,0.64,0.64v2.64H16.36z M12.36,21.64V19c0-0.353,0.287-0.64,0.64-0.64s0.64,0.287,0.64,0.64v2.64H12.36z M8.36,21.64V19c0-0.353,0.287-0.64,0.64-0.64S9.64,18.647,9.64,19v2.64H8.36z M4.36,21.64V19c0-0.353,0.287-0.64,0.64-0.64S5.64,18.647,5.64,19v2.64H4.36z M2.36,22.36H22h1.74l1.76,5.279h-3.14V25c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v2.64h-1.28V25c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v2.64h-1.28V25c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v2.64h-1.28V25c0-0.75-0.61-1.36-1.36-1.36S7.64,24.25,7.64,25v2.64H6.36V25c0-0.75-0.61-1.36-1.36-1.36S3.64,24.25,3.64,25v2.64H2.36V22.36z M20.36,25c0-0.353,0.287-0.64,0.64-0.64s0.64,0.287,0.64,0.64v2.64h-1.28V25z M16.36,25c0-0.353,0.287-0.64,0.64-0.64c0.353,0,0.64,0.287,0.64,0.64v2.64h-1.28z M12.36,25c0-0.353,0.287-0.64,0.64-0.64s0.64,0.287,0.64,0.64v2.64h-1.28z M8.36,25c0-0.353,0.287-0.64,0.64-0.64S9.64,24.647,9.64,25v2.64H8.36V25z M4.36,25c0-0.353,0.287-0.64,0.64-0.64S5.64,24.647,5.64,25v2.64H4.36V25z M26,22.36h2c0.199,0,0.36-0.161,0.36-0.36v-3c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v3C25.64,22.199,25.801,22.36,26,22.36z M27,18.36c0.353,0,0.64,0.287,0.64,0.64v2.64h-1.28V19C26.36,18.647,26.647,18.36,27,18.36z"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="shell">
 
-    <main class="main">
-      <div id="loading" class="loading">Caricamento dashboard…</div>
-      <div id="errorState" class="error-state">
-        <div>
-          Impossibile caricare i dati dashboard.
-          <small>Controlla che <code>data/data_occupancy_mensile_wp.json</code> sia pubblicato correttamente.</small>
-        </div>
+  <header class="header">
+    <div class="title-block">
+      <h1>Allianz Trade – Occupancy Dashboard</h1>
+      <p id="slideSubtitle">Sede di Milano e Roma · Postazioni occupate negli ultimi 30 giorni</p>
+    </div>
+    <div class="header-center">
+      <div class="nav-dots" id="navDots">
+        <button class="nav-dot active" data-slide="0" title="Workspace – Ultimi 30 giorni"></button>
+        <button class="nav-dot" data-slide="1" title="Confronto Annuale 2025/2026"></button>
+        <button class="nav-dot" data-slide="2" title="Meeting Room – Ultima Settimana"></button>
+        <button class="nav-dot" data-slide="3" title="Meeting Room – Ultimi 30 Giorni"></button>
       </div>
+      <div class="nav-arrows">
+        <button class="nav-arrow" id="prevBtn">&#8592;</button>
+        <button class="nav-arrow" id="nextBtn">&#8594;</button>
+      </div>
+    </div>
+    <div class="status"><span id="lastUpdate">Ultimo aggiornamento: --</span></div>
+  </header>
 
-      <div id="dashboard" class="grid" style="display:none;">
-        <section class="card">
-          <div class="card-header">
-            <div class="card-header-row">
+  <main class="main">
+    <div id="loading" class="loading">Caricamento dashboard…</div>
+    <div id="errorState" class="error-state">
+      <div>Impossibile caricare i dati.<small>Controlla i file JSON nella cartella <code>data/</code>.</small></div>
+    </div>
+
+    <div id="slidesContainer" class="slides-wrapper" style="display:none;">
+
+      <!-- ══ SLIDE 0: Workspace – Ultimi 30gg (originale) ══ -->
+      <div class="slide active" id="slide-0">
+        <div class="grid">
+          <section class="card">
+            <div class="card-header"><div class="card-header-row">
               <span class="eyebrow">
-                <svg class="city-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M24.64,7.64V8c0,11.08-0.214,15.366-1.6,21.64h-1.68v-26h-5V1c0-0.199-0.161-0.36-0.36-0.36S15.64,0.801,15.64,1v2.64h-5v26H8.102C7.614,27.138,7.36,24.57,7.36,22c0-3.561,0.472-7.089,1.403-10.489l0.055-0.202L4.382,6.873L4.157,7.314C1.823,11.888,0.64,16.829,0.64,22c0,2.584,0.316,5.15,0.919,7.64H0.64v0.721h30.72V30v-0.36v-22C31.36,7.64,24.64,7.64,24.64,7.64z M24.575,25.36H26v-0.72h-1.323c0.563-4.151,0.68-8.55,0.683-16.28h0.281c0.001,7.53,0.069,12.673,3.822,21.28h-5.686C24.104,28.144,24.367,26.754,24.575,25.36z M11.36,4.36h9.28v25.28h-9.28V4.36z M4.576,8.085l3.438,3.438c-0.186,0.694-0.341,1.397-0.49,2.101L3.771,9.87C4.021,9.269,4.287,8.674,4.576,8.085z M1.55,25.36H3v-0.72H1.482c-0.062-0.758-0.102-1.517-0.111-2.28H3v-0.72H1.37c0.042-3.831,0.755-7.528,2.116-11.037l3.867,3.867c-0.136,0.72-0.261,1.443-0.357,2.17H5v0.72h1.921C6.745,18.897,6.64,20.444,6.64,22c0,2.57,0.251,5.136,0.731,7.64H2.296C1.948,28.236,1.703,26.805,1.55,25.36z M30.246,29.64c-3.822-8.649-3.884-13.496-3.885-21.28h4.278v2.28H29v0.72h1.64v1.28H29v0.72h1.64v16.28H30.246z M20,6.64v0.72h-8V6.64H20z M12,9.64h8v0.72h-8V9.64z M12,12.64h8v0.72h-8V12.64z M12,15.64h8v0.72h-8V15.64z M12,18.64h8v0.721h-8V18.64z M12,21.64h8v0.721h-8V21.64z M12,24.64h8v0.721h-8V24.64z"/></svg>
-                Milano
+                <svg class="city-icon" viewBox="0 0 32 32"><use href="#icon-milano"/></svg>
+                <span class="city-text"><span class="city-name">MILANO</span><span class="chart-label">WORKSPACE PRENOTATE ULTIMO MESE</span></span>
               </span>
               <div class="chart-summary" id="summary-milano"></div>
+            </div></div>
+            <div class="card-body">
+              <div id="chart-milano" class="chart"></div>
+              <div class="card-legend">
+                <span class="legend-item" style="color:#33d17a"><span class="legend-dot" style="background:#33d17a;box-shadow:0 0 6px #33d17a99"></span>Bassa &lt;25%</span>
+                <span class="legend-item" style="color:#45d4ff"><span class="legend-dot" style="background:#45d4ff;box-shadow:0 0 6px #45d4ff99"></span>Media 25–49%</span>
+                <span class="legend-item" style="color:#f6c344"><span class="legend-dot" style="background:#f6c344;box-shadow:0 0 6px #f6c34499"></span>Alta 50–74%</span>
+                <span class="legend-item" style="color:#ff5f6d"><span class="legend-dot" style="background:#ff5f6d;box-shadow:0 0 6px #ff5f6d99"></span>Critica &#8805;75%</span>
+              </div>
             </div>
-          </div>
-          <div class="card-body">
-            <div id="chart-milano" class="chart"></div>
-            <div class="card-legend">
-              <span class="legend-item" style="color:#33d17a"><span class="legend-dot" style="background:#33d17a; box-shadow:0 0 6px #33d17a99;"></span>Bassa &lt;25%</span>
-              <span class="legend-item" style="color:#45d4ff"><span class="legend-dot" style="background:#45d4ff; box-shadow:0 0 6px #45d4ff99;"></span>Media 25–49%</span>
-              <span class="legend-item" style="color:#f6c344"><span class="legend-dot" style="background:#f6c344; box-shadow:0 0 6px #f6c34499;"></span>Alta 50–74%</span>
-              <span class="legend-item" style="color:#ff5f6d"><span class="legend-dot" style="background:#ff5f6d; box-shadow:0 0 6px #ff5f6d99;"></span>Critica ≥75%</span>
-            </div>
-          </div>
-        </section>
-
-        <section class="card">
-          <div class="card-header">
-            <div class="card-header-row">
+          </section>
+          <section class="card">
+            <div class="card-header"><div class="card-header-row">
               <span class="eyebrow">
-                <svg class="city-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M30.36,27.64V10c0-0.199-0.161-0.36-0.36-0.36H16c-0.199,0-0.36,0.161-0.36,0.36v5.64h-2.381l-1.918-5.754C11.292,9.739,11.155,9.64,11,9.64H9.259L7.341,3.886C7.292,3.739,7.155,3.64,7,3.64H2C1.801,3.64,1.64,3.801,1.64,4v5.64H1v0.72h0.64v5.28H1v0.72h0.64v5.28H1v0.721h0.64v5.279H1v0.721h30V27.64H30.36z M16.36,10.36h13.28v17.28h-1.28V25c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v0.779l-1.279-3.838V19c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v2.64h-0.38l-1.918-5.753c-0.05-0.148-0.188-0.247-0.343-0.247h-2.64V10.36z M27.64,27.64h-1.28V25c0-0.353,0.287-0.64,0.64-0.64s0.64,0.287,0.64,0.64V27.64z M22.36,19c0-0.353,0.287-0.64,0.64-0.64s0.64,0.287,0.64,0.64v2.64h-1.28V19z M2.36,4.36h4.381l1.76,5.28H2.36V4.36z M2.36,10.36h8.381l1.76,5.28H10.36V13c0-0.75-0.61-1.36-1.36-1.36S7.64,12.25,7.64,13v2.64H6.36V13c0-0.75-0.61-1.36-1.36-1.36S3.64,12.25,3.64,13v2.64H2.36V10.36z M8.36,15.64V13c0-0.353,0.287-0.64,0.64-0.64S9.64,12.647,9.64,13v2.64H8.36z M4.36,15.64V13c0-0.353,0.287-0.64,0.64-0.64S5.64,12.647,5.64,13v2.64H4.36z M2.36,16.36h16.38l1.76,5.28h-2.14V19c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v2.64h-1.28V19c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v2.64h-1.28V19c0-0.75-0.61-1.36-1.36-1.36S7.64,18.25,7.64,19v2.64H6.36V19c0-0.75-0.61-1.36-1.36-1.36S3.64,18.25,3.64,19v2.64H2.36V16.36z M16.36,21.64V19c0-0.353,0.287-0.64,0.64-0.64c0.353,0,0.64,0.287,0.64,0.64v2.64H16.36z M12.36,21.64V19c0-0.353,0.287-0.64,0.64-0.64s0.64,0.287,0.64,0.64v2.64H12.36z M8.36,21.64V19c0-0.353,0.287-0.64,0.64-0.64S9.64,18.647,9.64,19v2.64H8.36z M4.36,21.64V19c0-0.353,0.287-0.64,0.64-0.64S5.64,18.647,5.64,19v2.64H4.36z M2.36,22.36H22h1.74l1.76,5.279h-3.14V25c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v2.64h-1.28V25c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v2.64h-1.28V25c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v2.64h-1.28V25c0-0.75-0.61-1.36-1.36-1.36S7.64,24.25,7.64,25v2.64H6.36V25c0-0.75-0.61-1.36-1.36-1.36S3.64,24.25,3.64,25v2.64H2.36V22.36z M20.36,25c0-0.353,0.287-0.64,0.64-0.64s0.64,0.287,0.64,0.64v2.64h-1.28V25z M16.36,25c0-0.353,0.287-0.64,0.64-0.64c0.353,0,0.64,0.287,0.64,0.64v2.64h-1.28C16.36,27.64,16.36,25,16.36,25z M12.36,25c0-0.353,0.287-0.64,0.64-0.64s0.64,0.287,0.64,0.64v2.64h-1.28C12.36,27.64,12.36,25,12.36,25z M8.36,25c0-0.353,0.287-0.64,0.64-0.64S9.64,24.647,9.64,25v2.64H8.36V25z M4.36,25c0-0.353,0.287-0.64,0.64-0.64S5.64,24.647,5.64,25v2.64H4.36V25z M26,22.36h2c0.199,0,0.36-0.161,0.36-0.36v-3c0-0.75-0.61-1.36-1.36-1.36s-1.36,0.61-1.36,1.36v3C25.64,22.199,25.801,22.36,26,22.36z M27,18.36c0.353,0,0.64,0.287,0.64,0.64v2.64h-1.28V19C26.36,18.647,26.647,18.36,27,18.36z M4.64,6h0.72v2H4.64V6z M23.36,14h-0.72v-2h0.721L23.36,14L23.36,14z M19.36,14h-0.72v-2h0.721L19.36,14L19.36,14z M27.36,14h-0.72v-2h0.721L27.36,14L27.36,14z"/></svg>
-                Roma
+                <svg class="city-icon" viewBox="0 0 32 32"><use href="#icon-roma"/></svg>
+                <span class="city-text"><span class="city-name">ROMA</span><span class="chart-label">WORKSPACE PRENOTATE ULTIMO MESE</span></span>
               </span>
               <div class="chart-summary" id="summary-roma"></div>
+            </div></div>
+            <div class="card-body">
+              <div id="chart-roma" class="chart"></div>
+              <div class="card-legend">
+                <span class="legend-item" style="color:#33d17a"><span class="legend-dot" style="background:#33d17a;box-shadow:0 0 6px #33d17a99"></span>Bassa &lt;25%</span>
+                <span class="legend-item" style="color:#45d4ff"><span class="legend-dot" style="background:#45d4ff;box-shadow:0 0 6px #45d4ff99"></span>Media 25–49%</span>
+                <span class="legend-item" style="color:#f6c344"><span class="legend-dot" style="background:#f6c344;box-shadow:0 0 6px #f6c34499"></span>Alta 50–74%</span>
+                <span class="legend-item" style="color:#ff5f6d"><span class="legend-dot" style="background:#ff5f6d;box-shadow:0 0 6px #ff5f6d99"></span>Critica &#8805;75%</span>
+              </div>
             </div>
-          </div>
-          <div class="card-body">
-            <div id="chart-roma" class="chart"></div>
-            <div class="card-legend">
-              <span class="legend-item" style="color:#33d17a"><span class="legend-dot" style="background:#33d17a; box-shadow:0 0 6px #33d17a99;"></span>Bassa &lt;25%</span>
-              <span class="legend-item" style="color:#45d4ff"><span class="legend-dot" style="background:#45d4ff; box-shadow:0 0 6px #45d4ff99;"></span>Media 25–49%</span>
-              <span class="legend-item" style="color:#f6c344"><span class="legend-dot" style="background:#f6c344; box-shadow:0 0 6px #f6c34499;"></span>Alta 50–74%</span>
-              <span class="legend-item" style="color:#ff5f6d"><span class="legend-dot" style="background:#ff5f6d; box-shadow:0 0 6px #ff5f6d99;"></span>Critica ≥75%</span>
-            </div>
-          </div>
-        </section>
+          </section>
+        </div>
       </div>
 
-    </main>
-  </div>
-
-  <script>
-    const DATA_URL = './data/data_occupancy_mensile_wp.json';
-    const CACHE_BUSTER = Date.now();
-    const charts = [];
-
-    function withCacheBuster(path) {
-      const separator = path.includes('?') ? '&' : '?';
-      return `${path}${separator}v=${CACHE_BUSTER}`;
-    }
-
-    async function fetchJson(path) {
-      const response = await fetch(withCacheBuster(path), { cache: 'no-store' });
-      if (!response.ok) {
-        throw new Error(`Errore nel caricamento di ${path} (${response.status})`);
-      }
-      return response.json();
-    }
-
-    function formatTimestamp(value) {
-      if (!value) return '--';
-      const normalized = String(value).replace(' ', 'T');
-      const date = new Date(normalized);
-      if (Number.isNaN(date.getTime())) return value;
-      return date.toLocaleString('it-IT', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-    }
-
-    function formatDisplayDate(isoDate) {
-      if (!isoDate) return '';
-      const date = new Date(`${isoDate}T00:00:00`);
-      if (Number.isNaN(date.getTime())) return isoDate;
-      return date.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' });
-    }
-
-    function normalizeDashboardData(raw) {
-      const cities = Array.isArray(raw?.cities) ? raw.cities : [];
-      return {
-        updated_at: raw?.updated_at || null,
-        range_label: raw?.range_label || 'Ultimi 30 giorni',
-        cities: cities.map(city => ({
-          site_name: city?.site_name || 'Sede',
-          month_label: city?.month_label || raw?.range_label || 'Ultimi 30 giorni',
-          occupancy_daily: Array.isArray(city?.occupancy_daily)
-            ? city.occupancy_daily.map(item => ({
-                day: String(item?.day || '').padStart(2, '0'),
-                date: item?.date || null,
-                occupied: item?.occupied ?? null,
-                free: item?.free ?? null,
-                percentage: item?.percentage ?? null,
-                is_weekend: item?.is_weekend === true,
-                has_data: item?.has_data === true
-              }))
-            : []
-        }))
-      };
-    }
-
-    function getOccupancyColor(value) {
-      const n = Number(value);
-      if (!Number.isFinite(n)) return 'rgba(255,255,255,0.14)';
-      if (n < 25) return '#33d17a';
-      if (n < 50) return '#45d4ff';
-      if (n < 75) return '#f6c344';
-      return '#ff5f6d';
-    }
-
-    function computeMetrics(series) {
-      const values = series
-        .filter(item => item.has_data === true && item.percentage !== null)
-        .map(item => Number(item.percentage))
-        .filter(value => Number.isFinite(value));
-
-      if (!values.length) {
-        return { avg: 0, peak: 0, min: 0 };
-      }
-
-      const total = values.reduce((sum, value) => sum + value, 0);
-      return {
-        avg: Math.round((total / values.length) * 10) / 10,
-        peak: Math.max(...values),
-        min: Math.min(...values)
-      };
-    }
-
-    function formatMetricValue(value) {
-      if (Math.round(value) === value) return `${value}%`;
-      return `${value.toFixed(1)}%`;
-    }
-
-    function renderSummary(containerId, metrics) {
-      const el = document.getElementById(containerId);
-      el.innerHTML = `
-        <div class="summary-pill">
-          <span class="label">Media mese</span>
-          <span class="value">${formatMetricValue(metrics.avg)}</span>
+      <!-- ══ SLIDE 2: Confronto Annuale ══ -->
+      <div class="slide" id="slide-2">
+        <div class="grid">
+          <section class="card">
+            <div class="card-header"><div class="card-header-row">
+              <span class="eyebrow">
+                <svg class="city-icon" viewBox="0 0 32 32"><use href="#icon-milano"/></svg>
+                <span class="city-text"><span class="city-name">MILANO</span><span class="chart-label">ANDAMENTO ANNUALE WORKSPACE</span></span>
+              </span>
+              <div class="chart-summary" id="sum-mi-ann"></div>
+            </div></div>
+            <div class="card-body">
+              <div id="ch-mi-ann" class="chart"></div>
+              <div class="card-legend">
+                <span class="legend-item" style="color:#7c9dff"><span class="legend-dot" style="background:#7c9dff;box-shadow:0 0 6px #7c9dff99"></span>2025</span>
+                <span class="legend-item" style="color:#ff9f40"><span class="legend-dot" style="background:#ff9f40;box-shadow:0 0 6px #ff9f4099"></span>2026</span>
+              </div>
+            </div>
+          </section>
+          <section class="card">
+            <div class="card-header"><div class="card-header-row">
+              <span class="eyebrow">
+                <svg class="city-icon" viewBox="0 0 32 32"><use href="#icon-roma"/></svg>
+                <span class="city-text"><span class="city-name">ROMA</span><span class="chart-label">ANDAMENTO ANNUALE WORKSPACE</span></span>
+              </span>
+              <div class="chart-summary" id="sum-ro-ann"></div>
+            </div></div>
+            <div class="card-body">
+              <div id="ch-ro-ann" class="chart"></div>
+              <div class="card-legend">
+                <span class="legend-item" style="color:#7c9dff"><span class="legend-dot" style="background:#7c9dff;box-shadow:0 0 6px #7c9dff99"></span>2025</span>
+                <span class="legend-item" style="color:#ff9f40"><span class="legend-dot" style="background:#ff9f40;box-shadow:0 0 6px #ff9f4099"></span>2026</span>
+              </div>
+            </div>
+          </section>
         </div>
-        <div class="summary-pill">
-          <span class="label">Picco</span>
-          <span class="value">${formatMetricValue(metrics.peak)}</span>
+      </div>
+
+      <!-- ══ SLIDE 3: Meeting Room – Ultima Settimana ══ -->
+      <div class="slide" id="slide-3">
+        <div class="grid">
+          <section class="card">
+            <div class="card-header"><div class="card-header-row">
+              <span class="eyebrow">
+                <svg class="city-icon" viewBox="0 0 32 32"><use href="#icon-milano"/></svg>
+                <span class="city-text"><span class="city-name">MILANO</span><span class="chart-label">MEETING PRENOTATE ULTIMA SETTIMANA</span></span>
+              </span>
+              <div class="chart-summary" id="sum-mi-mtw"></div>
+            </div></div>
+            <div class="card-body">
+              <div id="ch-mi-mtw" class="chart"></div>
+              <div class="card-legend" id="floor-legend-mi-mtw"></div>
+            </div>
+          </section>
+          <section class="card">
+            <div class="card-header"><div class="card-header-row">
+              <span class="eyebrow">
+                <svg class="city-icon" viewBox="0 0 32 32"><use href="#icon-roma"/></svg>
+                <span class="city-text"><span class="city-name">ROMA</span><span class="chart-label">MEETING PRENOTATE ULTIMA SETTIMANA</span></span>
+              </span>
+              <div class="chart-summary" id="sum-ro-mtw"></div>
+            </div></div>
+            <div class="card-body">
+              <div id="ch-ro-mtw" class="chart"></div>
+              <div class="card-legend" id="floor-legend-ro-mtw"></div>
+            </div>
+          </section>
         </div>
-        <div class="summary-pill">
-          <span class="label">Minimo</span>
-          <span class="value">${formatMetricValue(metrics.min)}</span>
+      </div>
+
+      <!-- ══ SLIDE 4: Meeting Room – Ultimi 30gg ══ -->
+      <div class="slide" id="slide-4">
+        <div class="grid">
+          <section class="card">
+            <div class="card-header"><div class="card-header-row">
+              <span class="eyebrow">
+                <svg class="city-icon" viewBox="0 0 32 32"><use href="#icon-milano"/></svg>
+                <span class="city-text"><span class="city-name">MILANO</span><span class="chart-label">MEETING PRENOTATE ULTIMO MESE</span></span>
+              </span>
+              <div class="chart-summary" id="sum-mi-mt30"></div>
+            </div></div>
+            <div class="card-body">
+              <div id="ch-mi-mt30" class="chart"></div>
+              <div class="card-legend" id="floor-legend-mi-mt30"></div>
+            </div>
+          </section>
+          <section class="card">
+            <div class="card-header"><div class="card-header-row">
+              <span class="eyebrow">
+                <svg class="city-icon" viewBox="0 0 32 32"><use href="#icon-roma"/></svg>
+                <span class="city-text"><span class="city-name">ROMA</span><span class="chart-label">MEETING PRENOTATE ULTIMO MESE</span></span>
+              </span>
+              <div class="chart-summary" id="sum-ro-mt30"></div>
+            </div></div>
+            <div class="card-body">
+              <div id="ch-ro-mt30" class="chart"></div>
+              <div class="card-legend" id="floor-legend-ro-mt30"></div>
+            </div>
+          </section>
         </div>
-      `;
-    }
+      </div>
 
-    function buildWeekendBands(series) {
-      const bands = [];
-      let startDate = null;
+    </div><!-- /slidesContainer -->
+  </main>
+</div><!-- /shell -->
 
-      for (let i = 0; i < series.length; i++) {
-        const item = series[i];
-        const weekend = item?.is_weekend === true;
+<script>
+  /* ═══════════════════════════════════════════════════
+     CONSTANTS & STATE
+  ═══════════════════════════════════════════════════ */
+  const TOTAL_SLIDES = 4;
+  let currentSlide = 0;
+  let autoTimer = null;
 
-        if (weekend && startDate === null) {
-          startDate = item.date;
-        }
+  // Floor colors — shared palette for piano 0–4
+  const FLOOR_COLORS = {
+    0: '#b03060',  // bordeaux      – piano 0 (Roma T)
+    1: '#f0a030',  // giallo-arancio – piano 1 (Roma/Milano)
+    2: '#6bcb77',  // verdino       – piano 2 (Roma/Milano)
+    3: '#5bafd6',  // bluetto       – piano 3 (Roma)
+    4: '#9b72cf'   // violetto      – piano 4 (Milano)
+  };
 
-        if (!weekend && startDate !== null) {
-          bands.push([{ xAxis: startDate }, { xAxis: series[i - 1].date }]);
-          startDate = null;
-        }
-      }
+  function getFloorFromRoomName(name) {
+    const m = String(name).match(/^[A-Za-z]+(\d+)/);
+    return m ? parseInt(m[1]) : 0;
+  }
 
-      if (startDate !== null) {
-        bands.push([{ xAxis: startDate }, { xAxis: series[series.length - 1].date }]);
-      }
+  function getFloorColor(floor) {
+    return FLOOR_COLORS[floor] || '#8aa0be';
+  }
 
-      return bands;
-    }
+  // Centralized threshold colors — single source of truth used everywhere
+  const THRESHOLD_COLORS = {
+    low:      '#33d17a',   // < 25%
+    mid:      '#45d4ff',   // 25–49%
+    high:     '#f6c344',   // 50–74%
+    critical: '#ff5f6d'    // >= 75%
+  };
+  const THRESHOLD_LEVELS = [
+    { pct: 0,    label: '0%',   color: 'rgba(147,170,215,0.55)' },
+    { pct: 0.25, label: '25%',  color: THRESHOLD_COLORS.low },
+    { pct: 0.50, label: '50%',  color: THRESHOLD_COLORS.mid },
+    { pct: 0.75, label: '75%',  color: THRESHOLD_COLORS.high },
+    { pct: 1.00, label: '100%', color: THRESHOLD_COLORS.critical }
+  ];
 
-    function buildChartOption(city) {
-      const series = Array.isArray(city.occupancy_daily) ? city.occupancy_daily : [];
-      const metrics = computeMetrics(series);
+  const SLIDE_META = [
+    { subtitle: 'Sede di Milano e Roma \u00B7 Postazioni occupate e libere negli ultimi 30 giorni' },
+    { subtitle: 'Sede di Milano e Roma \u00B7 Confronto occupazione mensile 2025 vs 2026' },
+    { subtitle: 'Sede di Milano e Roma \u00B7 Tasso prenotazione sale riunione \u2013 ultima settimana' },
+    { subtitle: 'Sede di Milano e Roma \u00B7 Tasso prenotazione sale riunione \u2013 ultimi 30 giorni lavorativi' }
+  ];
 
-      const categories = series.map(item => item.date);
-      const totals = series.map(item => item.has_data ? Number(item.occupied || 0) + Number(item.free || 0) : 0);
-      const weekendBands = buildWeekendBands(series);
-      const monthSeparators = buildMonthSeparators(series);
-      const maxCapacity = Math.max(...totals, 10);
+  // Chart registry
+  const allCharts = [];
+  const chartsPerSlide = { 0: [], 1: [], 2: [], 3: [] };
+  const chartByEl = new Map();   // DOM element → ECharts instance
 
-      // Alternating month bands
-      const monthBandData = [];
-      let prevMonth = -1, bandStart = null, toggle = false;
-      series.forEach((item, i) => {
-        if (!item.date) return;
-        const m = new Date(item.date + 'T00:00:00').getMonth();
-        if (m !== prevMonth) {
-          if (bandStart !== null && toggle) monthBandData.push([{ xAxis: bandStart }, { xAxis: series[i-1].date }]);
-          bandStart = item.date; prevMonth = m; toggle = !toggle;
-        }
-        if (i === series.length - 1 && bandStart !== null && toggle) monthBandData.push([{ xAxis: bandStart }, { xAxis: item.date }]);
-      });
+  // Lazy init
+  const slideInited = new Set();
+  let rawDataStore = null;
 
-      return {
-        metrics,
-        option: {
-          backgroundColor: 'transparent',
-          animationDuration: 600,
-          animationEasing: 'cubicOut',
-          grid: {
-            left: 52,
-            right: 12,
-            top: 32,
-            bottom: 72,
-            containLabel: false
-          },
-          tooltip: {
-            trigger: 'axis',
-            axisPointer: { type: 'shadow', shadowStyle: { color: 'rgba(255,255,255,0.04)' } },
-            backgroundColor: 'rgba(7,17,31,0.96)',
-            borderWidth: 0,
-            textStyle: { color: '#ffffff' },
-            formatter: function(params) {
-              const dataIndex = params?.[0]?.dataIndex ?? 0;
-              const item = series[dataIndex];
-              if (!item) return '';
-              if (item.is_weekend) return `${formatDisplayDate(item.date)}<br><b>Weekend</b>`;
-              if (!item.has_data) return `${formatDisplayDate(item.date)}<br><b>Nessun dato</b>`;
-              return [
-                formatDisplayDate(item.date),
-                `Occupati: <b>${item.occupied}</b>`,
-                `Liberi: <b>${item.free}</b>`,
-                `Occupancy: <b>${formatMetricValue(Number(item.percentage || 0))}</b>`
-              ].join('<br>');
-            }
-          },
-          xAxis: {
-            type: 'category',
-            data: categories,
-            axisLine: { lineStyle: { color: 'rgba(255,255,255,0.16)' } },
-            axisTick: { show: false },
-            axisLabel: { show: false }
-          },
-          yAxis: {
-            type: 'value',
-            min: 0,
-            max: maxCapacity,
-            axisLabel: { show: false },
-            splitLine: { show: false },
-            axisLine: { show: false },
-            axisTick: { show: false }
-          },
-          series: [
-            // ── background helpers (markArea only) ──
-            {
-              name: 'MeseBand', type: 'bar', silent: true, barGap: '-100%', barWidth: '100%',
-              itemStyle: { color: 'rgba(255,255,255,0)' }, emphasis: { disabled: true },
-              markArea: { silent: true, itemStyle: { color: 'rgba(69,212,255,0.03)' }, data: monthBandData },
-              data: categories.map(() => 0)
-            },
-            {
-              name: 'Weekend', type: 'bar', silent: true, barGap: '-100%', barWidth: '100%',
-              itemStyle: { color: 'rgba(255,255,255,0)' }, emphasis: { disabled: true },
-              markArea: { silent: true, itemStyle: { color: 'rgba(255,255,255,0.045)' }, data: weekendBands },
-              data: categories.map(() => 0)
-            },
-            // ── month separator: drawn via graphic post-render for pixel-accurate placement ──
-            // ── SFONDO grigio: barra piena fino al totale (occupati+liberi) ──
-            {
-              name: 'Sfondo', type: 'bar', barWidth: '52%', barCategoryGap: '40%',
-              z: 2, silent: true, emphasis: { disabled: true },
-              data: series.map(item => item.has_data ? Number(item.occupied||0) + Number(item.free||0) : null),
-              itemStyle: {
-                color: 'rgba(100, 130, 175, 0.18)',
-                borderRadius: [5, 5, 0, 0]
-              },
-              // Numero liberi (in alto, bianco) sul top della barra sfondo
-              label: {
-                show: true, position: 'top', distance: 8,
-                color: '#c8d8f0', fontSize: 11, fontWeight: 700,
-                textShadowColor: 'rgba(0,0,0,0.8)', textShadowBlur: 3,
-                formatter: function(params) {
-                  const item = series[params.dataIndex];
-                  if (!item || !item.has_data) return '';
-                  return String(Number(item.free));
-                }
-              }
-            },
-            // ── BARRA COLORATA: solo occupati, sovrapposta alla sfondo ──
-            {
-              name: 'Occupati', type: 'bar', barWidth: '52%', barCategoryGap: '40%',
-              barGap: '-100%',
-              z: 4,
-              data: series.map(item => item.has_data ? Number(item.occupied||0) : null),
-              itemStyle: {
-                color: function(params) {
-                  const item = series[params.dataIndex];
-                  if (!item || !item.has_data) return 'rgba(0,0,0,0)';
-                  return getOccupancyColor(item.percentage);
-                },
-                borderRadius: [5, 5, 0, 0]
-              },
-              emphasis: { disabled: true },
-              label: { show: false }
-            },
-            // ── threshold lines ──
-            {
-              name: 'Soglie', type: 'line', silent: true, symbol: 'none', data: [],
-              markLine: {
-                silent: true, symbol: 'none', animation: false, label: { show: false },
-                data: [
-                  { yAxis: maxCapacity * 0.25, lineStyle: { color: '#33d17a', type: 'dashed', width: 1.5, opacity: 0.6 } },
-                  { yAxis: maxCapacity * 0.50, lineStyle: { color: '#45d4ff', type: 'dashed', width: 1.5, opacity: 0.6 } },
-                  { yAxis: maxCapacity * 0.75, lineStyle: { color: '#f6c344', type: 'dashed', width: 1.5, opacity: 0.6 } },
-                  { yAxis: maxCapacity * 1.0,  lineStyle: { color: '#ff5f6d', type: 'dashed', width: 1.5, opacity: 0.6 } }
-                ]
-              }
-            }
-          ]
-        }
-      };
-    }
+  // Auto-refresh
+  const REFRESH_INTERVAL = 5 * 60 * 1000;  // 5 minutes
+  let knownUpdatedAt = null;
+  let refreshTimer = null;
 
-    function buildMonthSeparators(series) {
-      // Find index where month changes
-      const separators = [];
-      for (let i = 1; i < series.length; i++) {
-        const prev = series[i-1].date;
-        const curr = series[i].date;
-        if (!prev || !curr) continue;
-        const prevMonth = new Date(prev + 'T00:00:00').getMonth();
-        const currMonth = new Date(curr + 'T00:00:00').getMonth();
-        if (prevMonth !== currMonth) {
-          separators.push(curr); // x-axis value where new month starts
-        }
-      }
-      return separators;
-    }
+  /* ═══════════════════════════════════════════════════
+     UTILITIES
+  ═══════════════════════════════════════════════════ */
+  async function fetchJson(path) {
+    const url = path + (path.includes('?') ? '&' : '?') + 'cb=' + Date.now();
+    const r = await fetch(url, { cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status + ' su ' + path);
+    return r.json();
+  }
 
-    function buildMonthBands(series) {
-      // Returns markArea bands alternating per month for subtle background distinction
-      const bands = [];
-      if (!series.length) return bands;
-      let bandStart = series[0].date;
-      let currentMonth = new Date(series[0].date + 'T00:00:00').getMonth();
-      let toggle = false;
+  function formatTimestamp(v) {
+    if (!v) return '--';
+    const d = new Date(String(v).replace(' ', 'T'));
+    if (isNaN(d.getTime())) return v;
+    return d.toLocaleString('it-IT', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
+  }
 
-      for (let i = 1; i < series.length; i++) {
-        const d = new Date(series[i].date + 'T00:00:00');
-        if (d.getMonth() !== currentMonth) {
-          if (toggle) {
-            bands.push([{ xAxis: bandStart }, { xAxis: series[i-1].date }]);
-          }
-          bandStart = series[i].date;
-          currentMonth = d.getMonth();
-          toggle = !toggle;
-        }
-      }
-      if (toggle) {
-        bands.push([{ xAxis: bandStart }, { xAxis: series[series.length-1].date }]);
-      }
-      return bands;
-    }
+  function formatDisplayDate(iso) {
+    if (!iso) return '';
+    const d = new Date(iso + 'T00:00:00');
+    if (isNaN(d.getTime())) return iso;
+    return d.toLocaleDateString('it-IT', { day:'2-digit', month:'2-digit' });
+  }
 
-    function buildChart(containerId, summaryId, city) {
-      const el = document.getElementById(containerId);
-      const chart = echarts.init(el, null, { renderer: 'canvas' });
-      const { metrics, option } = buildChartOption(city);
-      renderSummary(summaryId, metrics);
-      chart.setOption(option, true);
+  function getOccupancyColor(v) {
+    const n = Number(v);
+    if (!isFinite(n)) return 'rgba(255,255,255,0.14)';
+    if (n < 25)  return THRESHOLD_COLORS.low;
+    if (n < 50)  return THRESHOLD_COLORS.mid;
+    if (n < 75)  return THRESHOLD_COLORS.high;
+    return THRESHOLD_COLORS.critical;
+  }
 
-      chart.on('finished', function() {
-        const series = Array.isArray(city.occupancy_daily) ? city.occupancy_daily : [];
-        const totals = series.map(item => item.has_data ? Number(item.occupied||0)+Number(item.free||0) : 0);
-        const maxCap = Math.max(...totals, 10);
+  function formatPct(v) {
+    const n = Number(v);
+    return isFinite(n) ? (Math.round(n) === n ? n + '%' : n.toFixed(1) + '%') : '--';
+  }
 
-        // ── Y-axis threshold labels ──
-        const thresholds = [
-          { pct: 0,    label: '0%',   color: 'rgba(147,170,215,0.55)' },
-          { pct: 0.25, label: '25%',  color: '#33d17a' },
-          { pct: 0.50, label: '50%',  color: '#45d4ff' },
-          { pct: 0.75, label: '75%',  color: '#f6c344' },
-          { pct: 1.00, label: '100%', color: '#ff5f6d' }
-        ];
-        // Use a fixed X position anchored to the left edge of the plot area
-        const gridModel = chart.getModel().getComponent('grid', 0);
-        const gridRect = gridModel.coordinateSystem.getRect();
-        const labelX = gridRect.x - 4; // just left of the plot area
+  function findCity(cities, needle) {
+    return cities.find(function(c) { return String(c.site_name || '').toLowerCase().includes(needle.toLowerCase()); });
+  }
 
-        const graphicItems = thresholds.map(t => {
-          const coord = chart.convertToPixel({ gridIndex: 0 }, [0, maxCap * t.pct]);
-          return {
-            type: 'text', silent: true, z: 10,
-            x: labelX, y: coord[1] - 7,
-            style: { text: t.label, fill: t.color, font: `700 11px Inter,"Segoe UI",sans-serif`, textAlign: 'right' }
-          };
-        });
+  function showCardError(chartId, message) {
+    const el = document.getElementById(chartId);
+    if (!el) return;
+    el.style.cssText = 'display:flex;align-items:center;justify-content:center;';
+    el.innerHTML = '<span style="color:#ffd7dc;font-size:13px;text-align:center;padding:16px;opacity:0.8">' + (message || 'Dati non disponibili') + '</span>';
+  }
 
-        // ── Month separator lines: drawn between last day of month and first of next ──
-        const sepItems = [];
-        const chartH = chart.getHeight();
-        const gridTop = chart.convertToPixel({ gridIndex: 0 }, [series[0]?.date || 0, maxCap])[1];
-        const gridBottom = chart.convertToPixel({ gridIndex: 0 }, [series[0]?.date || 0, 0])[1];
-
-        for (let i = 1; i < series.length; i++) {
-          const prev = series[i-1].date, curr = series[i].date;
-          if (!prev || !curr) continue;
-          if (new Date(prev + 'T00:00:00').getMonth() !== new Date(curr + 'T00:00:00').getMonth()) {
-            const xPrev = chart.convertToPixel({ gridIndex: 0 }, [prev, 0])[0];
-            const xCurr = chart.convertToPixel({ gridIndex: 0 }, [curr, 0])[0];
-            const xLine = (xPrev + xCurr) / 2;
-            sepItems.push({
-              type: 'line', silent: true, z: 8,
-              shape: { x1: xLine, y1: gridTop, x2: xLine, y2: gridBottom },
-              style: { stroke: 'rgba(255,255,255,0.30)', lineWidth: 1.5 }
-            });
-          }
-        }
-
-        // ── Numbers below axis: occupied count (colored) + day number (grey) ──
-        const axisCoord = chart.convertToPixel({ gridIndex: 0 }, [series[0]?.date || 0, 0]);
-        const occupiedY = axisCoord[1] + 10;  // row 1: occupied count, colored
-        const dayY      = axisCoord[1] + 24;  // row 2: day number, grey
-
-        const belowAxisItems = [];
-        series.forEach((item) => {
-          if (!item.date) return;
-          const xCoord = chart.convertToPixel({ gridIndex: 0 }, [item.date, 0])[0];
-          const d = new Date(item.date + 'T00:00:00');
-          const dayNum = d.getDate();
-
-          // Day number — always shown, grey, no zero-padding (matches mockup: 1, 2, ... 26)
-          belowAxisItems.push({
-            type: 'text', silent: true, z: 10,
-            x: xCoord, y: dayY,
-            style: {
-              text: String(dayNum),
-              fill: '#8aa0be',
-              font: `500 11px Inter,"Segoe UI",sans-serif`,
-              textAlign: 'center'
-            }
-          });
-
-          // Occupied number — only on data days, colored, bold, slightly larger
-          if (item.has_data) {
-            belowAxisItems.push({
-              type: 'text', silent: true, z: 10,
-              x: xCoord, y: occupiedY,
-              style: {
-                text: String(Number(item.occupied)),
-                fill: getOccupancyColor(item.percentage),
-                font: `700 11px Inter,"Segoe UI",sans-serif`,
-                textAlign: 'center'
-              }
-            });
-          }
-        });
-
-        // ── Month name label: one per month, centered in its block ──
-        const monthNamesLong = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
-        let lastM = -1, mStartIdx = 0;
-        const monthGroups = [];
-        series.forEach((item, i) => {
-          if (!item.date) return;
-          const m = new Date(item.date + 'T00:00:00').getMonth();
-          if (m !== lastM) {
-            if (lastM !== -1) monthGroups.push({ month: lastM, startIdx: mStartIdx, endIdx: i - 1 });
-            mStartIdx = i; lastM = m;
-          }
-          if (i === series.length - 1) monthGroups.push({ month: m, startIdx: mStartIdx, endIdx: i });
-        });
-        const monthLabelY = dayY + 16;
-        const monthItems = monthGroups.map((g) => {
-          const s = series[g.startIdx]?.date, e = series[g.endIdx]?.date;
-          if (!s || !e) return null;
-          const sx = chart.convertToPixel({ gridIndex: 0 }, [s, 0])[0];
-          const ex = chart.convertToPixel({ gridIndex: 0 }, [e, 0])[0];
-          return {
-            type: 'text', silent: true, z: 10,
-            x: (sx + ex) / 2, y: monthLabelY,
-            style: {
-              text: monthNamesLong[g.month].toUpperCase(),
-              fill: 'rgba(178, 195, 222, 0.70)',
-              font: `600 9px Inter,"Segoe UI",sans-serif`,
-              textAlign: 'center',
-              letterSpacing: 2
-            }
-          };
-        }).filter(Boolean);
-
-        chart.setOption({ graphic: [...graphicItems, ...sepItems, ...belowAxisItems, ...monthItems] }, false);
-      });
-
-      return chart;
-    }
-
-    function findCity(data, needle) {
-      return data.cities.find(city =>
-        String(city.site_name || '').toLowerCase().includes(needle.toLowerCase())
-      );
-    }
-
-    async function initDashboard() {
-      try {
-        const raw = await fetchJson(DATA_URL);
-        const data = normalizeDashboardData(raw);
-
-        if (!data.cities.length) {
-          throw new Error('JSON senza cities');
-        }
-
-        document.getElementById('lastUpdate').textContent =
-          'Ultimo aggiornamento: ' + formatTimestamp(data.updated_at);
-
-        const milano = findCity(data, 'milano') || data.cities[0];
-        const roma = findCity(data, 'roma') || data.cities[1] || data.cities[0];
-
-        document.getElementById('loading').style.display = 'none';
-        document.getElementById('dashboard').style.display = 'grid';
-
-        requestAnimationFrame(function() {
-          charts.push(buildChart('chart-milano', 'summary-milano', milano));
-          charts.push(buildChart('chart-roma', 'summary-roma', roma));
-
-          setTimeout(function() {
-            charts.forEach(chart => chart.resize());
-          }, 80);
-        });
-      } catch (error) {
-        console.error('Errore dashboard:', error);
-        document.getElementById('loading').style.display = 'none';
-        document.getElementById('errorState').style.display = 'grid';
-      }
-    }
-
-    initDashboard();
-
-    window.addEventListener('resize', function() {
-      charts.forEach(chart => chart.resize());
+  /* ═══════════════════════════════════════════════════
+     RESIZE OBSERVER — replaces window.resize handler
+  ═══════════════════════════════════════════════════ */
+  const resizeObserver = new ResizeObserver(function(entries) {
+    entries.forEach(function(entry) {
+      const c = chartByEl.get(entry.target);
+      if (c) c.resize();
     });
-  </script>
+  });
+
+  function registerChart(el, chart, slideIdx) {
+    allCharts.push(chart);
+    chartsPerSlide[slideIdx].push(chart);
+    chartByEl.set(el, chart);
+    resizeObserver.observe(el);
+    return chart;
+  }
+
+  /* ═══════════════════════════════════════════════════
+     WORKSPACE DAILY CHART (slides 0 & 1)
+  ═══════════════════════════════════════════════════ */
+  function normalizeDashboardData(raw) {
+    const cities = Array.isArray(raw && raw.cities) ? raw.cities : [];
+    return {
+      updated_at: raw && raw.updated_at || null,
+      range_label: raw && raw.range_label || '',
+      cities: cities.map(function(city) {
+        return {
+          site_name: city && city.site_name || 'Sede',
+          month_label: city && city.month_label || '',
+          occupancy_daily: Array.isArray(city && city.occupancy_daily) ? city.occupancy_daily.map(function(item) {
+            return {
+              day: String(item && item.day || '').padStart(2, '0'),
+              date: item && item.date || null,
+              occupied: item && item.occupied != null ? item.occupied : null,
+              free: item && item.free != null ? item.free : null,
+              percentage: item && item.percentage != null ? item.percentage : null,
+              is_weekend: item && item.is_weekend === true,
+              has_data: item && item.has_data === true
+            };
+          }) : []
+        };
+      })
+    };
+  }
+
+  function computeMetrics(series) {
+    const vals = series.filter(function(i) { return i.has_data && i.percentage !== null; }).map(function(i) { return Number(i.percentage); }).filter(isFinite);
+    if (!vals.length) return { avg: 0, peak: 0, min: 0 };
+    const sum = vals.reduce(function(a,b) { return a+b; }, 0);
+    return { avg: Math.round(sum / vals.length * 10) / 10, peak: Math.max.apply(null, vals), min: Math.min.apply(null, vals) };
+  }
+
+  function renderSummary(id, metrics) {
+    document.getElementById(id).innerHTML =
+      '<div class="summary-pill"><span class="label">Media mese</span><span class="value">' + formatPct(metrics.avg) + '</span></div>' +
+      '<div class="summary-pill"><span class="label">Picco</span><span class="value">' + formatPct(metrics.peak) + '</span></div>' +
+      '<div class="summary-pill"><span class="label">Minimo</span><span class="value">' + formatPct(metrics.min) + '</span></div>';
+  }
+
+  function buildWeekendBands(series) {
+    const bands = []; let start = null;
+    for (let i = 0; i < series.length; i++) {
+      const we = series[i].is_weekend === true;
+      if (we && start === null) start = series[i].date;
+      if (!we && start !== null) { bands.push([{xAxis:start},{xAxis:series[i-1].date}]); start = null; }
+    }
+    if (start !== null) bands.push([{xAxis:start},{xAxis:series[series.length-1].date}]);
+    return bands;
+  }
+
+  function buildChartOption(city) {
+    const series = Array.isArray(city.occupancy_daily) ? city.occupancy_daily : [];
+    const metrics = computeMetrics(series);
+    const categories = series.map(function(i) { return i.date; });
+    const totals = series.map(function(i) { return i.has_data ? Number(i.occupied||0)+Number(i.free||0) : 0; });
+    const weekendBands = buildWeekendBands(series);
+    const maxCapacity = Math.max.apply(null, totals.concat([10]));
+
+    const monthBandData = [];
+    let prevM = -1, bandStart = null, toggle = false;
+    series.forEach(function(item, i) {
+      if (!item.date) return;
+      const m = new Date(item.date + 'T00:00:00').getMonth();
+      if (m !== prevM) {
+        if (bandStart !== null && toggle) monthBandData.push([{xAxis:bandStart},{xAxis:series[i-1].date}]);
+        bandStart = item.date; prevM = m; toggle = !toggle;
+      }
+      if (i === series.length-1 && bandStart !== null && toggle) monthBandData.push([{xAxis:bandStart},{xAxis:item.date}]);
+    });
+
+    return {
+      metrics: metrics,
+      option: {
+        backgroundColor: 'transparent', animationDuration: 600, animationEasing: 'cubicOut',
+        grid: { left:52, right:12, top:32, bottom:72, containLabel:false },
+        tooltip: {
+          trigger:'axis', axisPointer:{type:'shadow',shadowStyle:{color:'rgba(255,255,255,0.04)'}},
+          backgroundColor:'rgba(7,17,31,0.96)', borderWidth:0, textStyle:{color:'#fff'},
+          formatter: function(params) {
+            const idx = params&&params[0]&&params[0].dataIndex||0;
+            const item = series[idx];
+            if (!item) return '';
+            if (item.is_weekend) return formatDisplayDate(item.date)+'<br><b>Weekend</b>';
+            if (!item.has_data)  return formatDisplayDate(item.date)+'<br><b>Nessun dato</b>';
+            return [formatDisplayDate(item.date),'Occupati: <b>'+item.occupied+'</b>','Liberi: <b>'+item.free+'</b>','Occupancy: <b>'+formatPct(item.percentage)+'</b>'].join('<br>');
+          }
+        },
+        xAxis: { type:'category', data:categories, axisLine:{lineStyle:{color:'rgba(255,255,255,0.16)'}}, axisTick:{show:false}, axisLabel:{show:false} },
+        yAxis: { type:'value', min:0, max:maxCapacity, axisLabel:{show:false}, splitLine:{show:false}, axisLine:{show:false}, axisTick:{show:false} },
+        series: [
+          { name:'MeseBand', type:'bar', silent:true, barGap:'-100%', barWidth:'100%', itemStyle:{color:'rgba(255,255,255,0)'}, emphasis:{disabled:true}, markArea:{silent:true,itemStyle:{color:'rgba(69,212,255,0.03)'},data:monthBandData}, data:categories.map(function(){return 0;}) },
+          { name:'Weekend', type:'bar', silent:true, barGap:'-100%', barWidth:'100%', itemStyle:{color:'rgba(255,255,255,0)'}, emphasis:{disabled:true}, markArea:{silent:true,itemStyle:{color:'rgba(255,255,255,0.045)'},data:weekendBands}, data:categories.map(function(){return 0;}) },
+          { name:'Sfondo', type:'bar', barWidth:'52%', barCategoryGap:'40%', z:2, silent:true, emphasis:{disabled:true},
+            data: series.map(function(i){ return i.has_data ? Number(i.occupied||0)+Number(i.free||0) : null; }),
+            itemStyle:{color:'rgba(100,130,175,0.18)',borderRadius:[5,5,0,0]},
+            label:{show:true,position:'top',distance:8,color:'#c8d8f0',fontSize:11,fontWeight:700,textShadowColor:'rgba(0,0,0,0.8)',textShadowBlur:3,
+              formatter:function(p){const i=series[p.dataIndex];return i&&i.has_data?String(Number(i.free)):'';}
+            }
+          },
+          { name:'Occupati', type:'bar', barWidth:'52%', barCategoryGap:'40%', barGap:'-100%', z:4, emphasis:{disabled:true},
+            data: series.map(function(i){ return i.has_data ? Number(i.occupied||0) : null; }),
+            itemStyle:{borderRadius:[5,5,0,0],
+              color:function(p){const i=series[p.dataIndex];return i&&i.has_data?getOccupancyColor(i.percentage):'rgba(0,0,0,0)';}
+            },
+            label:{show:false}
+          },
+          { name:'Soglie', type:'line', silent:true, symbol:'none', data:[],
+            markLine:{silent:true,symbol:'none',animation:false,label:{show:false},data:[
+              {yAxis:maxCapacity*0.25,lineStyle:{color:THRESHOLD_COLORS.low,     type:'dashed',width:1.5,opacity:0.6}},
+              {yAxis:maxCapacity*0.50,lineStyle:{color:THRESHOLD_COLORS.mid,     type:'dashed',width:1.5,opacity:0.6}},
+              {yAxis:maxCapacity*0.75,lineStyle:{color:THRESHOLD_COLORS.high,    type:'dashed',width:1.5,opacity:0.6}},
+              {yAxis:maxCapacity*1.00,lineStyle:{color:THRESHOLD_COLORS.critical,type:'dashed',width:1.5,opacity:0.6}}
+            ]}
+          }
+        ]
+      }
+    };
+  }
+
+  function buildChart(chartId, summaryId, city, slideIdx) {
+    const el = document.getElementById(chartId);
+    const chart = echarts.init(el, null, {renderer:'canvas'});
+    const result = buildChartOption(city);
+    renderSummary(summaryId, result.metrics);
+    chart.setOption(result.option, true);
+
+    chart.on('finished', function() {
+      const series = Array.isArray(city.occupancy_daily) ? city.occupancy_daily : [];
+      const totals = series.map(function(i){ return i.has_data?Number(i.occupied||0)+Number(i.free||0):0; });
+      const maxCap = Math.max.apply(null, totals.concat([10]));
+      const gridModel = chart.getModel().getComponent('grid',0);
+      const gridRect = gridModel.coordinateSystem.getRect();
+      const labelX = gridRect.x - 4;
+      const graphicItems = THRESHOLD_LEVELS.map(function(t) {
+        const coord = chart.convertToPixel({gridIndex:0},[0,maxCap*t.pct]);
+        return {type:'text',silent:true,z:10,x:labelX,y:coord[1]-7,style:{text:t.label,fill:t.color,font:'700 11px Inter,"Segoe UI",sans-serif',textAlign:'right'}};
+      });
+
+      const sepItems = [];
+      const gridTop = chart.convertToPixel({gridIndex:0},[series[0]&&series[0].date||0,maxCap])[1];
+      const gridBottom = chart.convertToPixel({gridIndex:0},[series[0]&&series[0].date||0,0])[1];
+      for (let i=1;i<series.length;i++) {
+        const prev=series[i-1].date, curr=series[i].date;
+        if(!prev||!curr) continue;
+        if(new Date(prev+'T00:00:00').getMonth()!==new Date(curr+'T00:00:00').getMonth()) {
+          const xLine=(chart.convertToPixel({gridIndex:0},[prev,0])[0]+chart.convertToPixel({gridIndex:0},[curr,0])[0])/2;
+          sepItems.push({type:'line',silent:true,z:8,shape:{x1:xLine,y1:gridTop,x2:xLine,y2:gridBottom},style:{stroke:'rgba(255,255,255,0.30)',lineWidth:1.5}});
+        }
+      }
+
+      const axisCoord = chart.convertToPixel({gridIndex:0},[series[0]&&series[0].date||0,0]);
+      const occY=axisCoord[1]+10, dayY=axisCoord[1]+24;
+      const belowItems = [];
+      series.forEach(function(item) {
+        if(!item.date) return;
+        const xC=chart.convertToPixel({gridIndex:0},[item.date,0])[0];
+        belowItems.push({type:'text',silent:true,z:10,x:xC,y:dayY,style:{text:String(new Date(item.date+'T00:00:00').getDate()),fill:'#8aa0be',font:'500 11px Inter,"Segoe UI",sans-serif',textAlign:'center'}});
+        if(item.has_data) belowItems.push({type:'text',silent:true,z:10,x:xC,y:occY,style:{text:String(Number(item.occupied)),fill:getOccupancyColor(item.percentage),font:'700 11px Inter,"Segoe UI",sans-serif',textAlign:'center'}});
+      });
+
+      const MONTHS=['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+      let lastM=-1, mStart=0; const mGroups=[];
+      series.forEach(function(item,i) {
+        if(!item.date) return;
+        const m=new Date(item.date+'T00:00:00').getMonth();
+        if(m!==lastM){if(lastM!==-1)mGroups.push({m:lastM,s:mStart,e:i-1});mStart=i;lastM=m;}
+        if(i===series.length-1)mGroups.push({m:m,s:mStart,e:i});
+      });
+      const mLabelY=dayY+16;
+      const mItems=mGroups.map(function(g){
+        const s=series[g.s]&&series[g.s].date, e=series[g.e]&&series[g.e].date;
+        if(!s||!e)return null;
+        const sx=chart.convertToPixel({gridIndex:0},[s,0])[0], ex=chart.convertToPixel({gridIndex:0},[e,0])[0];
+        return {type:'text',silent:true,z:10,x:(sx+ex)/2,y:mLabelY,style:{text:MONTHS[g.m].toUpperCase(),fill:'rgba(178,195,222,0.70)',font:'600 9px Inter,"Segoe UI",sans-serif',textAlign:'center'}};
+      }).filter(Boolean);
+
+      chart.setOption({graphic:[...graphicItems,...sepItems,...belowItems,...mItems]},false);
+    });
+
+    return registerChart(el, chart, slideIdx);
+  }
+
+  /* ═══════════════════════════════════════════════════
+     ANNUAL COMPARISON CHART (slide 1)
+  ═══════════════════════════════════════════════════ */
+  const MONTH_LABELS = ['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'];
+  const YEAR_COLORS  = { 2024:'#a87cff', 2025:'#7c9dff', 2026:'#ff9f40', 2027:'#33d17a' };
+
+  function hexToRgba(hex, alpha) {
+    const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+    return 'rgba('+r+','+g+','+b+','+alpha+')';
+  }
+
+  function renderAnnualSummary(id, cityData) {
+    const years = cityData.years || [];
+    let html = '';
+    years.forEach(function(y) {
+      const vals = y.months.filter(function(m){ return m.avg_occupancy_pct!==null; }).map(function(m){ return m.avg_occupancy_pct; });
+      if (!vals.length) return;
+      const avg = (vals.reduce(function(a,b){return a+b;},0)/vals.length).toFixed(1);
+      const color = YEAR_COLORS[y.year] || '#fff';
+      html += '<div class="summary-pill"><span class="label" style="color:'+color+'">'+y.year+'</span><span class="value">'+avg+'%</span></div>';
+    });
+    document.getElementById(id).innerHTML = html;
+  }
+
+  function buildAnnualChart(chartId, summaryId, cityData, slideIdx) {
+    const el = document.getElementById(chartId);
+    const chart = echarts.init(el, null, {renderer:'canvas'});
+    renderAnnualSummary(summaryId, cityData);
+
+    const years = cityData.years || [];
+    const series = years.map(function(y) {
+      const byMonth = {};
+      y.months.forEach(function(m){ byMonth[parseInt(m.period.split('-')[1])-1] = m.avg_occupancy_pct; });
+      const color = YEAR_COLORS[y.year] || '#fff';
+      return {
+        name: String(y.year), type:'line', smooth:true,
+        symbol:'circle', symbolSize:6, connectNulls:false,
+        lineStyle:{color:color,width:2.5},
+        itemStyle:{color:color},
+        areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:hexToRgba(color,0.20)},{offset:1,color:hexToRgba(color,0.00)}]}},
+        data: MONTH_LABELS.map(function(_,i){ return byMonth[i]!==undefined?byMonth[i]:null; }),
+        emphasis:{focus:'series'}
+      };
+    });
+
+    const option = {
+      backgroundColor:'transparent', animationDuration:700, animationEasing:'cubicOut',
+      grid:{left:48,right:16,top:24,bottom:40,containLabel:false},
+      tooltip:{
+        trigger:'axis', backgroundColor:'rgba(7,17,31,0.96)', borderWidth:0, textStyle:{color:'#fff'},
+        formatter:function(params){
+          if(!params||!params.length)return '';
+          let html=MONTH_LABELS[params[0].dataIndex]+'<br>';
+          params.forEach(function(p){
+            if(p.value===null||p.value===undefined)return;
+            html+='<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:'+p.color+';margin-right:6px"></span>'+p.seriesName+': <b>'+formatPct(p.value)+'</b><br>';
+          });
+          return html;
+        }
+      },
+      legend:{ show:false },
+      xAxis:{
+        type:'category', data:MONTH_LABELS, boundaryGap:false,
+        axisLine:{lineStyle:{color:'rgba(255,255,255,0.16)'}},
+        axisTick:{show:false},
+        axisLabel:{color:'#8aa0be',fontSize:12,fontWeight:600}
+      },
+      yAxis:{
+        type:'value', min:0, max:100,
+        axisLabel:{color:'#8aa0be',fontSize:11,formatter:'{value}%'},
+        splitLine:{lineStyle:{color:'rgba(255,255,255,0.07)',type:'dashed'}},
+        axisLine:{show:false}, axisTick:{show:false}
+      },
+      series: series
+    };
+
+    chart.setOption(option, true);
+    return registerChart(el, chart, slideIdx);
+  }
+
+  /* ═══════════════════════════════════════════════════
+     MEETING ROOM CHART (slides 2 & 3)
+  ═══════════════════════════════════════════════════ */
+  function shortRoomName(name) {
+    // Strip prefix like MI1, MI2, RMA0, RMA3 etc. → "ARMANI", "ISCHIA"
+    return String(name).replace(/^[A-Z]{2,4}\d+/i, '') || name;
+  }
+
+  function renderFloorLegend(legendId, rooms) {
+    const el = document.getElementById(legendId);
+    if (!el) return;
+    const seen = new Set();
+    const floors = [];
+    rooms.forEach(function(r) {
+      const f = getFloorFromRoomName(r.room_name);
+      if (!seen.has(f)) { seen.add(f); floors.push(f); }
+    });
+    floors.sort(function(a,b){ return a - b; });
+    el.innerHTML = floors.map(function(f) {
+      const c = getFloorColor(f);
+      return '<span class="legend-item" style="color:' + c + '">' +
+        '<span class="legend-dot" style="background:' + c + ';box-shadow:0 0 6px ' + c + '88"></span>' +
+        'Piano ' + f + '</span>';
+    }).join('');
+  }
+
+  function renderMeetingSummary(id, cityData) {
+    const rooms = cityData.rooms || [];
+    if (!rooms.length) { document.getElementById(id).innerHTML=''; return; }
+    const avgRate = (rooms.reduce(function(s,r){return s+r.booking_rate_pct;},0)/rooms.length).toFixed(1);
+    const topRoom = rooms[0];
+    const totalH = rooms.reduce(function(s,r){return s+r.total_booked_hours;},0).toFixed(0);
+    document.getElementById(id).innerHTML =
+      '<div class="summary-pill"><span class="label">Tasso medio</span><span class="value">'+avgRate+'%</span></div>'+
+      '<div class="summary-pill"><span class="label">Sala top</span><span class="value sm">'+shortRoomName(topRoom.room_name)+'</span></div>'+
+      '<div class="summary-pill"><span class="label">Ore prenotate</span><span class="value">'+totalH+'h</span></div>';
+  }
+
+  function buildMeetingChart(chartId, summaryId, cityData, slideIdx) {
+    const el = document.getElementById(chartId);
+    const chart = echarts.init(el, null, {renderer:'canvas'});
+
+    // Sort by floor, then alphabetically within floor
+    const rooms = (cityData.rooms || []).slice().sort(function(a, b) {
+      const fa = getFloorFromRoomName(a.room_name);
+      const fb = getFloorFromRoomName(b.room_name);
+      return fa !== fb ? fa - fb : a.room_name.localeCompare(b.room_name);
+    });
+
+    renderMeetingSummary(summaryId, cityData);
+    // Populate floor legend (sum-mi-mtw → floor-legend-mi-mtw)
+    const legendId = summaryId.replace(/^sum-/, 'floor-legend-');
+    renderFloorLegend(legendId, rooms);
+
+    const categories = rooms.map(function(r){ return r.room_name; });
+    const maxAvail = Math.max.apply(null, rooms.map(function(r){ return r.total_available_hours; }).concat([10]));
+
+    const option = {
+      backgroundColor:'transparent', animationDuration:600, animationEasing:'cubicOut',
+      grid:{left:52, right:12, top:32, bottom:16, containLabel:true},
+      tooltip:{
+        trigger:'axis', axisPointer:{type:'shadow',shadowStyle:{color:'rgba(255,255,255,0.04)'}},
+        backgroundColor:'rgba(7,17,31,0.96)', borderWidth:0, textStyle:{color:'#fff'},
+        formatter:function(params){
+          const idx = params&&params[0]&&params[0].dataIndex||0;
+          const r = rooms[idx];
+          if(!r) return '';
+          return [r.room_name,'Prenotate: <b>'+r.total_booked_hours+'h</b>','Libere: <b>'+(r.total_available_hours-r.total_booked_hours).toFixed(1)+'h</b>','Tasso: <b>'+formatPct(r.booking_rate_pct)+'</b>'].join('<br>');
+        }
+      },
+      xAxis:{
+        type:'category', data:categories,
+        axisLine:{lineStyle:{color:'rgba(255,255,255,0.16)'}},
+        axisTick:{show:false},
+        axisLabel:{
+          show:true, interval:0, rotate:55,
+          color:function(value){ return getFloorColor(getFloorFromRoomName(value)); },
+          fontSize:11, fontFamily:'Inter,"Segoe UI",sans-serif',
+          align:'right', margin:26,
+          formatter:function(v){ return shortRoomName(v); }
+        }
+      },
+      yAxis:{
+        type:'value', min:0, max:maxAvail,
+        axisLabel:{show:false}, splitLine:{show:false},
+        axisLine:{show:false}, axisTick:{show:false}
+      },
+      series:[
+        // Background bar — total available hours
+        { name:'Sfondo', type:'bar', barWidth:'52%', barCategoryGap:'40%', z:2, silent:true, emphasis:{disabled:true},
+          data: rooms.map(function(r){ return r.total_available_hours; }),
+          itemStyle:{color:'rgba(100,130,175,0.18)', borderRadius:[5,5,0,0]},
+          label:{show:true, position:'top', distance:8, color:'#c8d8f0', fontSize:11, fontWeight:700,
+            textShadowColor:'rgba(0,0,0,0.8)', textShadowBlur:3,
+            formatter:function(p){
+              const r=rooms[p.dataIndex];
+              return r ? String(+(r.total_available_hours-r.total_booked_hours).toFixed(1)) : '';
+            }
+          }
+        },
+        // Colored bar — booked hours
+        { name:'Prenotate', type:'bar', barWidth:'52%', barCategoryGap:'40%', barGap:'-100%', z:4,
+          data: rooms.map(function(r){ return r.total_booked_hours; }),
+          itemStyle:{borderRadius:[5,5,0,0],
+            color:function(p){ return getOccupancyColor(rooms[p.dataIndex]&&rooms[p.dataIndex].booking_rate_pct); }
+          },
+          emphasis:{disabled:true}, label:{show:false}
+        },
+        // Threshold lines
+        { name:'Soglie', type:'line', silent:true, symbol:'none', data:[],
+          markLine:{silent:true, symbol:'none', animation:false, label:{show:false}, data:[
+            {yAxis:maxAvail*0.25, lineStyle:{color:THRESHOLD_COLORS.low,     type:'dashed',width:1.5,opacity:0.6}},
+            {yAxis:maxAvail*0.50, lineStyle:{color:THRESHOLD_COLORS.mid,     type:'dashed',width:1.5,opacity:0.6}},
+            {yAxis:maxAvail*0.75, lineStyle:{color:THRESHOLD_COLORS.high,    type:'dashed',width:1.5,opacity:0.6}},
+            {yAxis:maxAvail*1.00, lineStyle:{color:THRESHOLD_COLORS.critical,type:'dashed',width:1.5,opacity:0.6}}
+          ]}
+        }
+      ]
+    };
+
+    chart.setOption(option, true);
+
+    chart.on('finished', function() {
+      const gridModel = chart.getModel().getComponent('grid',0);
+      const gridRect = gridModel.coordinateSystem.getRect();
+      const labelX = gridRect.x - 4;
+      const graphicItems = THRESHOLD_LEVELS.map(function(t){
+        const coord = chart.convertToPixel({gridIndex:0},[0, maxAvail*t.pct]);
+        return {type:'text',silent:true,z:10,x:labelX,y:coord[1]-7,style:{text:t.label,fill:t.color,font:'700 11px Inter,"Segoe UI",sans-serif',textAlign:'right'}};
+      });
+
+      const axisCoord = chart.convertToPixel({gridIndex:0},[categories[0]||0, 0]);
+      const bookedY  = axisCoord[1] + 10;
+      const gridTop  = chart.convertToPixel({gridIndex:0},[categories[0]||0, maxAvail])[1];
+      const gridBottom = axisCoord[1];
+
+      // Booked-hours labels below x-axis (colored by booking rate)
+      const belowItems = [];
+      rooms.forEach(function(r) {
+        const xC = chart.convertToPixel({gridIndex:0},[r.room_name, 0])[0];
+        belowItems.push({type:'text',silent:true,z:10,x:xC,y:bookedY,
+          style:{text:String(+r.total_booked_hours.toFixed(0))+'h',
+            fill:getOccupancyColor(r.booking_rate_pct),
+            font:'700 11px Inter,"Segoe UI",sans-serif', textAlign:'center'}});
+      });
+
+      // Floor group separators + "P.N" header labels
+      const floorItems = [];
+      const floorGroups = {};
+      rooms.forEach(function(r, i) {
+        const f = getFloorFromRoomName(r.room_name);
+        if (!floorGroups[f]) floorGroups[f] = [];
+        floorGroups[f].push(i);
+      });
+      const sortedFloors = Object.keys(floorGroups).map(Number).sort(function(a,b){ return a-b; });
+      sortedFloors.forEach(function(f, fi) {
+        const indices  = floorGroups[f];
+        const firstX   = chart.convertToPixel({gridIndex:0},[rooms[indices[0]].room_name, 0])[0];
+        const lastX    = chart.convertToPixel({gridIndex:0},[rooms[indices[indices.length-1]].room_name, 0])[0];
+        const centerX  = (firstX + lastX) / 2;
+        const fc       = getFloorColor(f);
+        // Dashed vertical separator between floor groups
+        if (fi > 0) {
+          const prevFloor  = sortedFloors[fi-1];
+          const prevLast   = rooms[floorGroups[prevFloor][floorGroups[prevFloor].length-1]];
+          const prevLastX  = chart.convertToPixel({gridIndex:0},[prevLast.room_name, 0])[0];
+          const sepX       = (prevLastX + firstX) / 2;
+          floorItems.push({type:'line',silent:true,z:4,
+            shape:{x1:sepX, y1:gridTop-10, x2:sepX, y2:gridBottom},
+            style:{stroke:'rgba(255,255,255,0.18)', lineWidth:1, lineDash:[4,3]}});
+        }
+      });
+
+      chart.setOption({graphic:[...graphicItems,...belowItems,...floorItems]}, false);
+    });
+
+    return registerChart(el, chart, slideIdx);
+  }
+
+  /* ═══════════════════════════════════════════════════
+     CAROUSEL
+  ═══════════════════════════════════════════════════ */
+  const slides = document.querySelectorAll('.slide');
+  const dots   = document.querySelectorAll('.nav-dot');
+
+  function goToSlide(idx) {
+    const target = ((idx % TOTAL_SLIDES) + TOTAL_SLIDES) % TOTAL_SLIDES;
+    if (target === currentSlide) return;
+    slides[currentSlide].classList.remove('active');
+    dots[currentSlide].classList.remove('active');
+    currentSlide = target;
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+    document.getElementById('slideSubtitle').textContent = SLIDE_META[currentSlide].subtitle;
+    // Sync URL hash for deep-linking
+    var hash = '#slide-' + currentSlide;
+    if (location.hash !== hash) history.replaceState(null, '', hash);
+    // Lazy-init this slide if first visit
+    if (rawDataStore && !slideInited.has(currentSlide)) initSlide(currentSlide);
+    setTimeout(function() {
+      (chartsPerSlide[currentSlide] || []).forEach(function(c){ c.resize(); });
+    }, 50);
+    resetAutoAdvance();
+  }
+
+  function startAutoAdvance() {
+    stopAutoAdvance();
+    autoTimer = setInterval(function(){ goToSlide(currentSlide + 1); }, 120000);
+  }
+  function stopAutoAdvance()  { if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
+  function resetAutoAdvance() { startAutoAdvance(); }
+
+  document.getElementById('prevBtn').addEventListener('click', function(){ goToSlide(currentSlide - 1); });
+  document.getElementById('nextBtn').addEventListener('click', function(){ goToSlide(currentSlide + 1); });
+  dots.forEach(function(dot) {
+    dot.addEventListener('click', function(){ goToSlide(parseInt(dot.dataset.slide)); });
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft')  goToSlide(currentSlide - 1);
+    if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
+  });
+
+  // URL hash deep-linking (back/forward navigation)
+  window.addEventListener('hashchange', function() {
+    var m = location.hash.match(/^#slide-(\d+)$/);
+    if (m) goToSlide(parseInt(m[1]));
+  });
+
+  var container = document.getElementById('slidesContainer');
+  container.addEventListener('mouseenter', stopAutoAdvance);
+  container.addEventListener('mouseleave', startAutoAdvance);
+
+  /* ═══════════════════════════════════════════════════
+     LAZY SLIDE INIT — charts built only on first visit
+  ═══════════════════════════════════════════════════ */
+  function safeChart(buildFn, chartId, summaryId, cityData, slideIdx) {
+    try { buildFn(chartId, summaryId, cityData, slideIdx); }
+    catch(e) { console.error('Chart build error [' + chartId + ']:', e); showCardError(chartId, 'Dati non disponibili'); }
+  }
+
+  function initSlide(idx) {
+    if (slideInited.has(idx) || !rawDataStore) return;
+    slideInited.add(idx);
+    var rd = rawDataStore;
+
+    if (idx === 0) {
+      var d30 = normalizeDashboardData(rd.raw30);
+      safeChart(buildChart, 'chart-milano', 'summary-milano', findCity(d30.cities,'milano')||d30.cities[0], 0);
+      safeChart(buildChart, 'chart-roma',   'summary-roma',   findCity(d30.cities,'roma')||d30.cities[1]||d30.cities[0], 0);
+    }
+    if (idx === 1) {
+      var annCities = (rd.rawAnn&&rd.rawAnn.cities)||[];
+      var miAnn = findCity(annCities,'milano')||annCities[0];
+      var roAnn = findCity(annCities,'roma a')||findCity(annCities,'roma')||annCities[1]||annCities[0];
+      if (miAnn) safeChart(buildAnnualChart, 'ch-mi-ann', 'sum-mi-ann', miAnn, 1);
+      else showCardError('ch-mi-ann', 'Dati Milano non disponibili');
+      if (roAnn) safeChart(buildAnnualChart, 'ch-ro-ann', 'sum-ro-ann', roAnn, 1);
+      else showCardError('ch-ro-ann', 'Dati Roma non disponibili');
+    }
+    if (idx === 2) {
+      var mtWCities = (rd.rawMtW&&rd.rawMtW.cities)||[];
+      var miMtW = findCity(mtWCities,'milano')||mtWCities[0];
+      var roMtW = findCity(mtWCities,'roma')||mtWCities[1]||mtWCities[0];
+      if (miMtW) safeChart(buildMeetingChart, 'ch-mi-mtw', 'sum-mi-mtw', miMtW, 2);
+      else showCardError('ch-mi-mtw', 'Dati Milano non disponibili');
+      if (roMtW) safeChart(buildMeetingChart, 'ch-ro-mtw', 'sum-ro-mtw', roMtW, 2);
+      else showCardError('ch-ro-mtw', 'Dati Roma non disponibili');
+    }
+    if (idx === 3) {
+      var mt30Cities = (rd.rawMt30&&rd.rawMt30.cities)||[];
+      var miMt30 = findCity(mt30Cities,'milano')||mt30Cities[0];
+      var roMt30 = findCity(mt30Cities,'roma')||mt30Cities[1]||mt30Cities[0];
+      if (miMt30) safeChart(buildMeetingChart, 'ch-mi-mt30', 'sum-mi-mt30', miMt30, 3);
+      else showCardError('ch-mi-mt30', 'Dati Milano non disponibili');
+      if (roMt30) safeChart(buildMeetingChart, 'ch-ro-mt30', 'sum-ro-mt30', roMt30, 3);
+      else showCardError('ch-ro-mt30', 'Dati Roma non disponibili');
+    }
+
+    setTimeout(function(){ (chartsPerSlide[idx]||[]).forEach(function(c){ c.resize(); }); }, 100);
+  }
+
+  /* ═══════════════════════════════════════════════════
+     DATA LOADING
+  ═══════════════════════════════════════════════════ */
+  async function loadData() {
+    const settled = await Promise.allSettled([
+      fetchJson('./data/data_occupancy_mensile_wp.json'),
+      fetchJson('./data/data_occupancy_annuale.json'),
+      fetchJson('./data/data_meeting_settimana.json'),
+      fetchJson('./data/data_meeting_30gg.json')
+    ]);
+    settled.forEach(function(r,i){ if(r.status==='rejected') console.warn('JSON #'+i+' fallito:',r.reason); });
+    const [raw30, rawAnn, rawMtW, rawMt30] = settled.map(function(r){ return r.status==='fulfilled'?r.value:null; });
+    if (!raw30) throw new Error('File dati principale non disponibile');
+
+    rawDataStore = { raw30, rawAnn, rawMtW, rawMt30 };
+
+    const timestamps = [raw30, rawMtW, rawMt30].map(function(d){ return d&&d.updated_at; }).filter(Boolean);
+    if (timestamps.length) {
+      document.getElementById('lastUpdate').textContent = 'Ultimo aggiornamento: ' + formatTimestamp(timestamps[0]);
+      if (!knownUpdatedAt) knownUpdatedAt = timestamps[0];
+    }
+    return rawDataStore;
+  }
+
+  /* ═══════════════════════════════════════════════════
+     AUTO-REFRESH — polls updated_at every 5 minutes
+  ═══════════════════════════════════════════════════ */
+  async function checkForUpdates() {
+    try {
+      const r = await fetchJson('./data/data_occupancy_mensile_wp.json');
+      const ts = r && r.updated_at;
+      if (ts && knownUpdatedAt && ts !== knownUpdatedAt) {
+        console.info('Dashboard: nuovi dati rilevati, aggiornamento chart in corso…');
+        // Dispose all existing charts
+        allCharts.forEach(function(c){ try { c.dispose(); } catch(e){} });
+        allCharts.length = 0;
+        Object.keys(chartsPerSlide).forEach(function(k){ chartsPerSlide[k] = []; });
+        chartByEl.clear();
+        slideInited.clear();
+        // Reload JSON and reinit visible slide
+        await loadData();
+        requestAnimationFrame(function(){ initSlide(currentSlide); });
+      }
+      if (ts) knownUpdatedAt = ts;
+    } catch(e) {
+      console.warn('Auto-refresh check fallito:', e);
+    }
+  }
+
+  function startRefreshPoller() {
+    if (refreshTimer) clearInterval(refreshTimer);
+    refreshTimer = setInterval(checkForUpdates, REFRESH_INTERVAL);
+  }
+
+  /* ═══════════════════════════════════════════════════
+     INIT
+  ═══════════════════════════════════════════════════ */
+  async function initDashboard() {
+    try {
+      await loadData();
+
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('slidesContainer').style.display = '';
+
+      // Honor URL hash for direct deep-linking
+      var hashMatch = location.hash.match(/^#slide-(\d+)$/);
+      if (hashMatch) {
+        var idx = parseInt(hashMatch[1]);
+        if (idx >= 0 && idx < TOTAL_SLIDES) {
+          slides.forEach(function(s,i){ s.classList.toggle('active', i===idx); });
+          dots.forEach(function(d,i){ d.classList.toggle('active', i===idx); });
+          document.getElementById('slideSubtitle').textContent = SLIDE_META[idx].subtitle;
+          currentSlide = idx;
+        }
+      }
+
+      requestAnimationFrame(function() {
+        initSlide(currentSlide);  // only the visible slide
+        startAutoAdvance();
+        startRefreshPoller();
+      });
+
+    } catch(err) {
+      console.error('Errore dashboard:', err);
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('errorState').style.display = 'grid';
+    }
+  }
+
+  initDashboard();
+</script>
 </body>
 </html>
