@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-11 21:39",
+  "updated_at": "2026-04-13 09:55",
   "cities": [
     {
       "site_name": "EH Milano",
@@ -11,31 +11,31 @@
               "period": "2025-01",
               "label": "Gen",
               "avg_occupied": 41.2,
-              "avg_bookable": 77.0,
+              "avg_bookable": 77,
               "avg_occupancy_pct": 53.5,
               "working_days": 21
             },
             {
               "period": "2025-02",
               "label": "Feb",
-              "avg_occupied": 41.1,
-              "avg_bookable": 77.0,
-              "avg_occupancy_pct": 53.4,
+              "avg_occupied": 41.2,
+              "avg_bookable": 77,
+              "avg_occupancy_pct": 53.5,
               "working_days": 20
             },
             {
               "period": "2025-03",
               "label": "Mar",
-              "avg_occupied": 47.0,
-              "avg_bookable": 77.0,
-              "avg_occupancy_pct": 61.0,
+              "avg_occupied": 47,
+              "avg_bookable": 77,
+              "avg_occupancy_pct": 61,
               "working_days": 21
             },
             {
               "period": "2025-04",
               "label": "Apr",
               "avg_occupied": 29.9,
-              "avg_bookable": 77.0,
+              "avg_bookable": 77,
               "avg_occupancy_pct": 38.8,
               "working_days": 20
             },
@@ -43,7 +43,7 @@
               "period": "2025-05",
               "label": "Mag",
               "avg_occupied": 42.3,
-              "avg_bookable": 77.0,
+              "avg_bookable": 77,
               "avg_occupancy_pct": 54.9,
               "working_days": 21
             },
@@ -51,32 +51,32 @@
               "period": "2025-06",
               "label": "Giu",
               "avg_occupied": 34.2,
-              "avg_bookable": 77.0,
-              "avg_occupancy_pct": 44.5,
+              "avg_bookable": 77,
+              "avg_occupancy_pct": 44.4,
               "working_days": 21
             },
             {
               "period": "2025-07",
               "label": "Lug",
               "avg_occupied": 33.1,
-              "avg_bookable": 77.0,
-              "avg_occupancy_pct": 43.0,
+              "avg_bookable": 77,
+              "avg_occupancy_pct": 43,
               "working_days": 23
             },
             {
               "period": "2025-08",
               "label": "Ago",
               "avg_occupied": 3.6,
-              "avg_bookable": 77.0,
-              "avg_occupancy_pct": 4.6,
+              "avg_bookable": 77,
+              "avg_occupancy_pct": 4.7,
               "working_days": 18
             },
             {
               "period": "2025-09",
               "label": "Set",
               "avg_occupied": 43.6,
-              "avg_bookable": 77.0,
-              "avg_occupancy_pct": 56.7,
+              "avg_bookable": 77,
+              "avg_occupancy_pct": 56.6,
               "working_days": 22
             },
             {
@@ -90,7 +90,7 @@
             {
               "period": "2025-11",
               "label": "Nov",
-              "avg_occupied": 57.0,
+              "avg_occupied": 57.1,
               "avg_bookable": 93.4,
               "avg_occupancy_pct": 61.1,
               "working_days": 20
@@ -98,9 +98,9 @@
             {
               "period": "2025-12",
               "label": "Dic",
-              "avg_occupied": 35.2,
-              "avg_bookable": 92.0,
-              "avg_occupancy_pct": 38.3,
+              "avg_occupied": 35.3,
+              "avg_bookable": 92,
+              "avg_occupancy_pct": 38.4,
               "working_days": 20
             }
           ]
@@ -112,7 +112,7 @@
               "period": "2026-01",
               "label": "Gen",
               "avg_occupied": 52.6,
-              "avg_bookable": 92.0,
+              "avg_bookable": 92,
               "avg_occupancy_pct": 57.2,
               "working_days": 18
             },
@@ -127,18 +127,18 @@
             {
               "period": "2026-03",
               "label": "Mar",
-              "avg_occupied": 50.0,
-              "avg_bookable": 93.0,
+              "avg_occupied": 50,
+              "avg_bookable": 93,
               "avg_occupancy_pct": 53.8,
               "working_days": 22
             },
             {
               "period": "2026-04",
               "label": "Apr",
-              "avg_occupied": 42.3,
-              "avg_bookable": 93.0,
-              "avg_occupancy_pct": 45.5,
-              "working_days": 7
+              "avg_occupied": 44.5,
+              "avg_bookable": 93,
+              "avg_occupancy_pct": 47.8,
+              "working_days": 8
             }
           ]
         }
@@ -153,8 +153,8 @@
             {
               "period": "2025-01",
               "label": "Gen",
-              "avg_occupied": 5.0,
-              "avg_bookable": 150.0,
+              "avg_occupied": 5,
+              "avg_bookable": 150,
               "avg_occupancy_pct": 3.3,
               "working_days": 6
             }
@@ -180,15 +180,15 @@
               "period": "2025-04",
               "label": "Apr",
               "avg_occupied": 139.6,
-              "avg_bookable": 197.0,
-              "avg_occupancy_pct": 70.8,
+              "avg_bookable": 197,
+              "avg_occupancy_pct": 70.9,
               "working_days": 20
             },
             {
               "period": "2025-05",
               "label": "Mag",
               "avg_occupied": 150.7,
-              "avg_bookable": 197.0,
+              "avg_bookable": 197,
               "avg_occupancy_pct": 76.5,
               "working_days": 21
             },
@@ -196,7 +196,7 @@
               "period": "2025-06",
               "label": "Giu",
               "avg_occupied": 135.8,
-              "avg_bookable": 197.0,
+              "avg_bookable": 197,
               "avg_occupancy_pct": 68.9,
               "working_days": 21
             },
@@ -204,7 +204,7 @@
               "period": "2025-07",
               "label": "Lug",
               "avg_occupied": 132.7,
-              "avg_bookable": 197.0,
+              "avg_bookable": 197,
               "avg_occupancy_pct": 67.4,
               "working_days": 23
             },
@@ -212,7 +212,7 @@
               "period": "2025-08",
               "label": "Ago",
               "avg_occupied": 71.3,
-              "avg_bookable": 197.0,
+              "avg_bookable": 197,
               "avg_occupancy_pct": 36.2,
               "working_days": 18
             },
@@ -220,7 +220,7 @@
               "period": "2025-09",
               "label": "Set",
               "avg_occupied": 154.4,
-              "avg_bookable": 197.0,
+              "avg_bookable": 197,
               "avg_occupancy_pct": 78.4,
               "working_days": 22
             },
@@ -228,23 +228,23 @@
               "period": "2025-10",
               "label": "Ott",
               "avg_occupied": 150.5,
-              "avg_bookable": 197.0,
+              "avg_bookable": 197,
               "avg_occupancy_pct": 76.4,
               "working_days": 23
             },
             {
               "period": "2025-11",
               "label": "Nov",
-              "avg_occupied": 106.5,
-              "avg_bookable": 238.2,
+              "avg_occupied": 106.6,
+              "avg_bookable": 238.3,
               "avg_occupancy_pct": 44.7,
               "working_days": 20
             },
             {
               "period": "2025-12",
               "label": "Dic",
-              "avg_occupied": 64.0,
-              "avg_bookable": 252.0,
+              "avg_occupied": 64.1,
+              "avg_bookable": 252,
               "avg_occupancy_pct": 25.4,
               "working_days": 20
             }
@@ -257,7 +257,7 @@
               "period": "2026-01",
               "label": "Gen",
               "avg_occupied": 161.1,
-              "avg_bookable": 196.0,
+              "avg_bookable": 196,
               "avg_occupancy_pct": 82.2,
               "working_days": 18
             },
@@ -272,18 +272,18 @@
             {
               "period": "2026-03",
               "label": "Mar",
-              "avg_occupied": 172.0,
-              "avg_bookable": 194.0,
+              "avg_occupied": 172,
+              "avg_bookable": 194,
               "avg_occupancy_pct": 88.7,
               "working_days": 22
             },
             {
               "period": "2026-04",
               "label": "Apr",
-              "avg_occupied": 150.0,
-              "avg_bookable": 194.0,
-              "avg_occupancy_pct": 77.3,
-              "working_days": 7
+              "avg_occupied": 152.9,
+              "avg_bookable": 194,
+              "avg_occupancy_pct": 78.8,
+              "working_days": 8
             }
           ]
         }
@@ -299,15 +299,15 @@
               "period": "2025-01",
               "label": "Gen",
               "avg_occupied": 7.9,
-              "avg_bookable": 150.0,
-              "avg_occupancy_pct": 5.2,
+              "avg_bookable": 150,
+              "avg_occupancy_pct": 5.3,
               "working_days": 15
             },
             {
               "period": "2025-02",
               "label": "Feb",
               "avg_occupied": 10.2,
-              "avg_bookable": 150.0,
+              "avg_bookable": 150,
               "avg_occupancy_pct": 6.8,
               "working_days": 20
             },
@@ -315,8 +315,8 @@
               "period": "2025-03",
               "label": "Mar",
               "avg_occupied": 15.7,
-              "avg_bookable": 150.0,
-              "avg_occupancy_pct": 10.4,
+              "avg_bookable": 150,
+              "avg_occupancy_pct": 10.5,
               "working_days": 3
             }
           ]
