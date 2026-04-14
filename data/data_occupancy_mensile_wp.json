@@ -1,20 +1,11 @@
 {
-  "updated_at": "2026-04-13 09:55",
+  "updated_at": "2026-04-14 09:34",
   "range_label": "Ultimi 30 giorni",
   "cities": [
     {
       "site_name": "EH Milano",
       "month_label": "Ultimi 30 giorni",
       "occupancy_daily": [
-        {
-          "day": "15",
-          "date": "2026-03-15",
-          "occupied": null,
-          "free": null,
-          "percentage": null,
-          "is_weekend": true,
-          "has_data": false
-        },
         {
           "day": "16",
           "date": "2026-03-16",
@@ -270,9 +261,18 @@
         {
           "day": "13",
           "date": "2026-04-13",
-          "occupied": 60,
-          "free": 62,
-          "percentage": 49.2,
+          "occupied": 67,
+          "free": 55,
+          "percentage": 54.9,
+          "is_weekend": false,
+          "has_data": true
+        },
+        {
+          "day": "14",
+          "date": "2026-04-14",
+          "occupied": 58,
+          "free": 64,
+          "percentage": 47.5,
           "is_weekend": false,
           "has_data": true
         }
@@ -282,15 +282,6 @@
       "site_name": "EH Roma A",
       "month_label": "Ultimi 30 giorni",
       "occupancy_daily": [
-        {
-          "day": "15",
-          "date": "2026-03-15",
-          "occupied": null,
-          "free": null,
-          "percentage": null,
-          "is_weekend": true,
-          "has_data": false
-        },
         {
           "day": "16",
           "date": "2026-03-16",
@@ -546,9 +537,18 @@
         {
           "day": "13",
           "date": "2026-04-13",
-          "occupied": 173,
-          "free": 104,
-          "percentage": 62.5,
+          "occupied": 179,
+          "free": 98,
+          "percentage": 64.6,
+          "is_weekend": false,
+          "has_data": true
+        },
+        {
+          "day": "14",
+          "date": "2026-04-14",
+          "occupied": 202,
+          "free": 75,
+          "percentage": 72.9,
           "is_weekend": false,
           "has_data": true
         }
