@@ -5,32 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Occupancy Dashboard</title>
   <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <link rel="stylesheet" href="dashboard-theme.css"/>
   <style>
-    :root {
-      --bg: #07111f;
-      --panel: rgba(11, 24, 43, 0.92);
-      --panel-border: rgba(141, 179, 255, 0.24);
-      --text: #f4f8ff;
-      --muted: #b2c3de;
-      --cyan: #45d4ff;
-      --green: #33d17a;
-      --yellow: #f6c344;
-      --red: #ff5f6d;
-      --blue: #7c9dff;
-      --shadow: 0 16px 40px rgba(0,0,0,0.28);
-      --radius: 18px;
-    }
-    * { box-sizing: border-box; }
-    html, body {
-      margin: 0; width: 100%; height: 100%; overflow: hidden;
-      font-family: Inter, "Segoe UI", Arial, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(76,125,255,0.18), transparent 24%),
-        radial-gradient(circle at top right, rgba(69,212,255,0.12), transparent 22%),
-        radial-gradient(circle at bottom center, rgba(155,109,255,0.10), transparent 28%),
-        linear-gradient(180deg, #081120 0%, #07111f 100%);
-    }
     body { display: flex; align-items: center; justify-content: center; }
 
     .shell {
@@ -86,18 +62,8 @@
       grid-template-columns: 1fr 1fr; gap: 16px; height: 100%;
     }
     .card {
-      position: relative; min-width: 0; min-height: 0;
       display: grid; grid-template-rows: auto 1fr;
-      background: var(--panel); border: 1px solid var(--panel-border);
-      border-radius: var(--radius); box-shadow: var(--shadow);
-      overflow: hidden; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    }
-    .card::before {
-      content: ""; position: absolute; inset: 0;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.03), transparent 20%),
-        radial-gradient(circle at top right, rgba(76,125,255,0.15), transparent 30%);
-      pointer-events: none;
+      min-width: 0; min-height: 0;
     }
     .card-header { position: relative; z-index: 1; padding: 14px 22px 10px; }
     .card-header-row {
