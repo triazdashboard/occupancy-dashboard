@@ -261,20 +261,20 @@
         {
           "day": "15",
           "date": "2026-04-15",
-          "occupied": 56,
-          "free": 66,
-          "percentage": 45.9,
+          "occupied": 54,
+          "free": 68,
+          "percentage": 44.3,
           "is_weekend": false,
           "has_data": true
         },
         {
           "day": "16",
           "date": "2026-04-16",
-          "occupied": 57,
-          "free": 65,
-          "percentage": 46.7,
+          "occupied": null,
+          "free": null,
+          "percentage": null,
           "is_weekend": false,
-          "has_data": true
+          "has_data": false
         }
       ]
     },
@@ -537,20 +537,20 @@
         {
           "day": "15",
           "date": "2026-04-15",
-          "occupied": 209,
-          "free": 68,
-          "percentage": 75.5,
+          "occupied": 204,
+          "free": 73,
+          "percentage": 73.6,
           "is_weekend": false,
           "has_data": true
         },
         {
           "day": "16",
           "date": "2026-04-16",
-          "occupied": 178,
-          "free": 99,
-          "percentage": 64.3,
+          "occupied": null,
+          "free": null,
+          "percentage": null,
           "is_weekend": false,
-          "has_data": true
+          "has_data": false
         }
       ]
     }
