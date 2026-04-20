@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-20 12:37",
+  "updated_at": "2026-04-20 13:28",
   "range_label": "Ultimi 30 giorni",
   "cities": [
     {
@@ -234,20 +234,20 @@
         {
           "day": "16",
           "date": "2026-04-16",
-          "occupied": 58,
-          "free": 64,
-          "percentage": 47.5,
+          "occupied": 57,
+          "free": 65,
+          "percentage": 46.7,
           "is_weekend": false,
           "has_data": true
         },
         {
           "day": "17",
           "date": "2026-04-17",
-          "occupied": 32,
-          "free": 90,
-          "percentage": 26.2,
+          "occupied": null,
+          "free": null,
+          "percentage": null,
           "is_weekend": false,
-          "has_data": true
+          "has_data": false
         },
         {
           "day": "18",
@@ -270,11 +270,11 @@
         {
           "day": "20",
           "date": "2026-04-20",
-          "occupied": 48,
-          "free": 74,
-          "percentage": 39.3,
+          "occupied": null,
+          "free": null,
+          "percentage": null,
           "is_weekend": false,
-          "has_data": true
+          "has_data": false
         }
       ]
     },
@@ -510,20 +510,20 @@
         {
           "day": "16",
           "date": "2026-04-16",
-          "occupied": 182,
-          "free": 95,
-          "percentage": 65.7,
+          "occupied": 178,
+          "free": 99,
+          "percentage": 64.3,
           "is_weekend": false,
           "has_data": true
         },
         {
           "day": "17",
           "date": "2026-04-17",
-          "occupied": 135,
-          "free": 142,
-          "percentage": 48.7,
+          "occupied": null,
+          "free": null,
+          "percentage": null,
           "is_weekend": false,
-          "has_data": true
+          "has_data": false
         },
         {
           "day": "18",
@@ -546,11 +546,11 @@
         {
           "day": "20",
           "date": "2026-04-20",
-          "occupied": 162,
-          "free": 115,
-          "percentage": 58.5,
+          "occupied": null,
+          "free": null,
+          "percentage": null,
           "is_weekend": false,
-          "has_data": true
+          "has_data": false
         }
       ]
     }
