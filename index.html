@@ -27,14 +27,14 @@
     .t-loading { flex:1; }
     .error-state { flex:1; }
     .slides-wrapper { flex:1; position:relative; overflow:hidden; }
-    .slide { position:absolute; inset:0; opacity:0; pointer-events:none; transition:opacity 0.35s ease; }
+    .slide { position:absolute; inset:0; opacity:0; pointer-events:none; transition:opacity 0.35s ease; display:flex; flex-direction:column; }
     .slide.active { opacity:1; pointer-events:auto; z-index:1; }
     .error-state { display:none; place-items:center; height:100%;
       color:#ffd7dc; font-size:20px; text-align:center; padding:32px; }
     .error-state small { display:block; margin-top:10px; color:var(--muted); font-size:14px; }
 
     /* ── Grid / Cards ── */
-    .grid { min-height:0; display:grid; grid-template-columns:1fr 1fr; gap:16px; height:100%; }
+    .grid { min-height:0; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr; gap:16px; flex:1; }
     .card { display:grid; grid-template-rows:auto 1fr; min-width:0; min-height:0; }
 
     /* ── Card head overrides for occupancy (taller, city-icon layout) ── */
