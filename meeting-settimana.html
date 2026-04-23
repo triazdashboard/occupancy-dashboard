@@ -49,6 +49,10 @@
       <div class="t-sub">Sale riunioni · tasso di prenotazione ultima settimana · Milano &amp; Roma</div>
     </div>
   </div>
+  <div class="t-clock">
+    <div class="t-clock-time" id="tTime">--:--</div>
+    <div class="t-clock-date" id="tDate">--</div>
+  </div>
 </header>
 
 <main class="t-main">
@@ -91,6 +95,14 @@
 </footer>
 
 <script>
+  /* ── Clock ── */
+  (function tick(){
+    const n=new Date();
+    document.getElementById('tTime').textContent=n.toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'});
+    document.getElementById('tDate').textContent=n.toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+    setTimeout(tick,1000);
+  })();
+
   (function() {
     function applyViewport() {
       document.body.style.width  = window.innerWidth  + 'px';
