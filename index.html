@@ -3,39 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Occupancy Dashboard</title>
+  <title>Occupancy – Workspace Ultimo Mese</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
   <link rel="stylesheet" href="dashboard-theme.css"/>
   <style>
-    /* ── Nav in header ── */
-    .t-nav { display:flex; flex-direction:column; align-items:center; gap:6px; flex-shrink:0; margin:0 20px; }
-    .nav-dots { display:flex; gap:10px; align-items:center; }
-    .nav-dot { width:10px; height:10px; border-radius:50%; border:none;
-      background:rgba(255,255,255,0.20); cursor:pointer; padding:0;
-      transition:all 0.3s cubic-bezier(0.4,0,0.2,1); flex-shrink:0; }
-    .nav-dot.active { background:var(--cyan); box-shadow:0 0 10px rgba(69,212,255,0.6); width:28px; border-radius:5px; }
-    .nav-dot:hover:not(.active) { background:rgba(255,255,255,0.40); }
-    .nav-arrows { display:flex; gap:8px; }
-    .nav-arrow { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12);
-      color:var(--text); border-radius:10px; padding:3px 14px;
-      cursor:pointer; font-size:14px; transition:all 0.2s; line-height:1.4; }
-    .nav-arrow:hover { background:rgba(255,255,255,0.14); border-color:rgba(255,255,255,0.25); }
+    /* ── Main: CSS Grid → .grid riceve altezza definita dal track 1fr ── */
+    .t-main { display:grid; grid-template-rows:1fr; min-height:0; }
 
-    /* ── Main / Slides ── */
-    .t-main { min-height:0; height:100%; position:relative; overflow:hidden; }
-    .slides-wrapper { height:100%; position:relative; overflow:hidden; }
-    .slide { position:absolute; inset:0; opacity:0; pointer-events:none; transition:opacity 0.35s ease; display:flex; flex-direction:column; }
-    .slide.active { opacity:1; pointer-events:auto; z-index:1; }
+    /* ── Error state ── */
     .error-state { display:none; place-items:center; height:100%;
       color:#ffd7dc; font-size:20px; text-align:center; padding:32px; }
     .error-state small { display:block; margin-top:10px; color:var(--muted); font-size:14px; }
 
     /* ── Grid / Cards ── */
-    .grid { min-height:0; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr; gap:16px; flex:1; }
+    .grid { min-height:0; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr; gap:16px; }
     .card { display:grid; grid-template-rows:auto 1fr; min-width:0; min-height:0; }
 
-    /* ── Card head overrides for occupancy (taller, city-icon layout) ── */
+    /* ── Card head overrides ── */
     .card-head { height:auto; padding:12px 20px 10px; flex-direction:column; gap:8px; align-items:stretch; }
     .card-head-row { display:flex; align-items:center; justify-content:space-between; gap:12px; }
     .card-title::before { display:none; }
@@ -50,14 +35,13 @@
     .card-body { position:relative; z-index:1; min-height:0; padding:4px 16px 10px; display:flex; flex-direction:column; }
     .chart { width:100%; flex:1; min-height:0; }
 
-    /* ── Legend override (larger dots for occupancy) ── */
+    /* ── Legend ── */
     .legend { gap:18px; padding:5px 16px 6px; }
     .legend-dot { width:10px; height:10px; border-radius:50%; }
     .legend-item { font-size:12px; gap:7px; }
   </style>
 </head>
 <body>
-<!-- ══ SVG SPRITE (defined once, referenced via <use>) ══ -->
 <svg style="display:none" aria-hidden="true">
   <defs>
     <symbol id="icon-milano" viewBox="0 0 32 32">
@@ -68,255 +52,89 @@
     </symbol>
   </defs>
 </svg>
+
 <header class="t-header">
   <div class="t-brand">
     <div class="t-dot"></div>
     <div class="t-titles">
       <div class="t-title">Allianz Trade - Statistiche prenotazioni</div>
-      <div class="t-sub" id="tSub">Workspace e sale riunioni · Milano &amp; Roma</div>
-    </div>
-  </div>
-  <div class="t-nav">
-    <div class="nav-dots" id="navDots">
-      <button class="nav-dot active" data-slide="0" title="Workspace – Ultimi 30 giorni"></button>
-      <button class="nav-dot" data-slide="1" title="Confronto Annuale 2025/2026"></button>
-      <button class="nav-dot" data-slide="2" title="Meeting Room – Ultima Settimana"></button>
-      <button class="nav-dot" data-slide="3" title="Meeting Room – Ultimi 30 Giorni"></button>
-    </div>
-    <div class="nav-arrows">
-      <button class="nav-arrow" id="prevBtn">&#8592;</button>
-      <button class="nav-arrow" id="nextBtn">&#8594;</button>
+      <div class="t-sub">Postazioni workspace · tasso di occupazione ultimi 30 giorni · Milano &amp; Roma</div>
     </div>
   </div>
 </header>
 
-  <main class="t-main">
-    <div id="loading" class="t-loading">Caricamento dashboard…</div>
-    <div id="errorState" class="error-state">
-      <div>Impossibile caricare i dati.<small>Controlla i file JSON nella cartella <code>data/</code>.</small></div>
-    </div>
-
-    <div id="slidesContainer" class="slides-wrapper" style="display:none;">
-
-      <!-- ══ SLIDE 0: Workspace – Ultimi 30gg (originale) ══ -->
-      <div class="slide active" id="slide-0">
-        <div class="grid">
-          <section class="card">
-            <div class="card-head"><div class="card-head-row">
-              <span class="eyebrow">
-                <svg class="city-icon" viewBox="0 0 32 32"><use href="#icon-milano"/></svg>
-                <span class="city-text"><span class="city-name">MILANO</span><span class="chart-label">WORKSPACE PRENOTATE ULTIMO MESE</span></span>
-              </span>
-              <div class="card-meta" id="summary-milano"></div>
-            </div></div>
-            <div class="card-body">
-              <div id="chart-milano" class="chart"></div>
-              <div class="legend">
-                <span class="legend-item" style="color:#33d17a"><span class="legend-dot" style="background:#33d17a;box-shadow:0 0 6px #33d17a99"></span>Bassa &lt;25%</span>
-                <span class="legend-item" style="color:#45d4ff"><span class="legend-dot" style="background:#45d4ff;box-shadow:0 0 6px #45d4ff99"></span>Media 25–49%</span>
-                <span class="legend-item" style="color:#f6c344"><span class="legend-dot" style="background:#f6c344;box-shadow:0 0 6px #f6c34499"></span>Alta 50–74%</span>
-                <span class="legend-item" style="color:#ff5f6d"><span class="legend-dot" style="background:#ff5f6d;box-shadow:0 0 6px #ff5f6d99"></span>Critica &#8805;75%</span>
-              </div>
-            </div>
-          </section>
-          <section class="card">
-            <div class="card-head"><div class="card-head-row">
-              <span class="eyebrow">
-                <svg class="city-icon" viewBox="0 0 32 32"><use href="#icon-roma"/></svg>
-                <span class="city-text"><span class="city-name">ROMA</span><span class="chart-label">WORKSPACE PRENOTATE ULTIMO MESE</span></span>
-              </span>
-              <div class="card-meta" id="summary-roma"></div>
-            </div></div>
-            <div class="card-body">
-              <div id="chart-roma" class="chart"></div>
-              <div class="legend">
-                <span class="legend-item" style="color:#33d17a"><span class="legend-dot" style="background:#33d17a;box-shadow:0 0 6px #33d17a99"></span>Bassa &lt;25%</span>
-                <span class="legend-item" style="color:#45d4ff"><span class="legend-dot" style="background:#45d4ff;box-shadow:0 0 6px #45d4ff99"></span>Media 25–49%</span>
-                <span class="legend-item" style="color:#f6c344"><span class="legend-dot" style="background:#f6c344;box-shadow:0 0 6px #f6c34499"></span>Alta 50–74%</span>
-                <span class="legend-item" style="color:#ff5f6d"><span class="legend-dot" style="background:#ff5f6d;box-shadow:0 0 6px #ff5f6d99"></span>Critica &#8805;75%</span>
-              </div>
-            </div>
-          </section>
+<main class="t-main">
+  <div id="loading" class="t-loading">Caricamento dashboard…</div>
+  <div id="errorState" class="error-state">
+    <div>Impossibile caricare i dati.<small>Controlla i file JSON nella cartella <code>data/</code>.</small></div>
+  </div>
+  <div id="mainGrid" class="grid" style="display:none">
+    <section class="card">
+      <div class="card-head"><div class="card-head-row">
+        <span class="eyebrow">
+          <svg class="city-icon" viewBox="0 0 32 32"><use href="#icon-milano"/></svg>
+          <span class="city-text"><span class="city-name">MILANO</span><span class="chart-label">WORKSPACE PRENOTATE ULTIMO MESE</span></span>
+        </span>
+        <div class="card-meta" id="summary-milano"></div>
+      </div></div>
+      <div class="card-body">
+        <div id="chart-milano" class="chart"></div>
+        <div class="legend">
+          <span class="legend-item" style="color:#33d17a"><span class="legend-dot" style="background:#33d17a;box-shadow:0 0 6px #33d17a99"></span>Bassa &lt;25%</span>
+          <span class="legend-item" style="color:#45d4ff"><span class="legend-dot" style="background:#45d4ff;box-shadow:0 0 6px #45d4ff99"></span>Media 25–49%</span>
+          <span class="legend-item" style="color:#f6c344"><span class="legend-dot" style="background:#f6c344;box-shadow:0 0 6px #f6c34499"></span>Alta 50–74%</span>
+          <span class="legend-item" style="color:#ff5f6d"><span class="legend-dot" style="background:#ff5f6d;box-shadow:0 0 6px #ff5f6d99"></span>Critica &#8805;75%</span>
         </div>
       </div>
-
-      <!-- ══ SLIDE 1: Confronto Annuale ══ -->
-      <div class="slide" id="slide-1">
-        <div class="grid">
-          <section class="card">
-            <div class="card-head"><div class="card-head-row">
-              <span class="eyebrow">
-                <svg class="city-icon" viewBox="0 0 32 32"><use href="#icon-milano"/></svg>
-                <span class="city-text"><span class="city-name">MILANO</span><span class="chart-label">ANDAMENTO ANNUALE WORKSPACE</span></span>
-              </span>
-              <div class="card-meta" id="sum-mi-ann"></div>
-            </div></div>
-            <div class="card-body">
-              <div id="ch-mi-ann" class="chart"></div>
-              <div class="legend">
-                <span class="legend-item" style="color:#7c9dff"><span class="legend-dot" style="background:#7c9dff;box-shadow:0 0 6px #7c9dff99"></span>2025</span>
-                <span class="legend-item" style="color:#ff9f40"><span class="legend-dot" style="background:#ff9f40;box-shadow:0 0 6px #ff9f4099"></span>2026</span>
-              </div>
-            </div>
-          </section>
-          <section class="card">
-            <div class="card-head"><div class="card-head-row">
-              <span class="eyebrow">
-                <svg class="city-icon" viewBox="0 0 32 32"><use href="#icon-roma"/></svg>
-                <span class="city-text"><span class="city-name">ROMA</span><span class="chart-label">ANDAMENTO ANNUALE WORKSPACE</span></span>
-              </span>
-              <div class="card-meta" id="sum-ro-ann"></div>
-            </div></div>
-            <div class="card-body">
-              <div id="ch-ro-ann" class="chart"></div>
-              <div class="legend">
-                <span class="legend-item" style="color:#7c9dff"><span class="legend-dot" style="background:#7c9dff;box-shadow:0 0 6px #7c9dff99"></span>2025</span>
-                <span class="legend-item" style="color:#ff9f40"><span class="legend-dot" style="background:#ff9f40;box-shadow:0 0 6px #ff9f4099"></span>2026</span>
-              </div>
-            </div>
-          </section>
+    </section>
+    <section class="card">
+      <div class="card-head"><div class="card-head-row">
+        <span class="eyebrow">
+          <svg class="city-icon" viewBox="0 0 32 32"><use href="#icon-roma"/></svg>
+          <span class="city-text"><span class="city-name">ROMA</span><span class="chart-label">WORKSPACE PRENOTATE ULTIMO MESE</span></span>
+        </span>
+        <div class="card-meta" id="summary-roma"></div>
+      </div></div>
+      <div class="card-body">
+        <div id="chart-roma" class="chart"></div>
+        <div class="legend">
+          <span class="legend-item" style="color:#33d17a"><span class="legend-dot" style="background:#33d17a;box-shadow:0 0 6px #33d17a99"></span>Bassa &lt;25%</span>
+          <span class="legend-item" style="color:#45d4ff"><span class="legend-dot" style="background:#45d4ff;box-shadow:0 0 6px #45d4ff99"></span>Media 25–49%</span>
+          <span class="legend-item" style="color:#f6c344"><span class="legend-dot" style="background:#f6c344;box-shadow:0 0 6px #f6c34499"></span>Alta 50–74%</span>
+          <span class="legend-item" style="color:#ff5f6d"><span class="legend-dot" style="background:#ff5f6d;box-shadow:0 0 6px #ff5f6d99"></span>Critica &#8805;75%</span>
         </div>
       </div>
-
-      <!-- ══ SLIDE 2: Meeting Room – Ultima Settimana ══ -->
-      <div class="slide" id="slide-2">
-        <div class="grid">
-          <section class="card">
-            <div class="card-head"><div class="card-head-row">
-              <span class="eyebrow">
-                <svg class="city-icon" viewBox="0 0 32 32"><use href="#icon-milano"/></svg>
-                <span class="city-text"><span class="city-name">MILANO</span><span class="chart-label">MEETING PRENOTATE ULTIMA SETTIMANA</span></span>
-              </span>
-              <div class="card-meta" id="sum-mi-mtw"></div>
-            </div></div>
-            <div class="card-body">
-              <div id="ch-mi-mtw" class="chart"></div>
-              <div class="legend" id="floor-legend-mi-mtw"></div>
-            </div>
-          </section>
-          <section class="card">
-            <div class="card-head"><div class="card-head-row">
-              <span class="eyebrow">
-                <svg class="city-icon" viewBox="0 0 32 32"><use href="#icon-roma"/></svg>
-                <span class="city-text"><span class="city-name">ROMA</span><span class="chart-label">MEETING PRENOTATE ULTIMA SETTIMANA</span></span>
-              </span>
-              <div class="card-meta" id="sum-ro-mtw"></div>
-            </div></div>
-            <div class="card-body">
-              <div id="ch-ro-mtw" class="chart"></div>
-              <div class="legend" id="floor-legend-ro-mtw"></div>
-            </div>
-          </section>
-        </div>
-      </div>
-
-      <!-- ══ SLIDE 3: Meeting Room – Ultimi 30gg ══ -->
-      <div class="slide" id="slide-3">
-        <div class="grid">
-          <section class="card">
-            <div class="card-head"><div class="card-head-row">
-              <span class="eyebrow">
-                <svg class="city-icon" viewBox="0 0 32 32"><use href="#icon-milano"/></svg>
-                <span class="city-text"><span class="city-name">MILANO</span><span class="chart-label">MEETING PRENOTATE ULTIMO MESE</span></span>
-              </span>
-              <div class="card-meta" id="sum-mi-mt30"></div>
-            </div></div>
-            <div class="card-body">
-              <div id="ch-mi-mt30" class="chart"></div>
-              <div class="legend" id="floor-legend-mi-mt30"></div>
-            </div>
-          </section>
-          <section class="card">
-            <div class="card-head"><div class="card-head-row">
-              <span class="eyebrow">
-                <svg class="city-icon" viewBox="0 0 32 32"><use href="#icon-roma"/></svg>
-                <span class="city-text"><span class="city-name">ROMA</span><span class="chart-label">MEETING PRENOTATE ULTIMO MESE</span></span>
-              </span>
-              <div class="card-meta" id="sum-ro-mt30"></div>
-            </div></div>
-            <div class="card-body">
-              <div id="ch-ro-mt30" class="chart"></div>
-              <div class="legend" id="floor-legend-ro-mt30"></div>
-            </div>
-          </section>
-        </div>
-      </div>
-
-    </div><!-- /slidesContainer -->
-  </main>
+    </section>
+  </div>
+</main>
 
 <footer class="t-footer">
   <div class="t-update" id="tUpdate">Ultimo aggiornamento: --</div>
 </footer>
 
 <script>
-  /* ═══════════════════════════════════════════════════
-     CONSTANTS & STATE
-  ═══════════════════════════════════════════════════ */
-  const TOTAL_SLIDES = 4;
-  let currentSlide = 0;
-  let autoTimer = null;
+  // TV viewport fix
+  (function() {
+    function applyViewport() {
+      document.body.style.width  = window.innerWidth  + 'px';
+      document.body.style.height = window.innerHeight + 'px';
+    }
+    applyViewport();
+    window.addEventListener('resize', applyViewport);
+  }());
 
-  // Floor colors — shared palette for piano 0–4
-  const FLOOR_COLORS = {
-    0: '#b03060',  // bordeaux      – piano 0 (Roma T)
-    1: '#f0a030',  // giallo-arancio – piano 1 (Roma/Milano)
-    2: '#6bcb77',  // verdino       – piano 2 (Roma/Milano)
-    3: '#5bafd6',  // bluetto       – piano 3 (Roma)
-    4: '#9b72cf'   // violetto      – piano 4 (Milano)
-  };
-
-  function getFloorFromRoomName(name) {
-    const m = String(name).match(/^[A-Za-z]+(\d+)/);
-    return m ? parseInt(m[1]) : 0;
-  }
-
-  function getFloorColor(floor) {
-    return FLOOR_COLORS[floor] || '#8aa0be';
-  }
-
-  // Centralized threshold colors — single source of truth used everywhere
-  const THRESHOLD_COLORS = {
-    low:      '#33d17a',   // < 25%
-    mid:      '#45d4ff',   // 25–49%
-    high:     '#f6c344',   // 50–74%
-    critical: '#ff5f6d'    // >= 75%
-  };
+  const THRESHOLD_COLORS = { low:'#33d17a', mid:'#45d4ff', high:'#f6c344', critical:'#ff5f6d' };
   const THRESHOLD_LEVELS = [
-    { pct: 0,    label: '0%',   color: 'rgba(147,170,215,0.55)' },
-    { pct: 0.25, label: '25%',  color: THRESHOLD_COLORS.low },
-    { pct: 0.50, label: '50%',  color: THRESHOLD_COLORS.mid },
-    { pct: 0.75, label: '75%',  color: THRESHOLD_COLORS.high },
-    { pct: 1.00, label: '100%', color: THRESHOLD_COLORS.critical }
+    { pct:0,    label:'0%',   color:'rgba(147,170,215,0.55)' },
+    { pct:0.25, label:'25%',  color:THRESHOLD_COLORS.low },
+    { pct:0.50, label:'50%',  color:THRESHOLD_COLORS.mid },
+    { pct:0.75, label:'75%',  color:THRESHOLD_COLORS.high },
+    { pct:1.00, label:'100%', color:THRESHOLD_COLORS.critical }
   ];
 
-  const SLIDE_META = [
-    { subtitle: 'Postazioni workspace · tasso di occupazione ultimi 30 giorni · Milano & Roma' },
-    { subtitle: 'Andamento annuale workspace · confronto 2025 vs 2026 · Milano & Roma' },
-    { subtitle: 'Sale riunioni · tasso di prenotazione ultima settimana · Milano & Roma' },
-    { subtitle: 'Sale riunioni · tasso di prenotazione ultimi 30 giorni · Milano & Roma' }
-  ];
-
-  // Chart registry
-  const allCharts = [];
-  const chartsPerSlide = { 0: [], 1: [], 2: [], 3: [] };
-  const chartByEl = new Map();   // DOM element → ECharts instance
-
-  // Lazy init
-  const slideInited = new Set();
-  let rawDataStore = null;
-
-  // Auto-refresh
-  const REFRESH_INTERVAL = 60 * 60 * 1000;  // 60 minutes
-  let knownUpdatedAt = null;
-  let refreshTimer = null;
-
-  /* ═══════════════════════════════════════════════════
-     UTILITIES
-  ═══════════════════════════════════════════════════ */
   async function fetchJson(path) {
     const url = path + (path.includes('?') ? '&' : '?') + 'cb=' + Date.now();
-    const r = await fetch(url, { cache: 'no-store' });
+    const r = await fetch(url, { cache:'no-store' });
     if (!r.ok) throw new Error('HTTP ' + r.status + ' su ' + path);
     return r.json();
   }
@@ -350,46 +168,29 @@
   }
 
   function findCity(cities, needle) {
-    return cities.find(function(c) { return String(c.site_name || '').toLowerCase().includes(needle.toLowerCase()); });
+    return cities.find(function(c) { return String(c.site_name||'').toLowerCase().includes(needle.toLowerCase()); });
   }
 
   function showCardError(chartId, message) {
     const el = document.getElementById(chartId);
     if (!el) return;
     el.style.cssText = 'display:flex;align-items:center;justify-content:center;';
-    el.innerHTML = '<span style="color:#ffd7dc;font-size:13px;text-align:center;padding:16px;opacity:0.8">' + (message || 'Dati non disponibili') + '</span>';
+    el.innerHTML = '<span style="color:#ffd7dc;font-size:13px;text-align:center;padding:16px;opacity:0.8">'+(message||'Dati non disponibili')+'</span>';
   }
 
-  /* ═══════════════════════════════════════════════════
-     RESIZE OBSERVER — replaces window.resize handler
-  ═══════════════════════════════════════════════════ */
+  const chartByEl = new Map();
   const resizeObserver = new ResizeObserver(function(entries) {
-    entries.forEach(function(entry) {
-      const c = chartByEl.get(entry.target);
-      if (c) c.resize();
-    });
+    entries.forEach(function(entry) { const c = chartByEl.get(entry.target); if (c) c.resize(); });
   });
+  function registerChart(el, chart) { chartByEl.set(el, chart); resizeObserver.observe(el); return chart; }
 
-  function registerChart(el, chart, slideIdx) {
-    allCharts.push(chart);
-    chartsPerSlide[slideIdx].push(chart);
-    chartByEl.set(el, chart);
-    resizeObserver.observe(el);
-    return chart;
-  }
-
-  /* ═══════════════════════════════════════════════════
-     WORKSPACE DAILY CHART (slides 0 & 1)
-  ═══════════════════════════════════════════════════ */
   function normalizeDashboardData(raw) {
     const cities = Array.isArray(raw && raw.cities) ? raw.cities : [];
     return {
       updated_at: raw && raw.updated_at || null,
-      range_label: raw && raw.range_label || '',
       cities: cities.map(function(city) {
         return {
           site_name: city && city.site_name || 'Sede',
-          month_label: city && city.month_label || '',
           occupancy_daily: Array.isArray(city && city.occupancy_daily) ? city.occupancy_daily.map(function(item) {
             return {
               day: String(item && item.day || '').padStart(2, '0'),
@@ -407,25 +208,25 @@
   }
 
   function computeMetrics(series) {
-    const vals = series.filter(function(i) { return i.has_data && i.percentage !== null; }).map(function(i) { return Number(i.percentage); }).filter(isFinite);
-    if (!vals.length) return { avg: 0, peak: 0, min: 0 };
-    const sum = vals.reduce(function(a,b) { return a+b; }, 0);
-    return { avg: Math.round(sum / vals.length * 10) / 10, peak: Math.max.apply(null, vals), min: Math.min.apply(null, vals) };
+    const vals = series.filter(function(i){ return i.has_data && i.percentage !== null; }).map(function(i){ return Number(i.percentage); }).filter(isFinite);
+    if (!vals.length) return { avg:0, peak:0, min:0 };
+    const sum = vals.reduce(function(a,b){ return a+b; }, 0);
+    return { avg: Math.round(sum/vals.length*10)/10, peak: Math.max.apply(null,vals), min: Math.min.apply(null,vals) };
   }
 
   function renderSummary(id, metrics) {
     document.getElementById(id).innerHTML =
-      '<span class="badge">Media <strong>' + formatPct(metrics.avg) + '</strong></span>' +
-      '<span class="badge">Picco <strong>' + formatPct(metrics.peak) + '</strong></span>' +
-      '<span class="badge">Min <strong>' + formatPct(metrics.min) + '</strong></span>';
+      '<span class="badge">Media <strong>'+formatPct(metrics.avg)+'</strong></span>'+
+      '<span class="badge">Picco <strong>'+formatPct(metrics.peak)+'</strong></span>'+
+      '<span class="badge">Min <strong>'+formatPct(metrics.min)+'</strong></span>';
   }
 
   function buildWeekendBands(series) {
     const bands = []; let start = null;
-    for (let i = 0; i < series.length; i++) {
+    for (let i=0;i<series.length;i++) {
       const we = series[i].is_weekend === true;
       if (we && start === null) start = series[i].date;
-      if (!we && start !== null) { bands.push([{xAxis:start},{xAxis:series[i-1].date}]); start = null; }
+      if (!we && start !== null) { bands.push([{xAxis:start},{xAxis:series[i-1].date}]); start=null; }
     }
     if (start !== null) bands.push([{xAxis:start},{xAxis:series[series.length-1].date}]);
     return bands;
@@ -434,19 +235,19 @@
   function buildChartOption(city) {
     const series = Array.isArray(city.occupancy_daily) ? city.occupancy_daily : [];
     const metrics = computeMetrics(series);
-    const categories = series.map(function(i) { return i.date; });
-    const totals = series.map(function(i) { return i.has_data ? Number(i.occupied||0)+Number(i.free||0) : 0; });
+    const categories = series.map(function(i){ return i.date; });
+    const totals = series.map(function(i){ return i.has_data ? Number(i.occupied||0)+Number(i.free||0) : 0; });
     const weekendBands = buildWeekendBands(series);
     const maxCapacity = Math.max.apply(null, totals.concat([10]));
 
     const monthBandData = [];
-    let prevM = -1, bandStart = null, toggle = false;
-    series.forEach(function(item, i) {
+    let prevM=-1, bandStart=null, toggle=false;
+    series.forEach(function(item,i) {
       if (!item.date) return;
-      const m = new Date(item.date + 'T00:00:00').getMonth();
+      const m = new Date(item.date+'T00:00:00').getMonth();
       if (m !== prevM) {
         if (bandStart !== null && toggle) monthBandData.push([{xAxis:bandStart},{xAxis:series[i-1].date}]);
-        bandStart = item.date; prevM = m; toggle = !toggle;
+        bandStart=item.date; prevM=m; toggle=!toggle;
       }
       if (i === series.length-1 && bandStart !== null && toggle) monthBandData.push([{xAxis:bandStart},{xAxis:item.date}]);
     });
@@ -454,40 +255,38 @@
     return {
       metrics: metrics,
       option: {
-        backgroundColor: 'transparent', animationDuration: 600, animationEasing: 'cubicOut',
-        grid: { left:52, right:12, top:32, bottom:72, containLabel:false },
-        tooltip: {
+        backgroundColor:'transparent', animationDuration:600, animationEasing:'cubicOut',
+        grid:{left:52, right:12, top:32, bottom:72, containLabel:false},
+        tooltip:{
           trigger:'axis', axisPointer:{type:'shadow',shadowStyle:{color:'rgba(255,255,255,0.04)'}},
           backgroundColor:'rgba(7,17,31,0.96)', borderWidth:0, textStyle:{color:'#fff'},
-          formatter: function(params) {
-            const idx = params&&params[0]&&params[0].dataIndex||0;
-            const item = series[idx];
+          formatter:function(params) {
+            const idx=params&&params[0]&&params[0].dataIndex||0;
+            const item=series[idx];
             if (!item) return '';
             if (item.is_weekend) return formatDisplayDate(item.date)+'<br><b>Weekend</b>';
             if (!item.has_data)  return formatDisplayDate(item.date)+'<br><b>Nessun dato</b>';
             return [formatDisplayDate(item.date),'Occupati: <b>'+item.occupied+'</b>','Liberi: <b>'+item.free+'</b>','Occupancy: <b>'+formatPct(item.percentage)+'</b>'].join('<br>');
           }
         },
-        xAxis: { type:'category', data:categories, axisLine:{lineStyle:{color:'rgba(255,255,255,0.16)'}}, axisTick:{show:false}, axisLabel:{show:false} },
-        yAxis: { type:'value', min:0, max:maxCapacity, axisLabel:{show:false}, splitLine:{show:false}, axisLine:{show:false}, axisTick:{show:false} },
-        series: [
-          { name:'MeseBand', type:'bar', silent:true, barGap:'-100%', barWidth:'100%', itemStyle:{color:'rgba(255,255,255,0)'}, emphasis:{disabled:true}, markArea:{silent:true,itemStyle:{color:'rgba(69,212,255,0.03)'},data:monthBandData}, data:categories.map(function(){return 0;}) },
-          { name:'Weekend', type:'bar', silent:true, barGap:'-100%', barWidth:'100%', itemStyle:{color:'rgba(255,255,255,0)'}, emphasis:{disabled:true}, markArea:{silent:true,itemStyle:{color:'rgba(255,255,255,0.045)'},data:weekendBands}, data:categories.map(function(){return 0;}) },
-          { name:'Sfondo', type:'bar', barWidth:'52%', barCategoryGap:'40%', z:2, silent:true, emphasis:{disabled:true},
-            data: series.map(function(i){ return i.has_data ? Number(i.occupied||0)+Number(i.free||0) : null; }),
+        xAxis:{type:'category', data:categories, axisLine:{lineStyle:{color:'rgba(255,255,255,0.16)'}}, axisTick:{show:false}, axisLabel:{show:false}},
+        yAxis:{type:'value', min:0, max:maxCapacity, axisLabel:{show:false}, splitLine:{show:false}, axisLine:{show:false}, axisTick:{show:false}},
+        series:[
+          {name:'MeseBand', type:'bar', silent:true, barGap:'-100%', barWidth:'100%', itemStyle:{color:'rgba(255,255,255,0)'}, emphasis:{disabled:true}, markArea:{silent:true,itemStyle:{color:'rgba(69,212,255,0.03)'},data:monthBandData}, data:categories.map(function(){return 0;})},
+          {name:'Weekend', type:'bar', silent:true, barGap:'-100%', barWidth:'100%', itemStyle:{color:'rgba(255,255,255,0)'}, emphasis:{disabled:true}, markArea:{silent:true,itemStyle:{color:'rgba(255,255,255,0.045)'},data:weekendBands}, data:categories.map(function(){return 0;})},
+          {name:'Sfondo', type:'bar', barWidth:'52%', barCategoryGap:'40%', z:2, silent:true, emphasis:{disabled:true},
+            data:series.map(function(i){ return i.has_data?Number(i.occupied||0)+Number(i.free||0):null; }),
             itemStyle:{color:'rgba(100,130,175,0.18)',borderRadius:[5,5,0,0]},
             label:{show:true,position:'top',distance:8,color:'#c8d8f0',fontSize:11,fontWeight:700,textShadowColor:'rgba(0,0,0,0.8)',textShadowBlur:3,
               formatter:function(p){const i=series[p.dataIndex];return i&&i.has_data?String(Number(i.free)):'';}
             }
           },
-          { name:'Occupati', type:'bar', barWidth:'52%', barCategoryGap:'40%', barGap:'-100%', z:4, emphasis:{disabled:true},
-            data: series.map(function(i){ return i.has_data ? Number(i.occupied||0) : null; }),
-            itemStyle:{borderRadius:[5,5,0,0],
-              color:function(p){const i=series[p.dataIndex];return i&&i.has_data?getOccupancyColor(i.percentage):'rgba(0,0,0,0)';}
-            },
+          {name:'Occupati', type:'bar', barWidth:'52%', barCategoryGap:'40%', barGap:'-100%', z:4, emphasis:{disabled:true},
+            data:series.map(function(i){ return i.has_data?Number(i.occupied||0):null; }),
+            itemStyle:{borderRadius:[5,5,0,0], color:function(p){const i=series[p.dataIndex];return i&&i.has_data?getOccupancyColor(i.percentage):'rgba(0,0,0,0)';}},
             label:{show:false}
           },
-          { name:'Soglie', type:'line', silent:true, symbol:'none', data:[],
+          {name:'Soglie', type:'line', silent:true, symbol:'none', data:[],
             markLine:{silent:true,symbol:'none',animation:false,label:{show:false},data:[
               {yAxis:maxCapacity*0.25,lineStyle:{color:THRESHOLD_COLORS.low,     type:'dashed',width:1.5,opacity:0.6}},
               {yAxis:maxCapacity*0.50,lineStyle:{color:THRESHOLD_COLORS.mid,     type:'dashed',width:1.5,opacity:0.6}},
@@ -500,7 +299,7 @@
     };
   }
 
-  function buildChart(chartId, summaryId, city, slideIdx) {
+  function buildChart(chartId, summaryId, city) {
     const el = document.getElementById(chartId);
     const chart = echarts.init(el, null, {renderer:'canvas'});
     const result = buildChartOption(city);
@@ -518,9 +317,8 @@
         const coord = chart.convertToPixel({gridIndex:0},[0,maxCap*t.pct]);
         return {type:'text',silent:true,z:10,x:labelX,y:coord[1]-7,style:{text:t.label,fill:t.color,font:'700 11px Inter,"Segoe UI",sans-serif',textAlign:'right'}};
       });
-
       const sepItems = [];
-      const gridTop = chart.convertToPixel({gridIndex:0},[series[0]&&series[0].date||0,maxCap])[1];
+      const gridTop    = chart.convertToPixel({gridIndex:0},[series[0]&&series[0].date||0,maxCap])[1];
       const gridBottom = chart.convertToPixel({gridIndex:0},[series[0]&&series[0].date||0,0])[1];
       for (let i=1;i<series.length;i++) {
         const prev=series[i-1].date, curr=series[i].date;
@@ -530,7 +328,6 @@
           sepItems.push({type:'line',silent:true,z:8,shape:{x1:xLine,y1:gridTop,x2:xLine,y2:gridBottom},style:{stroke:'rgba(255,255,255,0.30)',lineWidth:1.5}});
         }
       }
-
       const axisCoord = chart.convertToPixel({gridIndex:0},[series[0]&&series[0].date||0,0]);
       const occY=axisCoord[1]+10, dayY=axisCoord[1]+24;
       const belowItems = [];
@@ -540,7 +337,6 @@
         belowItems.push({type:'text',silent:true,z:10,x:xC,y:dayY,style:{text:String(new Date(item.date+'T00:00:00').getDate()),fill:'#8aa0be',font:'500 11px Inter,"Segoe UI",sans-serif',textAlign:'center'}});
         if(item.has_data) belowItems.push({type:'text',silent:true,z:10,x:xC,y:occY,style:{text:String(Number(item.occupied)),fill:getOccupancyColor(item.percentage),font:'700 11px Inter,"Segoe UI",sans-serif',textAlign:'center'}});
       });
-
       const MONTHS=['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
       let lastM=-1, mStart=0; const mGroups=[];
       series.forEach(function(item,i) {
@@ -556,458 +352,31 @@
         const sx=chart.convertToPixel({gridIndex:0},[s,0])[0], ex=chart.convertToPixel({gridIndex:0},[e,0])[0];
         return {type:'text',silent:true,z:10,x:(sx+ex)/2,y:mLabelY,style:{text:MONTHS[g.m].toUpperCase(),fill:'rgba(178,195,222,0.70)',font:'600 9px Inter,"Segoe UI",sans-serif',textAlign:'center'}};
       }).filter(Boolean);
-
       chart.setOption({graphic:[...graphicItems,...sepItems,...belowItems,...mItems]},false);
     });
 
-    return registerChart(el, chart, slideIdx);
+    return registerChart(el, chart);
   }
 
-  /* ═══════════════════════════════════════════════════
-     ANNUAL COMPARISON CHART (slide 1)
-  ═══════════════════════════════════════════════════ */
-  const MONTH_LABELS = ['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'];
-  const YEAR_COLORS  = { 2024:'#a87cff', 2025:'#7c9dff', 2026:'#ff9f40', 2027:'#33d17a' };
-
-  function hexToRgba(hex, alpha) {
-    const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
-    return 'rgba('+r+','+g+','+b+','+alpha+')';
-  }
-
-  function renderAnnualSummary(id, cityData) {
-    const years = cityData.years || [];
-    let html = '';
-    years.forEach(function(y) {
-      const vals = y.months.filter(function(m){ return m.avg_occupancy_pct!==null; }).map(function(m){ return m.avg_occupancy_pct; });
-      if (!vals.length) return;
-      const avg = (vals.reduce(function(a,b){return a+b;},0)/vals.length).toFixed(1);
-      const color = YEAR_COLORS[y.year] || '#fff';
-      html += '<span class="badge" style="border-color:'+color+'44"><strong style="color:'+color+'">'+y.year+'</strong> '+avg+'%</span>';
-    });
-    document.getElementById(id).innerHTML = html;
-  }
-
-  function buildAnnualChart(chartId, summaryId, cityData, slideIdx) {
-    const el = document.getElementById(chartId);
-    const chart = echarts.init(el, null, {renderer:'canvas'});
-    renderAnnualSummary(summaryId, cityData);
-
-    const years = cityData.years || [];
-    const series = years.map(function(y) {
-      const byMonth = {};
-      y.months.forEach(function(m){ byMonth[parseInt(m.period.split('-')[1])-1] = m.avg_occupancy_pct; });
-      const color = YEAR_COLORS[y.year] || '#fff';
-      return {
-        name: String(y.year), type:'line', smooth:true,
-        symbol:'circle', symbolSize:6, connectNulls:false,
-        lineStyle:{color:color,width:2.5},
-        itemStyle:{color:color},
-        areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:hexToRgba(color,0.20)},{offset:1,color:hexToRgba(color,0.00)}]}},
-        data: MONTH_LABELS.map(function(_,i){ return byMonth[i]!==undefined?byMonth[i]:null; }),
-        emphasis:{focus:'series'}
-      };
-    });
-
-    const option = {
-      backgroundColor:'transparent', animationDuration:700, animationEasing:'cubicOut',
-      grid:{left:48,right:16,top:24,bottom:40,containLabel:false},
-      tooltip:{
-        trigger:'axis', backgroundColor:'rgba(7,17,31,0.96)', borderWidth:0, textStyle:{color:'#fff'},
-        formatter:function(params){
-          if(!params||!params.length)return '';
-          let html=MONTH_LABELS[params[0].dataIndex]+'<br>';
-          params.forEach(function(p){
-            if(p.value===null||p.value===undefined)return;
-            html+='<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:'+p.color+';margin-right:6px"></span>'+p.seriesName+': <b>'+formatPct(p.value)+'</b><br>';
-          });
-          return html;
-        }
-      },
-      legend:{ show:false },
-      xAxis:{
-        type:'category', data:MONTH_LABELS, boundaryGap:false,
-        axisLine:{lineStyle:{color:'rgba(255,255,255,0.16)'}},
-        axisTick:{show:false},
-        axisLabel:{color:'#8aa0be',fontSize:12,fontWeight:600}
-      },
-      yAxis:{
-        type:'value', min:0, max:100,
-        axisLabel:{color:'#8aa0be',fontSize:11,formatter:'{value}%'},
-        splitLine:{lineStyle:{color:'rgba(255,255,255,0.07)',type:'dashed'}},
-        axisLine:{show:false}, axisTick:{show:false}
-      },
-      series: series
-    };
-
-    chart.setOption(option, true);
-    return registerChart(el, chart, slideIdx);
-  }
-
-  /* ═══════════════════════════════════════════════════
-     MEETING ROOM CHART (slides 2 & 3)
-  ═══════════════════════════════════════════════════ */
-  function shortRoomName(name) {
-    // Strip prefix like MI1, MI2, RMA0, RMA3 etc. → "ARMANI", "ISCHIA"
-    return String(name).replace(/^[A-Z]{2,4}\d+/i, '') || name;
-  }
-
-  function renderFloorLegend(legendId, rooms) {
-    const el = document.getElementById(legendId);
-    if (!el) return;
-    const seen = new Set();
-    const floors = [];
-    rooms.forEach(function(r) {
-      const f = getFloorFromRoomName(r.room_name);
-      if (!seen.has(f)) { seen.add(f); floors.push(f); }
-    });
-    floors.sort(function(a,b){ return a - b; });
-    el.innerHTML = floors.map(function(f) {
-      const c = getFloorColor(f);
-      return '<span class="legend-item" style="color:' + c + '">' +
-        '<span class="legend-dot" style="background:' + c + ';box-shadow:0 0 6px ' + c + '88"></span>' +
-        'Piano ' + f + '</span>';
-    }).join('');
-  }
-
-  function renderMeetingSummary(id, cityData) {
-    const rooms = cityData.rooms || [];
-    if (!rooms.length) { document.getElementById(id).innerHTML=''; return; }
-    const avgRate = (rooms.reduce(function(s,r){return s+r.booking_rate_pct;},0)/rooms.length).toFixed(1);
-    const topRoom = rooms[0];
-    const totalH = rooms.reduce(function(s,r){return s+r.total_booked_hours;},0).toFixed(0);
-    document.getElementById(id).innerHTML =
-      '<span class="badge">Tasso medio <strong>'+avgRate+'%</strong></span>'+
-      '<span class="badge">Top <strong>'+shortRoomName(topRoom.room_name)+'</strong></span>'+
-      '<span class="badge">Ore <strong>'+totalH+'h</strong></span>';
-  }
-
-  function buildMeetingChart(chartId, summaryId, cityData, slideIdx) {
-    const el = document.getElementById(chartId);
-    const chart = echarts.init(el, null, {renderer:'canvas'});
-
-    // Sort by floor, then alphabetically within floor
-    const rooms = (cityData.rooms || []).slice().sort(function(a, b) {
-      const fa = getFloorFromRoomName(a.room_name);
-      const fb = getFloorFromRoomName(b.room_name);
-      return fa !== fb ? fa - fb : a.room_name.localeCompare(b.room_name);
-    });
-
-    renderMeetingSummary(summaryId, cityData);
-    // Populate floor legend (sum-mi-mtw → floor-legend-mi-mtw)
-    const legendId = summaryId.replace(/^sum-/, 'floor-legend-');
-    renderFloorLegend(legendId, rooms);
-
-    const categories = rooms.map(function(r){ return r.room_name; });
-    const maxAvail = Math.max.apply(null, rooms.map(function(r){ return r.total_available_hours; }).concat([10]));
-
-    const option = {
-      backgroundColor:'transparent', animationDuration:600, animationEasing:'cubicOut',
-      grid:{left:52, right:12, top:32, bottom:16, containLabel:true},
-      tooltip:{
-        trigger:'axis', axisPointer:{type:'shadow',shadowStyle:{color:'rgba(255,255,255,0.04)'}},
-        backgroundColor:'rgba(7,17,31,0.96)', borderWidth:0, textStyle:{color:'#fff'},
-        formatter:function(params){
-          const idx = params&&params[0]&&params[0].dataIndex||0;
-          const r = rooms[idx];
-          if(!r) return '';
-          return [r.room_name,'Prenotate: <b>'+r.total_booked_hours+'h</b>','Libere: <b>'+(r.total_available_hours-r.total_booked_hours).toFixed(1)+'h</b>','Tasso: <b>'+formatPct(r.booking_rate_pct)+'</b>'].join('<br>');
-        }
-      },
-      xAxis:{
-        type:'category', data:categories,
-        axisLine:{lineStyle:{color:'rgba(255,255,255,0.16)'}},
-        axisTick:{show:false},
-        axisLabel:{
-          show:true, interval:0, rotate:55,
-          color:function(value){ return getFloorColor(getFloorFromRoomName(value)); },
-          fontSize:11, fontFamily:'Inter,"Segoe UI",sans-serif',
-          align:'right', margin:26,
-          formatter:function(v){ return shortRoomName(v); }
-        }
-      },
-      yAxis:{
-        type:'value', min:0, max:maxAvail,
-        axisLabel:{show:false}, splitLine:{show:false},
-        axisLine:{show:false}, axisTick:{show:false}
-      },
-      series:[
-        // Background bar — total available hours
-        { name:'Sfondo', type:'bar', barWidth:'52%', barCategoryGap:'40%', z:2, silent:true, emphasis:{disabled:true},
-          data: rooms.map(function(r){ return r.total_available_hours; }),
-          itemStyle:{color:'rgba(100,130,175,0.18)', borderRadius:[5,5,0,0]},
-          label:{show:true, position:'top', distance:8, color:'#c8d8f0', fontSize:11, fontWeight:700,
-            textShadowColor:'rgba(0,0,0,0.8)', textShadowBlur:3,
-            formatter:function(p){
-              const r=rooms[p.dataIndex];
-              return r ? String(+(r.total_available_hours-r.total_booked_hours).toFixed(1)) : '';
-            }
-          }
-        },
-        // Colored bar — booked hours
-        { name:'Prenotate', type:'bar', barWidth:'52%', barCategoryGap:'40%', barGap:'-100%', z:4,
-          data: rooms.map(function(r){ return r.total_booked_hours; }),
-          itemStyle:{borderRadius:[5,5,0,0],
-            color:function(p){ return getOccupancyColor(rooms[p.dataIndex]&&rooms[p.dataIndex].booking_rate_pct); }
-          },
-          emphasis:{disabled:true}, label:{show:false}
-        },
-        // Threshold lines
-        { name:'Soglie', type:'line', silent:true, symbol:'none', data:[],
-          markLine:{silent:true, symbol:'none', animation:false, label:{show:false}, data:[
-            {yAxis:maxAvail*0.25, lineStyle:{color:THRESHOLD_COLORS.low,     type:'dashed',width:1.5,opacity:0.6}},
-            {yAxis:maxAvail*0.50, lineStyle:{color:THRESHOLD_COLORS.mid,     type:'dashed',width:1.5,opacity:0.6}},
-            {yAxis:maxAvail*0.75, lineStyle:{color:THRESHOLD_COLORS.high,    type:'dashed',width:1.5,opacity:0.6}},
-            {yAxis:maxAvail*1.00, lineStyle:{color:THRESHOLD_COLORS.critical,type:'dashed',width:1.5,opacity:0.6}}
-          ]}
-        }
-      ]
-    };
-
-    chart.setOption(option, true);
-
-    chart.on('finished', function() {
-      const gridModel = chart.getModel().getComponent('grid',0);
-      const gridRect = gridModel.coordinateSystem.getRect();
-      const labelX = gridRect.x - 4;
-      const graphicItems = THRESHOLD_LEVELS.map(function(t){
-        const coord = chart.convertToPixel({gridIndex:0},[0, maxAvail*t.pct]);
-        return {type:'text',silent:true,z:10,x:labelX,y:coord[1]-7,style:{text:t.label,fill:t.color,font:'700 11px Inter,"Segoe UI",sans-serif',textAlign:'right'}};
-      });
-
-      const axisCoord = chart.convertToPixel({gridIndex:0},[categories[0]||0, 0]);
-      const bookedY  = axisCoord[1] + 10;
-      const gridTop  = chart.convertToPixel({gridIndex:0},[categories[0]||0, maxAvail])[1];
-      const gridBottom = axisCoord[1];
-
-      // Booked-hours labels below x-axis (colored by booking rate)
-      const belowItems = [];
-      rooms.forEach(function(r) {
-        const xC = chart.convertToPixel({gridIndex:0},[r.room_name, 0])[0];
-        belowItems.push({type:'text',silent:true,z:10,x:xC,y:bookedY,
-          style:{text:String(+r.total_booked_hours.toFixed(0))+'h',
-            fill:getOccupancyColor(r.booking_rate_pct),
-            font:'700 11px Inter,"Segoe UI",sans-serif', textAlign:'center'}});
-      });
-
-      // Floor group separators + "P.N" header labels
-      const floorItems = [];
-      const floorGroups = {};
-      rooms.forEach(function(r, i) {
-        const f = getFloorFromRoomName(r.room_name);
-        if (!floorGroups[f]) floorGroups[f] = [];
-        floorGroups[f].push(i);
-      });
-      const sortedFloors = Object.keys(floorGroups).map(Number).sort(function(a,b){ return a-b; });
-      sortedFloors.forEach(function(f, fi) {
-        const indices  = floorGroups[f];
-        const firstX   = chart.convertToPixel({gridIndex:0},[rooms[indices[0]].room_name, 0])[0];
-        const lastX    = chart.convertToPixel({gridIndex:0},[rooms[indices[indices.length-1]].room_name, 0])[0];
-        const centerX  = (firstX + lastX) / 2;
-        const fc       = getFloorColor(f);
-        // Dashed vertical separator between floor groups
-        if (fi > 0) {
-          const prevFloor  = sortedFloors[fi-1];
-          const prevLast   = rooms[floorGroups[prevFloor][floorGroups[prevFloor].length-1]];
-          const prevLastX  = chart.convertToPixel({gridIndex:0},[prevLast.room_name, 0])[0];
-          const sepX       = (prevLastX + firstX) / 2;
-          floorItems.push({type:'line',silent:true,z:4,
-            shape:{x1:sepX, y1:gridTop-10, x2:sepX, y2:gridBottom},
-            style:{stroke:'rgba(255,255,255,0.18)', lineWidth:1, lineDash:[4,3]}});
-        }
-      });
-
-      chart.setOption({graphic:[...graphicItems,...belowItems,...floorItems]}, false);
-    });
-
-    return registerChart(el, chart, slideIdx);
-  }
-
-  /* ═══════════════════════════════════════════════════
-     CAROUSEL
-  ═══════════════════════════════════════════════════ */
-  const slides = document.querySelectorAll('.slide');
-  const dots   = document.querySelectorAll('.nav-dot');
-
-  function goToSlide(idx) {
-    const target = ((idx % TOTAL_SLIDES) + TOTAL_SLIDES) % TOTAL_SLIDES;
-    if (target === currentSlide) return;
-    slides[currentSlide].classList.remove('active');
-    dots[currentSlide].classList.remove('active');
-    currentSlide = target;
-    slides[currentSlide].classList.add('active');
-    dots[currentSlide].classList.add('active');
-    document.getElementById('tSub').textContent = SLIDE_META[currentSlide].subtitle;
-    // Sync URL hash for deep-linking
-    var hash = '#slide-' + currentSlide;
-    if (location.hash !== hash) history.replaceState(null, '', hash);
-    // Lazy-init this slide if first visit
-    if (rawDataStore && !slideInited.has(currentSlide)) initSlide(currentSlide);
-    setTimeout(function() {
-      (chartsPerSlide[currentSlide] || []).forEach(function(c){ c.resize(); });
-    }, 50);
-    resetAutoAdvance();
-  }
-
-  function startAutoAdvance() {
-    stopAutoAdvance();
-    autoTimer = setInterval(function(){ goToSlide(currentSlide + 1); }, 120000);
-  }
-  function stopAutoAdvance()  { if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
-  function resetAutoAdvance() { startAutoAdvance(); }
-
-  document.getElementById('prevBtn').addEventListener('click', function(){ goToSlide(currentSlide - 1); });
-  document.getElementById('nextBtn').addEventListener('click', function(){ goToSlide(currentSlide + 1); });
-  dots.forEach(function(dot) {
-    dot.addEventListener('click', function(){ goToSlide(parseInt(dot.dataset.slide)); });
-  });
-
-  // Keyboard navigation
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'ArrowLeft')  goToSlide(currentSlide - 1);
-    if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
-  });
-
-  // URL hash deep-linking (back/forward navigation)
-  window.addEventListener('hashchange', function() {
-    var m = location.hash.match(/^#slide-(\d+)$/);
-    if (m) goToSlide(parseInt(m[1]));
-  });
-
-  var container = document.getElementById('slidesContainer');
-  container.addEventListener('mouseenter', stopAutoAdvance);
-  container.addEventListener('mouseleave', startAutoAdvance);
-
-  /* ═══════════════════════════════════════════════════
-     LAZY SLIDE INIT — charts built only on first visit
-  ═══════════════════════════════════════════════════ */
-  function safeChart(buildFn, chartId, summaryId, cityData, slideIdx) {
-    try { buildFn(chartId, summaryId, cityData, slideIdx); }
-    catch(e) { console.error('Chart build error [' + chartId + ']:', e); showCardError(chartId, 'Dati non disponibili'); }
-  }
-
-  function initSlide(idx) {
-    if (slideInited.has(idx) || !rawDataStore) return;
-    slideInited.add(idx);
-    var rd = rawDataStore;
-
-    if (idx === 0) {
-      var d30 = normalizeDashboardData(rd.raw30);
-      safeChart(buildChart, 'chart-milano', 'summary-milano', findCity(d30.cities,'milano')||d30.cities[0], 0);
-      safeChart(buildChart, 'chart-roma',   'summary-roma',   findCity(d30.cities,'roma')||d30.cities[1]||d30.cities[0], 0);
-    }
-    if (idx === 1) {
-      var annCities = (rd.rawAnn&&rd.rawAnn.cities)||[];
-      var miAnn = findCity(annCities,'milano')||annCities[0];
-      var roAnn = findCity(annCities,'roma a')||findCity(annCities,'roma')||annCities[1]||annCities[0];
-      if (miAnn) safeChart(buildAnnualChart, 'ch-mi-ann', 'sum-mi-ann', miAnn, 1);
-      else showCardError('ch-mi-ann', 'Dati Milano non disponibili');
-      if (roAnn) safeChart(buildAnnualChart, 'ch-ro-ann', 'sum-ro-ann', roAnn, 1);
-      else showCardError('ch-ro-ann', 'Dati Roma non disponibili');
-    }
-    if (idx === 2) {
-      var mtWCities = (rd.rawMtW&&rd.rawMtW.cities)||[];
-      var miMtW = findCity(mtWCities,'milano')||mtWCities[0];
-      var roMtW = findCity(mtWCities,'roma')||mtWCities[1]||mtWCities[0];
-      if (miMtW) safeChart(buildMeetingChart, 'ch-mi-mtw', 'sum-mi-mtw', miMtW, 2);
-      else showCardError('ch-mi-mtw', 'Dati Milano non disponibili');
-      if (roMtW) safeChart(buildMeetingChart, 'ch-ro-mtw', 'sum-ro-mtw', roMtW, 2);
-      else showCardError('ch-ro-mtw', 'Dati Roma non disponibili');
-    }
-    if (idx === 3) {
-      var mt30Cities = (rd.rawMt30&&rd.rawMt30.cities)||[];
-      var miMt30 = findCity(mt30Cities,'milano')||mt30Cities[0];
-      var roMt30 = findCity(mt30Cities,'roma')||mt30Cities[1]||mt30Cities[0];
-      if (miMt30) safeChart(buildMeetingChart, 'ch-mi-mt30', 'sum-mi-mt30', miMt30, 3);
-      else showCardError('ch-mi-mt30', 'Dati Milano non disponibili');
-      if (roMt30) safeChart(buildMeetingChart, 'ch-ro-mt30', 'sum-ro-mt30', roMt30, 3);
-      else showCardError('ch-ro-mt30', 'Dati Roma non disponibili');
-    }
-
-    setTimeout(function(){ (chartsPerSlide[idx]||[]).forEach(function(c){ c.resize(); }); }, 100);
-  }
-
-  /* ═══════════════════════════════════════════════════
-     DATA LOADING
-  ═══════════════════════════════════════════════════ */
-  async function loadData() {
-    const settled = await Promise.allSettled([
-      fetchJson('./data/data_occupancy_mensile_wp.json'),
-      fetchJson('./data/data_occupancy_annuale.json'),
-      fetchJson('./data/data_meeting_settimana.json'),
-      fetchJson('./data/data_meeting_30gg.json')
-    ]);
-    settled.forEach(function(r,i){ if(r.status==='rejected') console.warn('JSON #'+i+' fallito:',r.reason); });
-    const [raw30, rawAnn, rawMtW, rawMt30] = settled.map(function(r){ return r.status==='fulfilled'?r.value:null; });
-    if (!raw30) throw new Error('File dati principale non disponibile');
-
-    rawDataStore = { raw30, rawAnn, rawMtW, rawMt30 };
-
-    const timestamps = [raw30, rawMtW, rawMt30].map(function(d){ return d&&d.updated_at; }).filter(Boolean);
-    if (timestamps.length) {
-      document.getElementById('tUpdate').textContent = 'Ultimo aggiornamento: ' + formatTimestamp(timestamps[0]);
-      if (!knownUpdatedAt) knownUpdatedAt = timestamps[0];
-    }
-    return rawDataStore;
-  }
-
-  /* ═══════════════════════════════════════════════════
-     AUTO-REFRESH — polls updated_at every 5 minutes
-  ═══════════════════════════════════════════════════ */
-  async function checkForUpdates() {
-    try {
-      const r = await fetchJson('./data/data_occupancy_mensile_wp.json');
-      const ts = r && r.updated_at;
-      if (ts && knownUpdatedAt && ts !== knownUpdatedAt) {
-        console.info('Dashboard: nuovi dati rilevati, aggiornamento chart in corso…');
-        // Dispose all existing charts
-        allCharts.forEach(function(c){ try { c.dispose(); } catch(e){} });
-        allCharts.length = 0;
-        Object.keys(chartsPerSlide).forEach(function(k){ chartsPerSlide[k] = []; });
-        chartByEl.clear();
-        slideInited.clear();
-        // Reload JSON and reinit visible slide
-        await loadData();
-        requestAnimationFrame(function(){ initSlide(currentSlide); });
-      }
-      if (ts) knownUpdatedAt = ts;
-    } catch(e) {
-      console.warn('Auto-refresh check fallito:', e);
-    }
-  }
-
-  function startRefreshPoller() {
-    if (refreshTimer) clearInterval(refreshTimer);
-    refreshTimer = setInterval(checkForUpdates, REFRESH_INTERVAL);
-  }
-
-  /* ═══════════════════════════════════════════════════
-     INIT
-  ═══════════════════════════════════════════════════ */
   async function initDashboard() {
     try {
-      await loadData();
+      const raw30 = await fetchJson('./data/data_occupancy_mensile_wp.json');
+      const ts = raw30 && raw30.updated_at;
+      if (ts) document.getElementById('tUpdate').textContent = 'Ultimo aggiornamento: ' + formatTimestamp(ts);
 
       document.getElementById('loading').style.display = 'none';
-      document.getElementById('slidesContainer').style.display = '';
-
-      // Honor URL hash for direct deep-linking
-      var hashMatch = location.hash.match(/^#slide-(\d+)$/);
-      if (hashMatch) {
-        var idx = parseInt(hashMatch[1]);
-        if (idx >= 0 && idx < TOTAL_SLIDES) {
-          slides.forEach(function(s,i){ s.classList.toggle('active', i===idx); });
-          dots.forEach(function(d,i){ d.classList.toggle('active', i===idx); });
-          document.getElementById('tSub').textContent = SLIDE_META[idx].subtitle;
-          currentSlide = idx;
-        }
-      }
+      document.getElementById('mainGrid').style.display = '';
 
       requestAnimationFrame(function() {
-        initSlide(currentSlide);  // only the visible slide
-        startAutoAdvance();
-        startRefreshPoller();
+        var d30 = normalizeDashboardData(raw30);
+        try { buildChart('chart-milano', 'summary-milano', findCity(d30.cities,'milano')||d30.cities[0]); }
+        catch(e) { console.error(e); showCardError('chart-milano','Dati non disponibili'); }
+        try { buildChart('chart-roma',   'summary-roma',   findCity(d30.cities,'roma')||d30.cities[1]||d30.cities[0]); }
+        catch(e) { console.error(e); showCardError('chart-roma','Dati non disponibili'); }
+        setTimeout(function(){ chartByEl.forEach(function(c){ c.resize(); }); }, 100);
       });
 
+      setTimeout(function() { location.reload(); }, 3600000);
     } catch(err) {
       console.error('Errore dashboard:', err);
       document.getElementById('loading').style.display = 'none';
