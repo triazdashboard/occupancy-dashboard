@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-05 14:54",
+  "updated_at": "2026-06-06 03:00",
   "cities": [
     {
       "site_name": "EH Milano",
@@ -312,9 +312,9 @@
             {
               "period": "2026-06",
               "label": "Giu",
-              "avg_occupied": 144,
+              "avg_occupied": 144.5,
               "avg_bookable": 277,
-              "avg_occupancy_pct": 52,
+              "avg_occupancy_pct": 52.2,
               "working_days": 4
             }
           ]
