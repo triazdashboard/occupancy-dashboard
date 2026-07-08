@@ -1,29 +1,11 @@
 {
-  "updated_at": "2026-07-06 03:00",
+  "updated_at": "2026-07-08 03:00",
   "range_label": "Ultimi 30 giorni",
   "cities": [
     {
       "site_name": "EH Milano",
       "month_label": "Ultimi 30 giorni",
       "occupancy_daily": [
-        {
-          "day": "07",
-          "date": "2026-06-07",
-          "occupied": null,
-          "free": null,
-          "percentage": null,
-          "is_weekend": true,
-          "has_data": false
-        },
-        {
-          "day": "08",
-          "date": "2026-06-08",
-          "occupied": 33,
-          "free": 88,
-          "percentage": 27.3,
-          "is_weekend": false,
-          "has_data": true
-        },
         {
           "day": "09",
           "date": "2026-06-09",
@@ -270,6 +252,24 @@
         {
           "day": "06",
           "date": "2026-07-06",
+          "occupied": 43,
+          "free": 78,
+          "percentage": 35.5,
+          "is_weekend": false,
+          "has_data": true
+        },
+        {
+          "day": "07",
+          "date": "2026-07-07",
+          "occupied": 43,
+          "free": 78,
+          "percentage": 35.5,
+          "is_weekend": false,
+          "has_data": true
+        },
+        {
+          "day": "08",
+          "date": "2026-07-08",
           "occupied": null,
           "free": null,
           "percentage": null,
@@ -282,24 +282,6 @@
       "site_name": "EH Roma A",
       "month_label": "Ultimi 30 giorni",
       "occupancy_daily": [
-        {
-          "day": "07",
-          "date": "2026-06-07",
-          "occupied": null,
-          "free": null,
-          "percentage": null,
-          "is_weekend": true,
-          "has_data": false
-        },
-        {
-          "day": "08",
-          "date": "2026-06-08",
-          "occupied": 180,
-          "free": 97,
-          "percentage": 65,
-          "is_weekend": false,
-          "has_data": true
-        },
         {
           "day": "09",
           "date": "2026-06-09",
@@ -546,6 +528,24 @@
         {
           "day": "06",
           "date": "2026-07-06",
+          "occupied": 166,
+          "free": 111,
+          "percentage": 59.9,
+          "is_weekend": false,
+          "has_data": true
+        },
+        {
+          "day": "07",
+          "date": "2026-07-07",
+          "occupied": 170,
+          "free": 107,
+          "percentage": 61.4,
+          "is_weekend": false,
+          "has_data": true
+        },
+        {
+          "day": "08",
+          "date": "2026-07-08",
           "occupied": null,
           "free": null,
           "percentage": null,
