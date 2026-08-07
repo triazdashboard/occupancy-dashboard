@@ -1,20 +1,11 @@
 {
-  "updated_at": "2026-08-06 03:00",
+  "updated_at": "2026-08-07 03:00",
   "range_label": "Ultimi 30 giorni",
   "cities": [
     {
       "site_name": "EH Milano",
       "month_label": "Ultimi 30 giorni",
       "occupancy_daily": [
-        {
-          "day": "08",
-          "date": "2026-07-08",
-          "occupied": 45,
-          "free": 76,
-          "percentage": 37.2,
-          "is_weekend": false,
-          "has_data": true
-        },
         {
           "day": "09",
           "date": "2026-07-09",
@@ -270,9 +261,18 @@
         {
           "day": "06",
           "date": "2026-08-06",
-          "occupied": 32,
-          "free": 89,
-          "percentage": 26.4,
+          "occupied": 31,
+          "free": 90,
+          "percentage": 25.6,
+          "is_weekend": false,
+          "has_data": true
+        },
+        {
+          "day": "07",
+          "date": "2026-08-07",
+          "occupied": 31,
+          "free": 90,
+          "percentage": 25.6,
           "is_weekend": false,
           "has_data": true
         }
@@ -282,15 +282,6 @@
       "site_name": "EH Roma A",
       "month_label": "Ultimi 30 giorni",
       "occupancy_daily": [
-        {
-          "day": "08",
-          "date": "2026-07-08",
-          "occupied": 169,
-          "free": 108,
-          "percentage": 61,
-          "is_weekend": false,
-          "has_data": true
-        },
         {
           "day": "09",
           "date": "2026-07-09",
@@ -546,9 +537,18 @@
         {
           "day": "06",
           "date": "2026-08-06",
-          "occupied": 95,
-          "free": 182,
-          "percentage": 34.3,
+          "occupied": 96,
+          "free": 181,
+          "percentage": 34.7,
+          "is_weekend": false,
+          "has_data": true
+        },
+        {
+          "day": "07",
+          "date": "2026-08-07",
+          "occupied": 93,
+          "free": 184,
+          "percentage": 33.6,
           "is_weekend": false,
           "has_data": true
         }
