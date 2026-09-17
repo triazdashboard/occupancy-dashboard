@@ -1,20 +1,11 @@
 {
-  "updated_at": "2026-09-16 03:00",
+  "updated_at": "2026-09-17 03:00",
   "range_label": "Ultimi 30 giorni",
   "cities": [
     {
       "site_name": "EH Milano",
       "month_label": "Ultimi 30 giorni",
       "occupancy_daily": [
-        {
-          "day": "18",
-          "date": "2026-08-18",
-          "occupied": 30,
-          "free": 91,
-          "percentage": 24.8,
-          "is_weekend": false,
-          "has_data": true
-        },
         {
           "day": "19",
           "date": "2026-08-19",
@@ -275,6 +266,15 @@
           "percentage": 45.5,
           "is_weekend": false,
           "has_data": true
+        },
+        {
+          "day": "17",
+          "date": "2026-09-17",
+          "occupied": 46,
+          "free": 75,
+          "percentage": 38,
+          "is_weekend": false,
+          "has_data": true
         }
       ]
     },
@@ -282,15 +282,6 @@
       "site_name": "EH Roma A",
       "month_label": "Ultimi 30 giorni",
       "occupancy_daily": [
-        {
-          "day": "18",
-          "date": "2026-08-18",
-          "occupied": 95,
-          "free": 182,
-          "percentage": 34.3,
-          "is_weekend": false,
-          "has_data": true
-        },
         {
           "day": "19",
           "date": "2026-08-19",
@@ -546,9 +537,18 @@
         {
           "day": "16",
           "date": "2026-09-16",
-          "occupied": 195,
-          "free": 82,
-          "percentage": 70.4,
+          "occupied": 201,
+          "free": 76,
+          "percentage": 72.6,
+          "is_weekend": false,
+          "has_data": true
+        },
+        {
+          "day": "17",
+          "date": "2026-09-17",
+          "occupied": 189,
+          "free": 88,
+          "percentage": 68.2,
           "is_weekend": false,
           "has_data": true
         }
