@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-21 03:00",
+  "updated_at": "2026-09-22 03:00",
   "range_label": "Ultimi 30 giorni lavorativi",
   "cities": [
     {
@@ -12,6 +12,13 @@
           "booking_rate_pct": 100,
           "max_capacity": 8,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 8,
+              "booking_rate_pct": 100
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -148,13 +155,6 @@
             {
               "date": "2026-08-24",
               "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 8,
-              "booking_rate_pct": 100
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
               "available_hours": 8,
               "booked_hours": 8,
               "booking_rate_pct": 100
@@ -169,6 +169,13 @@
           "max_capacity": 3,
           "days": [
             {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 8,
+              "booking_rate_pct": 100
+            },
+            {
               "date": "2026-09-18",
               "day_name": "Friday",
               "available_hours": 8,
@@ -307,23 +314,23 @@
               "available_hours": 8,
               "booked_hours": 8,
               "booking_rate_pct": 100
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 8,
-              "booking_rate_pct": 100
             }
           ]
         },
         {
           "room_name": "MI4PARALIMPIADE",
           "total_available_hours": 168,
-          "total_booked_hours": 70.6,
-          "booking_rate_pct": 42,
+          "total_booked_hours": 78.60000000000001,
+          "booking_rate_pct": 46.8,
           "max_capacity": 5,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 8,
+              "booking_rate_pct": 100
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -463,23 +470,23 @@
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
             }
           ]
         },
         {
           "room_name": "MI4OLIMPIADE",
           "total_available_hours": 168,
-          "total_booked_hours": 61.8,
-          "booking_rate_pct": 36.8,
+          "total_booked_hours": 69.80000000000001,
+          "booking_rate_pct": 41.5,
           "max_capacity": 5,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 8,
+              "booking_rate_pct": 100
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -619,23 +626,23 @@
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
             }
           ]
         },
         {
           "room_name": "MI1DESIGN",
           "total_available_hours": 168,
-          "total_booked_hours": 31.699999999999996,
-          "booking_rate_pct": 18.9,
+          "total_booked_hours": 33.699999999999996,
+          "booking_rate_pct": 20.1,
           "max_capacity": 4,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 2,
+              "booking_rate_pct": 25
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -775,23 +782,23 @@
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
             }
           ]
         },
         {
           "room_name": "MI1ARMANI",
           "total_available_hours": 168,
-          "total_booked_hours": 29.200000000000003,
-          "booking_rate_pct": 17.4,
+          "total_booked_hours": 31.700000000000003,
+          "booking_rate_pct": 18.9,
           "max_capacity": 10,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 2.5,
+              "booking_rate_pct": 31.3
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -931,13 +938,6 @@
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
             }
           ]
         },
@@ -948,6 +948,13 @@
           "booking_rate_pct": 16.5,
           "max_capacity": 6,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -1087,23 +1094,23 @@
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
             }
           ]
         },
         {
           "room_name": "MI4MARCEGAGLIA",
           "total_available_hours": 168,
-          "total_booked_hours": 24.2,
-          "booking_rate_pct": 14.4,
+          "total_booked_hours": 26.7,
+          "booking_rate_pct": 15.9,
           "max_capacity": 12,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 2.5,
+              "booking_rate_pct": 31.3
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -1243,10 +1250,159 @@
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
+            }
+          ]
+        },
+        {
+          "room_name": "MI2AGNELLI",
+          "total_available_hours": 168,
+          "total_booked_hours": 25.2,
+          "booking_rate_pct": 15,
+          "max_capacity": 8,
+          "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 3.5,
+              "booking_rate_pct": 43.8
             },
             {
-              "date": "2026-08-21",
+              "date": "2026-09-18",
               "day_name": "Friday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-09-17",
+              "day_name": "Thursday",
+              "available_hours": 8,
+              "booked_hours": 2,
+              "booking_rate_pct": 25
+            },
+            {
+              "date": "2026-09-16",
+              "day_name": "Wednesday",
+              "available_hours": 8,
+              "booked_hours": 0.8,
+              "booking_rate_pct": 10
+            },
+            {
+              "date": "2026-09-15",
+              "day_name": "Tuesday",
+              "available_hours": 8,
+              "booked_hours": 7,
+              "booking_rate_pct": 87.5
+            },
+            {
+              "date": "2026-09-14",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-09-11",
+              "day_name": "Friday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-09-10",
+              "day_name": "Thursday",
+              "available_hours": 8,
+              "booked_hours": 2,
+              "booking_rate_pct": 25
+            },
+            {
+              "date": "2026-09-09",
+              "day_name": "Wednesday",
+              "available_hours": 8,
+              "booked_hours": 8,
+              "booking_rate_pct": 100
+            },
+            {
+              "date": "2026-09-08",
+              "day_name": "Tuesday",
+              "available_hours": 8,
+              "booked_hours": 0.9,
+              "booking_rate_pct": 11.3
+            },
+            {
+              "date": "2026-09-07",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 1,
+              "booking_rate_pct": 12.5
+            },
+            {
+              "date": "2026-09-04",
+              "day_name": "Friday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-09-03",
+              "day_name": "Thursday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-09-02",
+              "day_name": "Wednesday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-09-01",
+              "day_name": "Tuesday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-08-31",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-08-28",
+              "day_name": "Friday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-08-27",
+              "day_name": "Thursday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-08-26",
+              "day_name": "Wednesday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-08-25",
+              "day_name": "Tuesday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-08-24",
+              "day_name": "Monday",
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
@@ -1256,10 +1412,17 @@
         {
           "room_name": "MI1BARILLA",
           "total_available_hours": 168,
-          "total_booked_hours": 22.400000000000002,
-          "booking_rate_pct": 13.3,
+          "total_booked_hours": 24.900000000000002,
+          "booking_rate_pct": 14.8,
           "max_capacity": 4,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 2.5,
+              "booking_rate_pct": 31.3
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -1399,169 +1562,6 @@
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            }
-          ]
-        },
-        {
-          "room_name": "MI2AGNELLI",
-          "total_available_hours": 168,
-          "total_booked_hours": 21.7,
-          "booking_rate_pct": 12.9,
-          "max_capacity": 8,
-          "days": [
-            {
-              "date": "2026-09-18",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-09-17",
-              "day_name": "Thursday",
-              "available_hours": 8,
-              "booked_hours": 2,
-              "booking_rate_pct": 25
-            },
-            {
-              "date": "2026-09-16",
-              "day_name": "Wednesday",
-              "available_hours": 8,
-              "booked_hours": 0.8,
-              "booking_rate_pct": 10
-            },
-            {
-              "date": "2026-09-15",
-              "day_name": "Tuesday",
-              "available_hours": 8,
-              "booked_hours": 7,
-              "booking_rate_pct": 87.5
-            },
-            {
-              "date": "2026-09-14",
-              "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-09-11",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-09-10",
-              "day_name": "Thursday",
-              "available_hours": 8,
-              "booked_hours": 2,
-              "booking_rate_pct": 25
-            },
-            {
-              "date": "2026-09-09",
-              "day_name": "Wednesday",
-              "available_hours": 8,
-              "booked_hours": 8,
-              "booking_rate_pct": 100
-            },
-            {
-              "date": "2026-09-08",
-              "day_name": "Tuesday",
-              "available_hours": 8,
-              "booked_hours": 0.9,
-              "booking_rate_pct": 11.3
-            },
-            {
-              "date": "2026-09-07",
-              "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 1,
-              "booking_rate_pct": 12.5
-            },
-            {
-              "date": "2026-09-04",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-09-03",
-              "day_name": "Thursday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-09-02",
-              "day_name": "Wednesday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-09-01",
-              "day_name": "Tuesday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-31",
-              "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-28",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-27",
-              "day_name": "Thursday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-26",
-              "day_name": "Wednesday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-25",
-              "day_name": "Tuesday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-24",
-              "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
             }
           ]
         },
@@ -1572,6 +1572,13 @@
           "booking_rate_pct": 12.4,
           "max_capacity": 4,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -1711,23 +1718,23 @@
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
             }
           ]
         },
         {
           "room_name": "MI2DUETTO",
           "total_available_hours": 168,
-          "total_booked_hours": 15.9,
-          "booking_rate_pct": 9.5,
+          "total_booked_hours": 18.799999999999997,
+          "booking_rate_pct": 11.2,
           "max_capacity": 23,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 2.9,
+              "booking_rate_pct": 36.3
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -1867,13 +1874,6 @@
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
             }
           ]
         },
@@ -1884,6 +1884,13 @@
           "booking_rate_pct": 4.8,
           "max_capacity": 10,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -2023,13 +2030,6 @@
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
             }
           ]
         },
@@ -2040,6 +2040,13 @@
           "booking_rate_pct": 1.8,
           "max_capacity": 2,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -2179,13 +2186,6 @@
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
             }
           ]
         },
@@ -2196,6 +2196,13 @@
           "booking_rate_pct": 0.5,
           "max_capacity": 2,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -2335,13 +2342,6 @@
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
             }
           ]
         },
@@ -2352,6 +2352,13 @@
           "booking_rate_pct": 0,
           "max_capacity": 2,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -2488,13 +2495,6 @@
             {
               "date": "2026-08-24",
               "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
@@ -2514,6 +2514,13 @@
           "max_capacity": 6,
           "days": [
             {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 8,
+              "booking_rate_pct": 100
+            },
+            {
               "date": "2026-09-18",
               "day_name": "Friday",
               "available_hours": 8,
@@ -2649,13 +2656,6 @@
             {
               "date": "2026-08-24",
               "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 8,
-              "booking_rate_pct": 100
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
               "available_hours": 8,
               "booked_hours": 8,
               "booking_rate_pct": 100
@@ -2670,6 +2670,13 @@
           "max_capacity": 8,
           "days": [
             {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 8,
+              "booking_rate_pct": 100
+            },
+            {
               "date": "2026-09-18",
               "day_name": "Friday",
               "available_hours": 8,
@@ -2805,13 +2812,6 @@
             {
               "date": "2026-08-24",
               "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 8,
-              "booking_rate_pct": 100
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
               "available_hours": 8,
               "booked_hours": 8,
               "booking_rate_pct": 100
@@ -2826,6 +2826,13 @@
           "max_capacity": 12,
           "days": [
             {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 8,
+              "booking_rate_pct": 100
+            },
+            {
               "date": "2026-09-18",
               "day_name": "Friday",
               "available_hours": 8,
@@ -2964,23 +2971,23 @@
               "available_hours": 8,
               "booked_hours": 8,
               "booking_rate_pct": 100
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 8,
-              "booking_rate_pct": 100
             }
           ]
         },
         {
           "room_name": "RMA1LIPARI",
           "total_available_hours": 168,
-          "total_booked_hours": 51.3,
-          "booking_rate_pct": 30.5,
+          "total_booked_hours": 54.3,
+          "booking_rate_pct": 32.3,
           "max_capacity": 6,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 3,
+              "booking_rate_pct": 37.5
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -3120,179 +3127,23 @@
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            }
-          ]
-        },
-        {
-          "room_name": "RMA2ALOE",
-          "total_available_hours": 168,
-          "total_booked_hours": 49.29999999999999,
-          "booking_rate_pct": 29.3,
-          "max_capacity": 6,
-          "days": [
-            {
-              "date": "2026-09-18",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0.4,
-              "booking_rate_pct": 5
-            },
-            {
-              "date": "2026-09-17",
-              "day_name": "Thursday",
-              "available_hours": 8,
-              "booked_hours": 8,
-              "booking_rate_pct": 100
-            },
-            {
-              "date": "2026-09-16",
-              "day_name": "Wednesday",
-              "available_hours": 8,
-              "booked_hours": 8,
-              "booking_rate_pct": 100
-            },
-            {
-              "date": "2026-09-15",
-              "day_name": "Tuesday",
-              "available_hours": 8,
-              "booked_hours": 8,
-              "booking_rate_pct": 100
-            },
-            {
-              "date": "2026-09-14",
-              "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 8,
-              "booking_rate_pct": 100
-            },
-            {
-              "date": "2026-09-11",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0.9,
-              "booking_rate_pct": 11.3
-            },
-            {
-              "date": "2026-09-10",
-              "day_name": "Thursday",
-              "available_hours": 8,
-              "booked_hours": 1.5,
-              "booking_rate_pct": 18.8
-            },
-            {
-              "date": "2026-09-09",
-              "day_name": "Wednesday",
-              "available_hours": 8,
-              "booked_hours": 0.5,
-              "booking_rate_pct": 6.3
-            },
-            {
-              "date": "2026-09-08",
-              "day_name": "Tuesday",
-              "available_hours": 8,
-              "booked_hours": 2.8,
-              "booking_rate_pct": 35
-            },
-            {
-              "date": "2026-09-07",
-              "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 2.5,
-              "booking_rate_pct": 31.3
-            },
-            {
-              "date": "2026-09-04",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-09-03",
-              "day_name": "Thursday",
-              "available_hours": 8,
-              "booked_hours": 2.4,
-              "booking_rate_pct": 30
-            },
-            {
-              "date": "2026-09-02",
-              "day_name": "Wednesday",
-              "available_hours": 8,
-              "booked_hours": 2.8,
-              "booking_rate_pct": 35
-            },
-            {
-              "date": "2026-09-01",
-              "day_name": "Tuesday",
-              "available_hours": 8,
-              "booked_hours": 3.5,
-              "booking_rate_pct": 43.8
-            },
-            {
-              "date": "2026-08-31",
-              "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-28",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-27",
-              "day_name": "Thursday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-26",
-              "day_name": "Wednesday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-25",
-              "day_name": "Tuesday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-24",
-              "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
             }
           ]
         },
         {
           "room_name": "RMA1VULCANO",
           "total_available_hours": 168,
-          "total_booked_hours": 47.099999999999994,
-          "booking_rate_pct": 28,
+          "total_booked_hours": 51.49999999999999,
+          "booking_rate_pct": 30.7,
           "max_capacity": 6,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 4.4,
+              "booking_rate_pct": 55
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -3432,10 +3283,315 @@
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
+            }
+          ]
+        },
+        {
+          "room_name": "RMA2ALOE",
+          "total_available_hours": 168,
+          "total_booked_hours": 50.79999999999999,
+          "booking_rate_pct": 30.2,
+          "max_capacity": 6,
+          "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 1.5,
+              "booking_rate_pct": 18.8
             },
             {
-              "date": "2026-08-21",
+              "date": "2026-09-18",
               "day_name": "Friday",
+              "available_hours": 8,
+              "booked_hours": 0.4,
+              "booking_rate_pct": 5
+            },
+            {
+              "date": "2026-09-17",
+              "day_name": "Thursday",
+              "available_hours": 8,
+              "booked_hours": 8,
+              "booking_rate_pct": 100
+            },
+            {
+              "date": "2026-09-16",
+              "day_name": "Wednesday",
+              "available_hours": 8,
+              "booked_hours": 8,
+              "booking_rate_pct": 100
+            },
+            {
+              "date": "2026-09-15",
+              "day_name": "Tuesday",
+              "available_hours": 8,
+              "booked_hours": 8,
+              "booking_rate_pct": 100
+            },
+            {
+              "date": "2026-09-14",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 8,
+              "booking_rate_pct": 100
+            },
+            {
+              "date": "2026-09-11",
+              "day_name": "Friday",
+              "available_hours": 8,
+              "booked_hours": 0.9,
+              "booking_rate_pct": 11.3
+            },
+            {
+              "date": "2026-09-10",
+              "day_name": "Thursday",
+              "available_hours": 8,
+              "booked_hours": 1.5,
+              "booking_rate_pct": 18.8
+            },
+            {
+              "date": "2026-09-09",
+              "day_name": "Wednesday",
+              "available_hours": 8,
+              "booked_hours": 0.5,
+              "booking_rate_pct": 6.3
+            },
+            {
+              "date": "2026-09-08",
+              "day_name": "Tuesday",
+              "available_hours": 8,
+              "booked_hours": 2.8,
+              "booking_rate_pct": 35
+            },
+            {
+              "date": "2026-09-07",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 2.5,
+              "booking_rate_pct": 31.3
+            },
+            {
+              "date": "2026-09-04",
+              "day_name": "Friday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-09-03",
+              "day_name": "Thursday",
+              "available_hours": 8,
+              "booked_hours": 2.4,
+              "booking_rate_pct": 30
+            },
+            {
+              "date": "2026-09-02",
+              "day_name": "Wednesday",
+              "available_hours": 8,
+              "booked_hours": 2.8,
+              "booking_rate_pct": 35
+            },
+            {
+              "date": "2026-09-01",
+              "day_name": "Tuesday",
+              "available_hours": 8,
+              "booked_hours": 3.5,
+              "booking_rate_pct": 43.8
+            },
+            {
+              "date": "2026-08-31",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-08-28",
+              "day_name": "Friday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-08-27",
+              "day_name": "Thursday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-08-26",
+              "day_name": "Wednesday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-08-25",
+              "day_name": "Tuesday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-08-24",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            }
+          ]
+        },
+        {
+          "room_name": "RMA2FELCE",
+          "total_available_hours": 168,
+          "total_booked_hours": 45.49999999999999,
+          "booking_rate_pct": 27.1,
+          "max_capacity": 10,
+          "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 4.9,
+              "booking_rate_pct": 61.3
+            },
+            {
+              "date": "2026-09-18",
+              "day_name": "Friday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-09-17",
+              "day_name": "Thursday",
+              "available_hours": 8,
+              "booked_hours": 8,
+              "booking_rate_pct": 100
+            },
+            {
+              "date": "2026-09-16",
+              "day_name": "Wednesday",
+              "available_hours": 8,
+              "booked_hours": 8,
+              "booking_rate_pct": 100
+            },
+            {
+              "date": "2026-09-15",
+              "day_name": "Tuesday",
+              "available_hours": 8,
+              "booked_hours": 8,
+              "booking_rate_pct": 100
+            },
+            {
+              "date": "2026-09-14",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 8,
+              "booking_rate_pct": 100
+            },
+            {
+              "date": "2026-09-11",
+              "day_name": "Friday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-09-10",
+              "day_name": "Thursday",
+              "available_hours": 8,
+              "booked_hours": 1.9,
+              "booking_rate_pct": 23.8
+            },
+            {
+              "date": "2026-09-09",
+              "day_name": "Wednesday",
+              "available_hours": 8,
+              "booked_hours": 2,
+              "booking_rate_pct": 25
+            },
+            {
+              "date": "2026-09-08",
+              "day_name": "Tuesday",
+              "available_hours": 8,
+              "booked_hours": 1.4,
+              "booking_rate_pct": 17.5
+            },
+            {
+              "date": "2026-09-07",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 1,
+              "booking_rate_pct": 12.5
+            },
+            {
+              "date": "2026-09-04",
+              "day_name": "Friday",
+              "available_hours": 8,
+              "booked_hours": 0.4,
+              "booking_rate_pct": 5
+            },
+            {
+              "date": "2026-09-03",
+              "day_name": "Thursday",
+              "available_hours": 8,
+              "booked_hours": 1,
+              "booking_rate_pct": 12.5
+            },
+            {
+              "date": "2026-09-02",
+              "day_name": "Wednesday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-09-01",
+              "day_name": "Tuesday",
+              "available_hours": 8,
+              "booked_hours": 0.9,
+              "booking_rate_pct": 11.3
+            },
+            {
+              "date": "2026-08-31",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-08-28",
+              "day_name": "Friday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-08-27",
+              "day_name": "Thursday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-08-26",
+              "day_name": "Wednesday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-08-25",
+              "day_name": "Tuesday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-08-24",
+              "day_name": "Monday",
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
@@ -3445,10 +3601,17 @@
         {
           "room_name": "RMA1ETNA",
           "total_available_hours": 168,
-          "total_booked_hours": 40.79999999999999,
-          "booking_rate_pct": 24.3,
+          "total_booked_hours": 43.99999999999999,
+          "booking_rate_pct": 26.2,
           "max_capacity": 10,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 3.2,
+              "booking_rate_pct": 40
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -3588,179 +3751,23 @@
               "available_hours": 8,
               "booked_hours": 1,
               "booking_rate_pct": 12.5
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            }
-          ]
-        },
-        {
-          "room_name": "RMA2FELCE",
-          "total_available_hours": 168,
-          "total_booked_hours": 40.599999999999994,
-          "booking_rate_pct": 24.2,
-          "max_capacity": 10,
-          "days": [
-            {
-              "date": "2026-09-18",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-09-17",
-              "day_name": "Thursday",
-              "available_hours": 8,
-              "booked_hours": 8,
-              "booking_rate_pct": 100
-            },
-            {
-              "date": "2026-09-16",
-              "day_name": "Wednesday",
-              "available_hours": 8,
-              "booked_hours": 8,
-              "booking_rate_pct": 100
-            },
-            {
-              "date": "2026-09-15",
-              "day_name": "Tuesday",
-              "available_hours": 8,
-              "booked_hours": 8,
-              "booking_rate_pct": 100
-            },
-            {
-              "date": "2026-09-14",
-              "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 8,
-              "booking_rate_pct": 100
-            },
-            {
-              "date": "2026-09-11",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-09-10",
-              "day_name": "Thursday",
-              "available_hours": 8,
-              "booked_hours": 1.9,
-              "booking_rate_pct": 23.8
-            },
-            {
-              "date": "2026-09-09",
-              "day_name": "Wednesday",
-              "available_hours": 8,
-              "booked_hours": 2,
-              "booking_rate_pct": 25
-            },
-            {
-              "date": "2026-09-08",
-              "day_name": "Tuesday",
-              "available_hours": 8,
-              "booked_hours": 1.4,
-              "booking_rate_pct": 17.5
-            },
-            {
-              "date": "2026-09-07",
-              "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 1,
-              "booking_rate_pct": 12.5
-            },
-            {
-              "date": "2026-09-04",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0.4,
-              "booking_rate_pct": 5
-            },
-            {
-              "date": "2026-09-03",
-              "day_name": "Thursday",
-              "available_hours": 8,
-              "booked_hours": 1,
-              "booking_rate_pct": 12.5
-            },
-            {
-              "date": "2026-09-02",
-              "day_name": "Wednesday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-09-01",
-              "day_name": "Tuesday",
-              "available_hours": 8,
-              "booked_hours": 0.9,
-              "booking_rate_pct": 11.3
-            },
-            {
-              "date": "2026-08-31",
-              "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-28",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-27",
-              "day_name": "Thursday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-26",
-              "day_name": "Wednesday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-25",
-              "day_name": "Tuesday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-24",
-              "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
             }
           ]
         },
         {
           "room_name": "RMA2MARANTA",
           "total_available_hours": 168,
-          "total_booked_hours": 37.2,
-          "booking_rate_pct": 22.1,
+          "total_booked_hours": 39.39999999999999,
+          "booking_rate_pct": 23.5,
           "max_capacity": 6,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 2.2,
+              "booking_rate_pct": 27.5
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -3900,23 +3907,23 @@
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
             }
           ]
         },
         {
           "room_name": "RMA2AGAVE",
           "total_available_hours": 168,
-          "total_booked_hours": 35.4,
-          "booking_rate_pct": 21.1,
+          "total_booked_hours": 36.4,
+          "booking_rate_pct": 21.7,
           "max_capacity": 4,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 1,
+              "booking_rate_pct": 12.5
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -4056,335 +4063,23 @@
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            }
-          ]
-        },
-        {
-          "room_name": "RMA3ADRIATICO",
-          "total_available_hours": 168,
-          "total_booked_hours": 33.99999999999999,
-          "booking_rate_pct": 20.2,
-          "max_capacity": 6,
-          "days": [
-            {
-              "date": "2026-09-18",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 2,
-              "booking_rate_pct": 25
-            },
-            {
-              "date": "2026-09-17",
-              "day_name": "Thursday",
-              "available_hours": 8,
-              "booked_hours": 1.8,
-              "booking_rate_pct": 22.5
-            },
-            {
-              "date": "2026-09-16",
-              "day_name": "Wednesday",
-              "available_hours": 8,
-              "booked_hours": 6.4,
-              "booking_rate_pct": 80
-            },
-            {
-              "date": "2026-09-15",
-              "day_name": "Tuesday",
-              "available_hours": 8,
-              "booked_hours": 1,
-              "booking_rate_pct": 12.5
-            },
-            {
-              "date": "2026-09-14",
-              "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 1.4,
-              "booking_rate_pct": 17.5
-            },
-            {
-              "date": "2026-09-11",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-09-10",
-              "day_name": "Thursday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-09-09",
-              "day_name": "Wednesday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-09-08",
-              "day_name": "Tuesday",
-              "available_hours": 8,
-              "booked_hours": 1.9,
-              "booking_rate_pct": 23.8
-            },
-            {
-              "date": "2026-09-07",
-              "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 3,
-              "booking_rate_pct": 37.5
-            },
-            {
-              "date": "2026-09-04",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0.5,
-              "booking_rate_pct": 6.3
-            },
-            {
-              "date": "2026-09-03",
-              "day_name": "Thursday",
-              "available_hours": 8,
-              "booked_hours": 1.4,
-              "booking_rate_pct": 17.5
-            },
-            {
-              "date": "2026-09-02",
-              "day_name": "Wednesday",
-              "available_hours": 8,
-              "booked_hours": 2,
-              "booking_rate_pct": 25
-            },
-            {
-              "date": "2026-09-01",
-              "day_name": "Tuesday",
-              "available_hours": 8,
-              "booked_hours": 2,
-              "booking_rate_pct": 25
-            },
-            {
-              "date": "2026-08-31",
-              "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 2,
-              "booking_rate_pct": 25
-            },
-            {
-              "date": "2026-08-28",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-27",
-              "day_name": "Thursday",
-              "available_hours": 8,
-              "booked_hours": 7.3,
-              "booking_rate_pct": 91.3
-            },
-            {
-              "date": "2026-08-26",
-              "day_name": "Wednesday",
-              "available_hours": 8,
-              "booked_hours": 0.4,
-              "booking_rate_pct": 5
-            },
-            {
-              "date": "2026-08-25",
-              "day_name": "Tuesday",
-              "available_hours": 8,
-              "booked_hours": 0.9,
-              "booking_rate_pct": 11.3
-            },
-            {
-              "date": "2026-08-24",
-              "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            }
-          ]
-        },
-        {
-          "room_name": "RMA3CREATIVEHUB",
-          "total_available_hours": 168,
-          "total_booked_hours": 33.9,
-          "booking_rate_pct": 20.2,
-          "max_capacity": 8,
-          "days": [
-            {
-              "date": "2026-09-18",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-09-17",
-              "day_name": "Thursday",
-              "available_hours": 8,
-              "booked_hours": 8,
-              "booking_rate_pct": 100
-            },
-            {
-              "date": "2026-09-16",
-              "day_name": "Wednesday",
-              "available_hours": 8,
-              "booked_hours": 4.7,
-              "booking_rate_pct": 58.8
-            },
-            {
-              "date": "2026-09-15",
-              "day_name": "Tuesday",
-              "available_hours": 8,
-              "booked_hours": 2.5,
-              "booking_rate_pct": 31.3
-            },
-            {
-              "date": "2026-09-14",
-              "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 3.5,
-              "booking_rate_pct": 43.8
-            },
-            {
-              "date": "2026-09-11",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-09-10",
-              "day_name": "Thursday",
-              "available_hours": 8,
-              "booked_hours": 1,
-              "booking_rate_pct": 12.5
-            },
-            {
-              "date": "2026-09-09",
-              "day_name": "Wednesday",
-              "available_hours": 8,
-              "booked_hours": 0.4,
-              "booking_rate_pct": 5
-            },
-            {
-              "date": "2026-09-08",
-              "day_name": "Tuesday",
-              "available_hours": 8,
-              "booked_hours": 3,
-              "booking_rate_pct": 37.5
-            },
-            {
-              "date": "2026-09-07",
-              "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 2.8,
-              "booking_rate_pct": 35
-            },
-            {
-              "date": "2026-09-04",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 2,
-              "booking_rate_pct": 25
-            },
-            {
-              "date": "2026-09-03",
-              "day_name": "Thursday",
-              "available_hours": 8,
-              "booked_hours": 2,
-              "booking_rate_pct": 25
-            },
-            {
-              "date": "2026-09-02",
-              "day_name": "Wednesday",
-              "available_hours": 8,
-              "booked_hours": 1,
-              "booking_rate_pct": 12.5
-            },
-            {
-              "date": "2026-09-01",
-              "day_name": "Tuesday",
-              "available_hours": 8,
-              "booked_hours": 3,
-              "booking_rate_pct": 37.5
-            },
-            {
-              "date": "2026-08-31",
-              "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-28",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-27",
-              "day_name": "Thursday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-26",
-              "day_name": "Wednesday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-25",
-              "day_name": "Tuesday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-24",
-              "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
             }
           ]
         },
         {
           "room_name": "RMA2SANSEVERIA",
           "total_available_hours": 168,
-          "total_booked_hours": 33.4,
-          "booking_rate_pct": 19.9,
+          "total_booked_hours": 35.79999999999999,
+          "booking_rate_pct": 21.3,
           "max_capacity": 6,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 2.4,
+              "booking_rate_pct": 30
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -4524,43 +4219,43 @@
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
             }
           ]
         },
         {
-          "room_name": "RMA3TIRRENO",
+          "room_name": "RMA3ADRIATICO",
           "total_available_hours": 168,
-          "total_booked_hours": 33.5,
-          "booking_rate_pct": 19.9,
+          "total_booked_hours": 34.99999999999999,
+          "booking_rate_pct": 20.8,
           "max_capacity": 6,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 1,
+              "booking_rate_pct": 12.5
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
               "available_hours": 8,
-              "booked_hours": 2.3,
-              "booking_rate_pct": 28.8
+              "booked_hours": 2,
+              "booking_rate_pct": 25
             },
             {
               "date": "2026-09-17",
               "day_name": "Thursday",
               "available_hours": 8,
-              "booked_hours": 3.3,
-              "booking_rate_pct": 41.3
+              "booked_hours": 1.8,
+              "booking_rate_pct": 22.5
             },
             {
               "date": "2026-09-16",
               "day_name": "Wednesday",
               "available_hours": 8,
-              "booked_hours": 8,
-              "booking_rate_pct": 100
+              "booked_hours": 6.4,
+              "booking_rate_pct": 80
             },
             {
               "date": "2026-09-15",
@@ -4573,8 +4268,8 @@
               "date": "2026-09-14",
               "day_name": "Monday",
               "available_hours": 8,
-              "booked_hours": 5,
-              "booking_rate_pct": 62.5
+              "booked_hours": 1.4,
+              "booking_rate_pct": 17.5
             },
             {
               "date": "2026-09-11",
@@ -4587,8 +4282,8 @@
               "date": "2026-09-10",
               "day_name": "Thursday",
               "available_hours": 8,
-              "booked_hours": 0.4,
-              "booking_rate_pct": 5
+              "booked_hours": 0,
+              "booking_rate_pct": 0
             },
             {
               "date": "2026-09-09",
@@ -4608,36 +4303,192 @@
               "date": "2026-09-07",
               "day_name": "Monday",
               "available_hours": 8,
-              "booked_hours": 2.6,
-              "booking_rate_pct": 32.5
+              "booked_hours": 3,
+              "booking_rate_pct": 37.5
             },
             {
               "date": "2026-09-04",
               "day_name": "Friday",
               "available_hours": 8,
-              "booked_hours": 0.9,
-              "booking_rate_pct": 11.3
+              "booked_hours": 0.5,
+              "booking_rate_pct": 6.3
             },
             {
               "date": "2026-09-03",
               "day_name": "Thursday",
               "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
+              "booked_hours": 1.4,
+              "booking_rate_pct": 17.5
             },
             {
               "date": "2026-09-02",
               "day_name": "Wednesday",
               "available_hours": 8,
-              "booked_hours": 2.3,
-              "booking_rate_pct": 28.8
+              "booked_hours": 2,
+              "booking_rate_pct": 25
             },
             {
               "date": "2026-09-01",
               "day_name": "Tuesday",
               "available_hours": 8,
+              "booked_hours": 2,
+              "booking_rate_pct": 25
+            },
+            {
+              "date": "2026-08-31",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 2,
+              "booking_rate_pct": 25
+            },
+            {
+              "date": "2026-08-28",
+              "day_name": "Friday",
+              "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-08-27",
+              "day_name": "Thursday",
+              "available_hours": 8,
+              "booked_hours": 7.3,
+              "booking_rate_pct": 91.3
+            },
+            {
+              "date": "2026-08-26",
+              "day_name": "Wednesday",
+              "available_hours": 8,
+              "booked_hours": 0.4,
+              "booking_rate_pct": 5
+            },
+            {
+              "date": "2026-08-25",
+              "day_name": "Tuesday",
+              "available_hours": 8,
+              "booked_hours": 0.9,
+              "booking_rate_pct": 11.3
+            },
+            {
+              "date": "2026-08-24",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            }
+          ]
+        },
+        {
+          "room_name": "RMA3CREATIVEHUB",
+          "total_available_hours": 168,
+          "total_booked_hours": 34.9,
+          "booking_rate_pct": 20.8,
+          "max_capacity": 8,
+          "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 1,
+              "booking_rate_pct": 12.5
+            },
+            {
+              "date": "2026-09-18",
+              "day_name": "Friday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-09-17",
+              "day_name": "Thursday",
+              "available_hours": 8,
+              "booked_hours": 8,
+              "booking_rate_pct": 100
+            },
+            {
+              "date": "2026-09-16",
+              "day_name": "Wednesday",
+              "available_hours": 8,
+              "booked_hours": 4.7,
+              "booking_rate_pct": 58.8
+            },
+            {
+              "date": "2026-09-15",
+              "day_name": "Tuesday",
+              "available_hours": 8,
+              "booked_hours": 2.5,
+              "booking_rate_pct": 31.3
+            },
+            {
+              "date": "2026-09-14",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 3.5,
+              "booking_rate_pct": 43.8
+            },
+            {
+              "date": "2026-09-11",
+              "day_name": "Friday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-09-10",
+              "day_name": "Thursday",
+              "available_hours": 8,
+              "booked_hours": 1,
+              "booking_rate_pct": 12.5
+            },
+            {
+              "date": "2026-09-09",
+              "day_name": "Wednesday",
+              "available_hours": 8,
+              "booked_hours": 0.4,
+              "booking_rate_pct": 5
+            },
+            {
+              "date": "2026-09-08",
+              "day_name": "Tuesday",
+              "available_hours": 8,
+              "booked_hours": 3,
+              "booking_rate_pct": 37.5
+            },
+            {
+              "date": "2026-09-07",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 2.8,
+              "booking_rate_pct": 35
+            },
+            {
+              "date": "2026-09-04",
+              "day_name": "Friday",
+              "available_hours": 8,
+              "booked_hours": 2,
+              "booking_rate_pct": 25
+            },
+            {
+              "date": "2026-09-03",
+              "day_name": "Thursday",
+              "available_hours": 8,
+              "booked_hours": 2,
+              "booking_rate_pct": 25
+            },
+            {
+              "date": "2026-09-02",
+              "day_name": "Wednesday",
+              "available_hours": 8,
+              "booked_hours": 1,
+              "booking_rate_pct": 12.5
+            },
+            {
+              "date": "2026-09-01",
+              "day_name": "Tuesday",
+              "available_hours": 8,
+              "booked_hours": 3,
+              "booking_rate_pct": 37.5
             },
             {
               "date": "2026-08-31",
@@ -4657,15 +4508,15 @@
               "date": "2026-08-27",
               "day_name": "Thursday",
               "available_hours": 8,
-              "booked_hours": 5.3,
-              "booking_rate_pct": 66.3
+              "booked_hours": 0,
+              "booking_rate_pct": 0
             },
             {
               "date": "2026-08-26",
               "day_name": "Wednesday",
               "available_hours": 8,
-              "booked_hours": 0.5,
-              "booking_rate_pct": 6.3
+              "booked_hours": 0,
+              "booking_rate_pct": 0
             },
             {
               "date": "2026-08-25",
@@ -4680,23 +4531,23 @@
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
             }
           ]
         },
         {
           "room_name": "RMA1VESUVIO",
           "total_available_hours": 168,
-          "total_booked_hours": 31.899999999999995,
-          "booking_rate_pct": 19,
+          "total_booked_hours": 34.3,
+          "booking_rate_pct": 20.4,
           "max_capacity": 10,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 2.4,
+              "booking_rate_pct": 30
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -4836,10 +4687,159 @@
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
+            }
+          ]
+        },
+        {
+          "room_name": "RMA3TIRRENO",
+          "total_available_hours": 168,
+          "total_booked_hours": 33.5,
+          "booking_rate_pct": 19.9,
+          "max_capacity": 6,
+          "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
             },
             {
-              "date": "2026-08-21",
+              "date": "2026-09-18",
               "day_name": "Friday",
+              "available_hours": 8,
+              "booked_hours": 2.3,
+              "booking_rate_pct": 28.8
+            },
+            {
+              "date": "2026-09-17",
+              "day_name": "Thursday",
+              "available_hours": 8,
+              "booked_hours": 3.3,
+              "booking_rate_pct": 41.3
+            },
+            {
+              "date": "2026-09-16",
+              "day_name": "Wednesday",
+              "available_hours": 8,
+              "booked_hours": 8,
+              "booking_rate_pct": 100
+            },
+            {
+              "date": "2026-09-15",
+              "day_name": "Tuesday",
+              "available_hours": 8,
+              "booked_hours": 1,
+              "booking_rate_pct": 12.5
+            },
+            {
+              "date": "2026-09-14",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 5,
+              "booking_rate_pct": 62.5
+            },
+            {
+              "date": "2026-09-11",
+              "day_name": "Friday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-09-10",
+              "day_name": "Thursday",
+              "available_hours": 8,
+              "booked_hours": 0.4,
+              "booking_rate_pct": 5
+            },
+            {
+              "date": "2026-09-09",
+              "day_name": "Wednesday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-09-08",
+              "day_name": "Tuesday",
+              "available_hours": 8,
+              "booked_hours": 1.9,
+              "booking_rate_pct": 23.8
+            },
+            {
+              "date": "2026-09-07",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 2.6,
+              "booking_rate_pct": 32.5
+            },
+            {
+              "date": "2026-09-04",
+              "day_name": "Friday",
+              "available_hours": 8,
+              "booked_hours": 0.9,
+              "booking_rate_pct": 11.3
+            },
+            {
+              "date": "2026-09-03",
+              "day_name": "Thursday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-09-02",
+              "day_name": "Wednesday",
+              "available_hours": 8,
+              "booked_hours": 2.3,
+              "booking_rate_pct": 28.8
+            },
+            {
+              "date": "2026-09-01",
+              "day_name": "Tuesday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-08-31",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-08-28",
+              "day_name": "Friday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-08-27",
+              "day_name": "Thursday",
+              "available_hours": 8,
+              "booked_hours": 5.3,
+              "booking_rate_pct": 66.3
+            },
+            {
+              "date": "2026-08-26",
+              "day_name": "Wednesday",
+              "available_hours": 8,
+              "booked_hours": 0.5,
+              "booking_rate_pct": 6.3
+            },
+            {
+              "date": "2026-08-25",
+              "day_name": "Tuesday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
+            {
+              "date": "2026-08-24",
+              "day_name": "Monday",
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
@@ -4849,10 +4849,17 @@
         {
           "room_name": "RMA2EDERA",
           "total_available_hours": 168,
-          "total_booked_hours": 30.4,
-          "booking_rate_pct": 18.1,
+          "total_booked_hours": 32.2,
+          "booking_rate_pct": 19.2,
           "max_capacity": 25,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 1.8,
+              "booking_rate_pct": 22.5
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -4992,13 +4999,6 @@
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
             }
           ]
         },
@@ -5009,6 +5009,13 @@
           "booking_rate_pct": 16.1,
           "max_capacity": 4,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -5148,13 +5155,6 @@
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
             }
           ]
         },
@@ -5165,6 +5165,13 @@
           "booking_rate_pct": 7.6,
           "max_capacity": 4,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -5304,13 +5311,6 @@
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
             }
           ]
         },
@@ -5321,6 +5321,13 @@
           "booking_rate_pct": 1.5,
           "max_capacity": 78,
           "days": [
+            {
+              "date": "2026-09-21",
+              "day_name": "Monday",
+              "available_hours": 8,
+              "booked_hours": 0,
+              "booking_rate_pct": 0
+            },
             {
               "date": "2026-09-18",
               "day_name": "Friday",
@@ -5457,13 +5464,6 @@
             {
               "date": "2026-08-24",
               "day_name": "Monday",
-              "available_hours": 8,
-              "booked_hours": 0,
-              "booking_rate_pct": 0
-            },
-            {
-              "date": "2026-08-21",
-              "day_name": "Friday",
               "available_hours": 8,
               "booked_hours": 0,
               "booking_rate_pct": 0
