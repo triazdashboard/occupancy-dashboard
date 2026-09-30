@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-29 03:00",
+  "updated_at": "2026-09-30 03:00",
   "cities": [
     {
       "site_name": "EH Milano",
@@ -175,10 +175,10 @@
             {
               "period": "2026-09",
               "label": "Set",
-              "avg_occupied": 46.7,
+              "avg_occupied": 46.1,
               "avg_bookable": 121,
-              "avg_occupancy_pct": 38.6,
-              "working_days": 21
+              "avg_occupancy_pct": 38.1,
+              "working_days": 22
             }
           ]
         }
@@ -360,10 +360,10 @@
             {
               "period": "2026-09",
               "label": "Set",
-              "avg_occupied": 169.7,
+              "avg_occupied": 171.2,
               "avg_bookable": 277,
-              "avg_occupancy_pct": 61.3,
-              "working_days": 21
+              "avg_occupancy_pct": 61.8,
+              "working_days": 22
             }
           ]
         }
