@@ -1,20 +1,11 @@
 {
-  "updated_at": "2026-10-30 04:00",
+  "updated_at": "2026-10-31 04:00",
   "range_label": "Ultimi 30 giorni",
   "cities": [
     {
       "site_name": "EH Milano",
       "month_label": "Ultimi 30 giorni",
       "occupancy_daily": [
-        {
-          "day": "01",
-          "date": "2026-10-01",
-          "occupied": 38,
-          "free": 83,
-          "percentage": 31.4,
-          "is_weekend": false,
-          "has_data": true
-        },
         {
           "day": "02",
           "date": "2026-10-02",
@@ -270,11 +261,20 @@
         {
           "day": "30",
           "date": "2026-10-30",
-          "occupied": 36,
-          "free": 85,
-          "percentage": 29.8,
+          "occupied": 35,
+          "free": 86,
+          "percentage": 28.9,
           "is_weekend": false,
           "has_data": true
+        },
+        {
+          "day": "31",
+          "date": "2026-10-31",
+          "occupied": null,
+          "free": null,
+          "percentage": null,
+          "is_weekend": true,
+          "has_data": false
         }
       ]
     },
@@ -282,15 +282,6 @@
       "site_name": "EH Roma A",
       "month_label": "Ultimi 30 giorni",
       "occupancy_daily": [
-        {
-          "day": "01",
-          "date": "2026-10-01",
-          "occupied": 188,
-          "free": 89,
-          "percentage": 67.9,
-          "is_weekend": false,
-          "has_data": true
-        },
         {
           "day": "02",
           "date": "2026-10-02",
@@ -546,11 +537,20 @@
         {
           "day": "30",
           "date": "2026-10-30",
-          "occupied": 120,
-          "free": 157,
-          "percentage": 43.3,
+          "occupied": 115,
+          "free": 162,
+          "percentage": 41.5,
           "is_weekend": false,
           "has_data": true
+        },
+        {
+          "day": "31",
+          "date": "2026-10-31",
+          "occupied": null,
+          "free": null,
+          "percentage": null,
+          "is_weekend": true,
+          "has_data": false
         }
       ]
     }
